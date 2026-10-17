@@ -143,4 +143,53 @@ export const glossary = [
     "How much and how quickly an investment’s price changes.",
     "इन्वेस्टमेंट की कीमत कितनी जल्दी और कितनी ऊपर-नीचे होती है।",
   ],
+
+  [
+    "Purchasing power",
+    "पैसों से खरीदने की ताकत",
+    "How much the same money can buy. Rising prices reduce purchasing power if your money stays the same.",
+    "उन्हीं पैसों में कितना सामान खरीद सकते हैं। पैसे उतने रहें और कीमतें बढ़ें, तो खरीदने की ताकत घटती है।",
+  ],
+  [
+    "Bank statement",
+    "बैंक स्टेटमेंट",
+    "A dated record of account movements and balances. Match unfamiliar entries with receipts and official bank records.",
+    "खाते में आए-गए पैसे और बैलेंस का तारीख़ के साथ रिकॉर्ड। अनजान एंट्री को रसीद और बैंक के असली रिकॉर्ड से मिलाएं।",
+  ],
+  [
+    "Debit in a bank statement",
+    "बैंक स्टेटमेंट में debit",
+    "An entry that reduces the customer’s account balance. It does not necessarily mean a loan.",
+    "ग्राहक के खाते से पैसे घटने की एंट्री। इसका मतलब हर बार लोन लेना नहीं है।",
+  ],
+  [
+    "Minimum amount due",
+    "कम-से-कम चुकाने वाली रकम",
+    "The minimum required on a credit-card bill by its due date. Paying it does not clear the total bill; interest depends on the issuer’s terms.",
+    "क्रेडिट कार्ड के बिल में तय तारीख़ तक कम-से-कम देने वाली रकम। इतने से पूरा बिल नहीं चुकता। ब्याज कार्ड कंपनी के नियमों पर है।",
+  ],
+  [
+    "Debt avalanche",
+    "पहले ऊँचे रेट वाला कर्ज़",
+    "A repayment approach that directs affordable extra money to the highest comparable interest rate after required payments. Check fees and terms.",
+    "ज़रूरी किस्तों के बाद जो एक्स्ट्रा दे सकें, उसे सबसे ऊँचे ब्याज रेट वाले कर्ज़ में लगाना। फ़ीस और नियम भी देखें।",
+  ],
+  [
+    "Debt snowball",
+    "पहले छोटा कर्ज़",
+    "An approach that targets the smallest balance first after required payments. Early wins may motivate, but total interest may be higher than another approach.",
+    "ज़रूरी किस्तों के बाद सबसे कम बची रकम वाला कर्ज़ पहले खत्म करना। हौसला बढ़ सकता है, पर कुल ब्याज ज़्यादा लग सकता है।",
+  ],
+  [
+    "Shrinkflation",
+    "उतने पैसे में छोटा पैकेट",
+    "A smaller quantity sold for the same sticker price. Compare unit price and pack size.",
+    "कीमत वही हो लेकिन पैकेट में सामान कम हो। पैकेट का साइज़ और हर ग्राम या लीटर की कीमत देखें।",
+  ],
+  [
+    "Prepayment fee",
+    "जल्दी कर्ज़ चुकाने की फ़ीस",
+    "A charge that may apply to early repayment under a loan’s actual terms. Check whether it applies before comparing repayment options.",
+    "लोन समय से पहले चुकाने पर लग सकने वाली फ़ीस। पेमेंट का प्लान बनाने से पहले अपने लोन के असली नियम देखें।",
+  ],
 ];

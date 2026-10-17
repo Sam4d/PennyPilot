@@ -5,6 +5,16 @@ import { lessons, read } from "../content/lessons";
 import { dayKey } from "../lib/learning";
 import { Icon, Local, Modal } from "../components/UI";
 import Mia from "../components/Mia";
+const pathCurve = (count: number) => {
+  const x = [200, 300, 180, 290, 190, 260];
+  let d = `M${x[0]} 54.5`;
+  for (let i = 1; i < count; i++) {
+    const y = 54.5 + i * 109,
+      mid = y - 54.5;
+    d += ` C${x[i - 1]} ${mid} ${x[i]} ${mid} ${x[i]} ${y}`;
+  }
+  return d;
+};
 export default function Learn({
   progress,
   onStart,
@@ -191,119 +201,146 @@ export default function Learn({
               <Icon name="Grid2X2" size={15} />
             </button>
           </div>
-          <section className="path-card">
-            <div className="unit-heading">
-              <span className="unit-number">01</span>
-              <div>
-                <span className="eyebrow">THE VERY BEGINNING</span>
-                <h3>
-                  {hi ? "पैसों से दोस्ती" : "Make friends with your money"}
-                </h3>
-              </div>
-              <span className="unit-progress">
-                {completed}/{lessons.length}
-              </span>
-            </div>
-            <div className="path-scroll">
-              <svg
-                className="winding-line"
-                viewBox="0 0 480 654"
-                preserveAspectRatio="none"
-                aria-hidden="true"
-              >
-                <path
-                  d="M200 54.5 C200 109 300 109 300 163.5 S180 218 180 272.5 S290 327 290 381.5 S190 436 190 490.5 S260 545 260 599.5"
-                  fill="none"
-                  stroke="var(--path-line)"
-                  strokeWidth="5"
-                  strokeDasharray="2 13"
-                  strokeLinecap="round"
-                />
-              </svg>
-              {lessons.map((lesson, i) => {
-                const done = !!progress.completed[lesson.id],
-                  current = lesson.id === next.id;
-                return (
-                  <div
-                    className={`path-row row-${i} ${current ? "current" : ""} ${done ? "done" : ""}`}
-                    key={lesson.id}
-                  >
-                    <button
-                      className="lesson-node"
-                      onClick={() => setSelected(lesson)}
-                      aria-label={`${current ? (hi ? "शुरू करें: " : "LET’S GO: ") : ""}${read(lesson.title, progress.language)}, ${done ? "completed" : current ? "next lesson" : "available lesson"}`}
-                    >
-                      <span>
-                        {done ? (
-                          <Icon name="Check" size={29} />
-                        ) : (
-                          <Icon
-                            name={current ? "Play" : lesson.icon}
-                            size={current ? 29 : 25}
-                            fill={current ? "currentColor" : "none"}
-                          />
-                        )}
+          {Array.from(
+            { length: Math.ceil(lessons.length / 6) },
+            (_, groupIndex) => {
+              const group = lessons.slice(groupIndex * 6, groupIndex * 6 + 6);
+              return (
+                <section className="path-card" key={groupIndex}>
+                  <div className="unit-heading">
+                    <span className="unit-number">
+                      {String(groupIndex + 1).padStart(2, "0")}
+                    </span>
+                    <div>
+                      <span className="eyebrow">
+                        {groupIndex === 0
+                          ? "THE VERY BEGINNING"
+                          : "EVERYDAY MONEY CONFIDENCE"}
                       </span>
-                      {current && (
-                        <span className="start-bubble">
-                          {hi ? "शुरू करें" : "LET’S GO"}
-                          <span aria-hidden="true">✦</span>
-                        </span>
-                      )}
-                      {done && <span className="node-star">★</span>}
-                    </button>
-                    <button
-                      className="path-label"
-                      onClick={() => setSelected(lesson)}
-                    >
-                      <span className="path-step">
-                        {done
-                          ? "NICE WORK"
-                          : `LESSON ${String(i + 1).padStart(2, "0")}`}
-                      </span>
-                      <strong>
-                        <Local text={lesson.title} lang={progress.language} />
-                      </strong>
-                      <small>
-                        {lesson.minutes} min <span>·</span>{" "}
-                        {done
-                          ? "Revisit anytime"
-                          : i === 0
-                            ? "Start here, go anywhere"
-                            : "Learn by doing"}
-                      </small>
-                    </button>
-                    {i === 2 && (
-                      <span className="path-sprout" aria-hidden="true">
-                        <Icon name="Sprout" size={43} />
-                      </span>
-                    )}
-                    {i === 4 && (
-                      <span className="path-star" aria-hidden="true">
-                        ✧
-                      </span>
-                    )}
+                      <h3>
+                        {groupIndex === 0
+                          ? hi
+                            ? "पैसों से दोस्ती"
+                            : "Make friends with your money"
+                          : hi
+                            ? "रोज़ के पैसों की समझ"
+                            : "Put your money skills to work"}
+                      </h3>
+                    </div>
+                    <span className="unit-progress">
+                      {group.filter((l) => progress.completed[l.id]).length}/
+                      {group.length}
+                    </span>
                   </div>
-                );
-              })}
-            </div>
-            <div className="checkpoint">
-              <span className="checkpoint-icon">
-                <Icon name="Flag" size={23} />
-              </span>
-              <div>
-                <strong>
-                  {hi ? "आपकी मज़बूत शुरुआत" : "A little confidence, unlocked."}
-                </strong>
-                <p>
-                  {hi
-                    ? "6 पाठ। रोज़मर्रा के पैसों की समझ।"
-                    : "Six lessons. Real-world money skills."}
-                </p>
-              </div>
-              <Icon name="Sparkles" size={23} />
-            </div>
-          </section>
+                  <div className="path-scroll" style={{ minHeight: 0 }}>
+                    <svg
+                      className="winding-line"
+                      viewBox={`0 0 480 ${group.length * 109}`}
+                      style={{ height: group.length * 109 }}
+                      preserveAspectRatio="none"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d={pathCurve(group.length)}
+                        fill="none"
+                        stroke="var(--path-line)"
+                        strokeWidth="5"
+                        strokeDasharray="2 13"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                    {group.map((lesson, i) => {
+                      const done = !!progress.completed[lesson.id],
+                        current = lesson.id === next.id;
+                      return (
+                        <div
+                          className={`path-row row-${i} ${current ? "current" : ""} ${done ? "done" : ""}`}
+                          key={lesson.id}
+                        >
+                          <button
+                            className="lesson-node"
+                            onClick={() => setSelected(lesson)}
+                            aria-label={`${current ? (hi ? "शुरू करें: " : "LET’S GO: ") : ""}${read(lesson.title, progress.language)}, ${done ? "completed" : current ? "next lesson" : "available lesson"}`}
+                          >
+                            <span>
+                              {done ? (
+                                <Icon name="Check" size={29} />
+                              ) : (
+                                <Icon
+                                  name={current ? "Play" : lesson.icon}
+                                  size={current ? 29 : 25}
+                                  fill={current ? "currentColor" : "none"}
+                                />
+                              )}
+                            </span>
+                            {current && (
+                              <span className="start-bubble">
+                                {hi ? "शुरू करें" : "LET’S GO"}
+                                <span aria-hidden="true">✦</span>
+                              </span>
+                            )}
+                            {done && <span className="node-star">★</span>}
+                          </button>
+                          <button
+                            className="path-label"
+                            onClick={() => setSelected(lesson)}
+                          >
+                            <span className="path-step">
+                              {done
+                                ? "NICE WORK"
+                                : `LESSON ${String(groupIndex * 6 + i + 1).padStart(2, "0")}`}
+                            </span>
+                            <strong>
+                              <Local
+                                text={lesson.title}
+                                lang={progress.language}
+                              />
+                            </strong>
+                            <small>
+                              {lesson.minutes} min <span>·</span>{" "}
+                              {done
+                                ? "Revisit anytime"
+                                : i === 0
+                                  ? "Start here, go anywhere"
+                                  : "Learn by doing"}
+                            </small>
+                          </button>
+                          {i === 2 && (
+                            <span className="path-sprout" aria-hidden="true">
+                              <Icon name="Sprout" size={43} />
+                            </span>
+                          )}
+                          {i === 4 && (
+                            <span className="path-star" aria-hidden="true">
+                              ✧
+                            </span>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div className="checkpoint">
+                    <span className="checkpoint-icon">
+                      <Icon name="Flag" size={23} />
+                    </span>
+                    <div>
+                      <strong>
+                        {hi
+                          ? "आपकी मज़बूत शुरुआत"
+                          : "A little confidence, unlocked."}
+                      </strong>
+                      <p>
+                        {hi
+                          ? `${group.length} पाठ। रोज़मर्रा के पैसों की समझ।`
+                          : `${group.length} lessons. Real-world money skills.`}
+                      </p>
+                    </div>
+                    <Icon name="Sparkles" size={23} />
+                  </div>
+                </section>
+              );
+            },
+          )}
           <button className="next-world" onClick={onCurriculum}>
             <span className="next-world-icon">
               <Icon name="Globe" size={27} />

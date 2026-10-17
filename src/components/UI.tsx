@@ -4,6 +4,9 @@ import * as Icons from "lucide-react";
 import type { LucideProps } from "lucide-react";
 import type { Language, Text } from "../content/lessons";
 const iconSet = {
+  FileText: Icons.FileText,
+  ListChecks: Icons.ListChecks,
+  ArrowDownLeft: Icons.ArrowDownLeft,
   Coins: Icons.Coins,
   Scissors: Icons.Scissors,
   MousePointer2: Icons.MousePointer2,

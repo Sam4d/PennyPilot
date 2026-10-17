@@ -42,7 +42,7 @@ for (const l of lessons) {
     text(q.explanation, q.id);
     q.options?.forEach((o, i) => text(o, `${q.id}.option${i}`));
     if (
-      q.type === "choice" &&
+      (q.type === "choice" || q.type === "document") &&
       (!Number.isInteger(q.answer) ||
         !q.options ||
         Number(q.answer) < 0 ||
@@ -52,10 +52,28 @@ for (const l of lessons) {
     if (
       q.type === "order" &&
       (!Array.isArray(q.answer) ||
+        q.answer.length !== q.options?.length ||
         new Set(q.answer).size !== q.options?.length ||
         q.answer.some((a) => a < 0 || a >= q.options!.length))
     )
       errors.push(`${q.id}: invalid order`);
+    if (q.type === "document") text(q.documentTitle!, `${q.id}.documentTitle`);
+    if (q.type === "bucket") {
+      if (
+        !q.options?.length ||
+        !q.categories ||
+        q.categories.length < 2 ||
+        !Array.isArray(q.answer) ||
+        q.answer.length !== q.options.length ||
+        q.answer.some(
+          (n) => !Number.isInteger(n) || n < 0 || n >= q.categories!.length,
+        )
+      )
+        errors.push(`${q.id}: invalid bucket mapping`);
+      q.categories?.forEach((category, i) =>
+        text(category, `${q.id}.category${i}`),
+      );
+    }
     if (q.type === "numeric" && (!Number.isFinite(q.answer) || !q.calculation))
       errors.push(`${q.id}: numeric answer needs independent calculation`);
     if (q.calculation) {

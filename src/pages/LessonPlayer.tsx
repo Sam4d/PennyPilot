@@ -6,6 +6,10 @@ import type { Update } from "../App";
 import { isCorrect } from "../lib/learning";
 import Mia from "../components/Mia";
 import LearningVisual from "../components/LearningVisual";
+import {
+  DocumentExercise,
+  BucketExercise,
+} from "../components/PracticalExercise";
 import { Icon, Local, Modal } from "../components/UI";
 export default function LessonPlayer({
   lesson,
@@ -36,6 +40,7 @@ export default function LessonPlayer({
   const [selection, setSelection] = useState<number | null>(null),
     [number, setNumber] = useState(""),
     [ordered, setOrdered] = useState<number[]>([]),
+    [classified, setClassified] = useState<number[]>([]),
     [card, setCard] = useState(0),
     [deep, setDeep] = useState(false);
   const carousel = useRef<HTMLDivElement>(null);
@@ -44,6 +49,7 @@ export default function LessonPlayer({
     setSelection(null);
     setNumber("");
     setOrdered([]);
+    setClassified([]);
     setDeep(false);
     answerRef.current?.focus();
   }, [session.question]);
@@ -60,21 +66,30 @@ export default function LessonPlayer({
     }));
   const canAnswer =
     q &&
-    (q.type === "choice"
+    (q.type === "choice" || q.type === "document"
       ? selection !== null
       : q.type === "numeric"
         ? number.trim() !== "" && Number.isFinite(Number(number))
-        : ordered.length === q.options!.length);
+        : q.type === "bucket"
+          ? q.options!.every(
+              (_, i) =>
+                Number.isInteger(classified[i]) &&
+                classified[i] >= 0 &&
+                classified[i] < q.categories!.length,
+            )
+          : ordered.length === q.options!.length);
   const check = useCallback(() => {
     if (!canAnswer || result) return;
     const answer =
-      q.type === "choice"
+      q.type === "choice" || q.type === "document"
         ? selection!
         : q.type === "numeric"
           ? Number(number)
-          : ordered;
+          : q.type === "bucket"
+            ? classified
+            : ordered;
     onAnswer(q.id, answer, isCorrect(answer, q.answer));
-  }, [canAnswer, result, q, selection, number, ordered, onAnswer]);
+  }, [canAnswer, result, q, selection, number, ordered, classified, onAnswer]);
   const next = () => {
     if (session.question + 1 < questions.length)
       update((p) => ({
@@ -106,7 +121,7 @@ export default function LessonPlayer({
       if (
         session.stage === 1 &&
         !result &&
-        q?.type === "choice" &&
+        (q?.type === "choice" || q?.type === "document") &&
         /^[1-4]$/.test(e.key)
       ) {
         const i = Number(e.key) - 1;
@@ -210,11 +225,7 @@ export default function LessonPlayer({
             </select>
           </label>
           {"speechSynthesis" in window && (
-            <button
-              className="text-button"
-              onClick={speak}
-              aria-label="Read aloud"
-            >
+            <button className="text-button" onClick={speak}>
               <Icon name="Volume2" size={17} />
               {hi ? "सुनें" : "Listen"}
             </button>
@@ -360,6 +371,24 @@ export default function LessonPlayer({
                   ))}
                 </div>
               )}
+              {q.type === "document" && (
+                <DocumentExercise
+                  question={q}
+                  language={language}
+                  selection={selection}
+                  result={result}
+                  onSelect={setSelection}
+                />
+              )}
+              {q.type === "bucket" && (
+                <BucketExercise
+                  question={q}
+                  language={language}
+                  values={classified}
+                  result={result}
+                  onChange={setClassified}
+                />
+              )}
               {q.type === "numeric" && (
                 <div className="numeric-exercise">
                   <label htmlFor="numeric-answer">
@@ -453,15 +482,16 @@ export default function LessonPlayer({
                     <p>
                       <Local text={q.explanation} lang={language} />
                     </p>
-                    {!result.correct && q.type === "choice" && (
-                      <p className="correct-label">
-                        {hi ? "सही जवाब: " : "Correct answer: "}
-                        <Local
-                          text={q.options![q.answer as number]}
-                          lang={language}
-                        />
-                      </p>
-                    )}
+                    {!result.correct &&
+                      (q.type === "choice" || q.type === "document") && (
+                        <p className="correct-label">
+                          {hi ? "सही जवाब: " : "Correct answer: "}
+                          <Local
+                            text={q.options![q.answer as number]}
+                            lang={language}
+                          />
+                        </p>
+                      )}
                     <button
                       className="text-button"
                       aria-expanded={deep}

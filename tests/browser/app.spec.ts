@@ -34,7 +34,7 @@ test("complete a real lesson, resume after reload, and keep personal notes", asy
   await page.getByRole("button", { name: "Let’s try it" }).click();
   for (let i = 0; i < 8; i++) {
     const q = lessons[0].exercises[i];
-    if (q.type === "choice")
+    if (q.type === "choice" || q.type === "document")
       await page
         .getByRole("button", {
           name: new RegExp(
@@ -216,7 +216,7 @@ for (const lesson of lessons.slice(1)) {
     await page.getByRole("button", { name: "Let’s try it" }).click();
     for (const q of lesson.exercises) {
       const dialog = page.getByRole("dialog");
-      if (q.type === "choice")
+      if (q.type === "choice" || q.type === "document")
         await dialog
           .getByRole("button", {
             name: new RegExp(
@@ -229,6 +229,15 @@ for (const lesson of lessons.slice(1)) {
           .click();
       else if (q.type === "numeric")
         await dialog.getByRole("spinbutton").fill(String(q.answer));
+      else if (q.type === "bucket")
+        for (const [i, category] of (q.answer as number[]).entries())
+          await dialog
+            .getByRole("group", { name: q.options![i].en, exact: true })
+            .getByRole("radio", {
+              name: q.categories![category].en,
+              exact: true,
+            })
+            .check();
       else
         for (const i of q.answer as number[])
           await dialog
@@ -329,5 +338,194 @@ test("browser back restores the previous screen", async ({ page }) => {
   await page.goBack();
   await expect(
     page.getByRole("heading", { name: "What if? Let’s find out." }),
+  ).toBeVisible();
+});
+
+for (const theme of ["light", "dark"]) {
+  test(`bank statement and sorting work after reload in ${theme} mode`, async ({
+    page,
+  }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.setViewportSize({ width: 360, height: 800 });
+    if (theme === "dark") {
+      await page
+        .getByRole("navigation", { name: "Mobile navigation" })
+        .getByRole("button", { name: "Me", exact: true })
+        .click();
+      await page
+        .getByRole("button", { name: "After hours", exact: true })
+        .click();
+      await page
+        .getByRole("navigation", { name: "Mobile navigation" })
+        .getByRole("button", { name: "Learn", exact: true })
+        .click();
+    }
+    const bank = lessons.find((l) => l.id === "banking")!;
+    await page
+      .getByRole("button", {
+        name: `${bank.title.en}, available lesson`,
+        exact: true,
+      })
+      .click();
+    await page.getByRole("button", { name: "Let’s learn this" }).click();
+    await page.getByRole("button", { name: "Let’s try it" }).click();
+    const dialog = page.getByRole("dialog");
+    await expect(
+      dialog.getByRole("button", { name: "Check answer", exact: true }),
+    ).toBeDisabled();
+    await dialog
+      .getByRole("button", { name: /Opening balance · ₹10,000/ })
+      .click();
+    await dialog
+      .getByRole("button", { name: "Check answer", exact: true })
+      .click();
+    await expect(
+      dialog.getByText("Correct answer: Rent · DEBIT −₹12,000", {
+        exact: true,
+      }),
+    ).toBeVisible();
+    expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+    await dialog.getByRole("button", { name: "Continue", exact: true }).click();
+    await dialog.getByRole("spinbutton").fill("28000");
+    await dialog
+      .getByRole("button", { name: "Check answer", exact: true })
+      .click();
+    await dialog.getByRole("button", { name: "Continue", exact: true }).click();
+    await dialog.getByRole("button", { name: /False/ }).click();
+    await dialog
+      .getByRole("button", { name: "Check answer", exact: true })
+      .click();
+    await dialog.getByRole("button", { name: "Continue", exact: true }).click();
+    const q = bank.exercises[3];
+    const group = (i: number) =>
+      dialog.getByRole("group", { name: q.options![i].en, exact: true });
+    await group(0)
+      .getByRole("radio", { name: "Money in", exact: true })
+      .check();
+    await expect(
+      dialog.getByRole("button", { name: "Check answer", exact: true }),
+    ).toBeDisabled();
+    for (let i = 1; i < q.options!.length; i++)
+      await group(i)
+        .getByRole("radio", {
+          name: q.categories![(q.answer as number[])[i]].en,
+          exact: true,
+        })
+        .check();
+    // Changing a completed classification must grade the latest mapping.
+    await group(0)
+      .getByRole("radio", { name: "Money out", exact: true })
+      .check();
+    expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+    await dialog
+      .getByRole("button", { name: "Check answer", exact: true })
+      .click();
+    await expect(
+      group(0).getByText("Correct bucket: Money in", { exact: true }),
+    ).toBeVisible();
+    await dialog.getByRole("button", { name: "Close dialog" }).click();
+    await page.reload();
+    await page
+      .getByRole("button", { name: "Continue lesson", exact: true })
+      .click();
+    await expect(
+      group(0).getByRole("radio", { name: "Money out", exact: true }),
+    ).toBeChecked();
+    await expect(
+      group(0).getByRole("radio", { name: "Money out", exact: true }),
+    ).toBeDisabled();
+    await expect(
+      group(0).getByText("Correct bucket: Money in", { exact: true }),
+    ).toBeVisible();
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= window.innerWidth,
+      ),
+    ).toBe(true);
+  });
+}
+
+test("new Hindi money models respond to the sliders", async ({ page }) => {
+  await page
+    .getByRole("combobox", { name: "Language", exact: true })
+    .selectOption("hi");
+  for (const [id, value, result] of [
+    ["inflation", "50", "2"],
+    ["banking", "20000", "₹20,000"],
+    ["credit-card", "10000", "₹0"],
+    ["debt-plan", "2000", "₹40"],
+  ]) {
+    const lesson = lessons.find((l) => l.id === id)!;
+    await page
+      .getByRole("button", {
+        name: `${lesson.title.hi}, available lesson`,
+        exact: true,
+      })
+      .click();
+    await page
+      .getByRole("button", { name: "पाठ शुरू करें", exact: true })
+      .click();
+    await page.getByRole("button", { name: "Concept 3", exact: true }).click();
+    const visual = page.locator(`.visual-${id}`);
+    await visual.getByRole("slider").fill(value);
+    await expect(
+      visual.getByText(result, { exact: false }).first(),
+    ).toBeVisible();
+    await page.getByRole("button", { name: "Close dialog" }).click();
+  }
+});
+
+test("a version-one backup keeps six completed lessons and opens the new batch", async ({
+  page,
+}) => {
+  const legacy = {
+    version: 1,
+    name: "Aman",
+    language: "en",
+    theme: "light",
+    goal: 50,
+    xp: 600,
+    days: {},
+    completed: Object.fromEntries(
+      ["money", "income", "budget", "safety", "compound", "emergency"].map(
+        (id) => [id, { score: 8, total: 8, date: "2026-10-01", attempts: 1 }],
+      ),
+    ),
+    reviews: {},
+    notes: { money: "Money makes barter easier." },
+    saved: ["money"],
+    session: null,
+    sound: true,
+    scale: 1,
+  };
+  await page
+    .getByRole("navigation", { name: "Main navigation", exact: true })
+    .getByRole("button", { name: "Me", exact: true })
+    .click();
+  await page.locator("input[type=file]").setInputFiles({
+    name: "penny-pilot-v1.json",
+    mimeType: "application/json",
+    buffer: Buffer.from(JSON.stringify(legacy)),
+  });
+  await page.getByRole("button", { name: "Restore this backup" }).click();
+  await page
+    .getByRole("navigation", { name: "Main navigation", exact: true })
+    .getByRole("button", { name: "Learn", exact: true })
+    .click();
+  await expect(
+    page.getByRole("button", {
+      name: "LET’S GO: Same rupees. Smaller basket., next lesson",
+      exact: true,
+    }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("button", { name: /, completed$/, exact: false }),
+  ).toHaveCount(6);
+  await page.getByRole("button", { name: "Keep learning" }).click();
+  await expect(
+    page.getByRole("heading", {
+      name: "Same rupees. Smaller basket.",
+      exact: true,
+    }),
   ).toBeVisible();
 });

@@ -27,7 +27,23 @@ await p.getByRole("button", { name: "All worlds" }).click();
 await p
   .getByRole("heading", { name: "A whole world of money. Actually, 16." })
   .waitFor();
+await p.getByRole("button", { name: "Close dialog" }).click();
+await p
+  .getByRole("button", {
+    name: "Read your bank’s money story, available lesson",
+    exact: true,
+  })
+  .click();
+await p.getByRole("button", { name: "Let’s learn this" }).click();
+await p.getByRole("button", { name: "Let’s try it" }).click();
+await p.getByRole("button", { name: /Rent · DEBIT −₹12,000/ }).click();
+await p.getByRole("button", { name: "Check answer", exact: true }).click();
+await p.getByText("That’s it. Nicely done!").waitFor();
+await p.getByRole("button", { name: "Close dialog" }).click();
+await p.reload();
+await p.getByRole("button", { name: "Continue lesson", exact: true }).click();
+await p.getByText("That’s it. Nicely done!").waitFor();
 console.log(
-  "PASS: production service worker, offline reload, lazy lesson player, answer save, and offline curriculum.",
+  "PASS: production service worker, offline reload, lazy lesson player, answer save, offline curriculum, and new bank-document answer recovery.",
 );
 await b.close();

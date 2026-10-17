@@ -10,9 +10,9 @@ At four 3–5 minute levels per explicit skill, the eventual outline implies rou
 
 ## What is shipped
 
-Six lesson drafts with eight questions each. Each has a relatable hook, concept, worked example, mistake, three note points, and a practical action. Full English, Devanagari Hindi, and Roman-script Hinglish are included. Questions use Indian settings and explicit illustrative amounts. Three exercise engines are implemented. The remaining 13 exercise forms must be built and tested before claiming the full specification.
+Ten lesson drafts with eight questions each. Each has a relatable hook, concept, worked example, mistake, three note points, and a practical action. Full English, Devanagari Hindi, and Roman-script Hinglish are included. Questions use Indian settings and explicit illustrative amounts. Five exercise engines are implemented: choice, numeric entry, sequencing, document-row discovery, and bucket sorting. Document discovery uses fictional bank statements, bills, grocery labels and loan summaries. Sorting uses native radio controls so it works with touch, keyboard and assistive technology without dragging. The remaining 11 exercise forms must be built and tested before claiming the full specification.
 
-The first path is a foundation sampler across World 0, not a claim that all World 0 units are finished. The catalogue keeps the larger syllabus visible while labelling unimplemented material.
+The two-section path is a foundation sampler across World 0, not a claim that all World 0 units are finished. The catalogue keeps the larger syllabus visible while labelling unimplemented material.
 
 ## Primary-source review queue
 
@@ -45,7 +45,7 @@ Live fetches to the first five destinations returned proxy `403 Forbidden`. Thei
 
 Use a separate versioned `rules.json` with `{value, unit, source, effective_from, last_verified, review_status}` per key. The date must reflect a real source check. Resolve `{{rule:key}}` through one loader; never duplicate rates in prose. Show source and verification date beside a displayed rate. Flag a rule older than six months and never silently apply a rule to a different assessment year. Cache a reviewed bundled version; online updates require schema/version validation and a trusted HTTPS source. Offline learning must remain available without inventing newer values.
 
-No rule-dependent lesson is shipped in 0.1, so there is no fake “last verified” date or placeholder rate feed.
+No rule-dependent lesson is shipped in 0.2, so there is no fake “last verified” date or placeholder rate feed.
 
 ## Validation boundaries
 

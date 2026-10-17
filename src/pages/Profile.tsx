@@ -5,6 +5,8 @@ import type { Progress } from "../lib/store";
 import type { Update } from "../App";
 import { streak } from "../lib/learning";
 import { Icon, Modal } from "../components/UI";
+import { lessons } from "../content/lessons";
+import { glossary } from "../content/glossary";
 import Mia from "../components/Mia";
 export default function Profile({
   progress,
@@ -75,7 +77,7 @@ export default function Profile({
         <Mia pose="celebrate" />
         <div>
           <span className="pill">
-            {count >= 6
+            {count >= lessons.length
               ? "FOUNDATION EXPLORER"
               : count
                 ? "CURIOUS MONEY HUMAN"
@@ -268,11 +270,12 @@ export default function Profile({
             <details>
               <summary>About this first release</summary>
               <p>
-                Penny Pilot 0.1 · Six editorial-preview lessons, 48 exercises,
-                24 glossary entries, four calculators, and a 16-world curriculum
-                outline. Content needs expert financial and Hindi editorial
-                review. Current tax and regulatory rules are intentionally
-                excluded until verified.
+                Penny Pilot 0.2 · {lessons.length} editorial-preview lessons,{" "}
+                {lessons.reduce((n, l) => n + l.exercises.length, 0)} exercises,
+                {glossary.length} glossary entries, four calculators, and a
+                16-world curriculum outline. Content needs expert financial and
+                Hindi editorial review. Current tax and regulatory rules are
+                intentionally excluded until verified.
               </p>
               <p>
                 Animations respect your device’s reduced-motion preference.

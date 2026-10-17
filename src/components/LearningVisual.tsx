@@ -10,15 +10,23 @@ export default function LearningVisual({
   language: Language;
 }) {
   const [value, setValue] = useState(
-    lessonId === "money"
-      ? 80
-      : lessonId === "income"
-        ? 80
-        : lessonId === "budget"
-          ? 15000
-          : lessonId === "compound"
-            ? 2
-            : 6,
+    lessonId === "inflation"
+      ? 20
+      : lessonId === "banking"
+        ? 12000
+        : lessonId === "credit-card"
+          ? 500
+          : lessonId === "debt-plan"
+            ? 1000
+            : lessonId === "money"
+              ? 80
+              : lessonId === "income"
+                ? 80
+                : lessonId === "budget"
+                  ? 15000
+                  : lessonId === "compound"
+                    ? 2
+                    : 6,
   );
   const [revealed, setRevealed] = useState(false);
   const s = (en: string, hi: string, hinglish: string) =>
@@ -43,6 +51,153 @@ export default function LearningVisual({
         <Icon name="MousePointer2" size={13} />
         {s("A LITTLE EXPLORATION", "थोड़ा आज़माएं", "Thoda aazmaayein")}
       </span>
+      {lessonId === "inflation" && (
+        <>
+          <div className="visual-equation">
+            <span>
+              ₹100 <small>{s("same budget", "वही बजट", "wahi budget")}</small>
+            </span>
+            <span>÷ {rupees(value)} =</span>
+            <strong>
+              {Math.floor(100 / value)}
+              <small>{s("whole packets", "पूरे पैकेट", "poore packet")}</small>
+            </strong>
+          </div>
+          {slider(
+            s(
+              "Change the price per packet",
+              "हर पैकेट की कीमत बदलें",
+              "Har packet ki keemat badlein",
+            ),
+            20,
+            50,
+            5,
+          )}
+          <p>
+            {s(
+              "Same-size fictional packets. A higher price buys fewer packets with the same ₹100. One item alone does not measure overall inflation.",
+              "मान लें पैकेट का साइज़ वही है। कीमत बढ़ने पर उसी ₹100 में कम पैकेट आएंगे। एक चीज़ से पूरी महँगाई नहीं मापते।",
+              "Maan lein packet ka size wahi hai. Keemat badhne par usi ₹100 mein kam packet aayenge. Ek cheez se poori mehengai nahin naapte.",
+            )}
+          </p>
+        </>
+      )}
+      {lessonId === "banking" && (
+        <>
+          <div className="visual-equation">
+            <span>
+              ₹40,000
+              <small>
+                {s(
+                  "after salary credit",
+                  "सैलरी आने के बाद",
+                  "salary aane ke baad",
+                )}
+              </small>
+            </span>
+            <span>− {rupees(value)} =</span>
+            <strong>
+              {rupees(40000 - value)}
+              <small>
+                {s("closing balance", "बचा बैलेंस", "bacha balance")}
+              </small>
+            </strong>
+          </div>
+          {slider(
+            s(
+              "Change the rent debit",
+              "किराए का खर्च बदलें",
+              "Kiraaye ka kharch badlein",
+            ),
+            0,
+            40000,
+            1000,
+          )}
+          <p>
+            {s(
+              "Fictional account: ₹10,000 opening balance + ₹30,000 salary. In this statement, a debit takes money out; a credit adds money.",
+              "बनाया हुआ खाता: शुरुआत में ₹10,000 + ₹30,000 सैलरी। इस स्टेटमेंट में debit से पैसे जाते हैं, credit से आते हैं।",
+              "Banaya hua khaata: shuruaat mein ₹10,000 + ₹30,000 salary. Is statement mein debit se paise jaate hain, credit se aate hain.",
+            )}
+          </p>
+        </>
+      )}
+      {lessonId === "credit-card" && (
+        <>
+          <div className="visual-equation">
+            <span>
+              ₹10,000<small>{s("total bill", "पूरा बिल", "poora bill")}</small>
+            </span>
+            <span>− {rupees(value)} =</span>
+            <strong>
+              {rupees(10000 - value)}
+              <small>
+                {s("still unpaid", "अभी चुकाने हैं", "abhi chukaane hain")}
+              </small>
+            </strong>
+          </div>
+          {slider(
+            s(
+              "Choose how much Aman pays",
+              "अमन कितना चुकाए, चुनें",
+              "Aman kitna chukaaye, chunein",
+            ),
+            500,
+            10000,
+            500,
+          )}
+          <p>
+            {s(
+              "Fictional bill, before interest and fees. Paying only the ₹500 minimum leaves ₹9,500 unpaid. Check the issuer’s actual terms and interest calculation.",
+              "बनाया हुआ बिल, ब्याज और फ़ीस जोड़ने से पहले। सिर्फ़ ₹500 चुकाने पर ₹9,500 बाकी हैं। असली नियम और ब्याज का हिसाब कार्ड कंपनी से देखें।",
+              "Banaya hua bill, byaaj aur fees jodne se pehle. Sirf ₹500 chukaane par ₹9,500 baaki hain. Asli niyam aur byaaj ka hisaab card company se dekhein.",
+            )}
+          </p>
+        </>
+      )}
+      {lessonId === "debt-plan" && (
+        <>
+          <div className="debt-comparison">
+            <div>
+              <span>
+                {s(
+                  "Debt A · 24% a year",
+                  "कर्ज़ A · सालाना 24%",
+                  "Karz A · saalaana 24%",
+                )}
+              </span>
+              <strong>{rupees((value * 0.24) / 12)}</strong>
+            </div>
+            <div>
+              <span>
+                {s(
+                  "Debt B · 12% a year",
+                  "कर्ज़ B · सालाना 12%",
+                  "Karz B · saalaana 12%",
+                )}
+              </span>
+              <strong>{rupees((value * 0.12) / 12)}</strong>
+            </div>
+          </div>
+          {slider(
+            s(
+              "Try an extra repayment",
+              "एक्स्ट्रा पेमेंट बदलें",
+              "Extra payment badlein",
+            ),
+            0,
+            5000,
+            500,
+          )}
+          <p>
+            {s(
+              "Illustrative reduction in next month’s interest: extra payment × annual rate ÷ 12. Assumes the payment immediately reduces principal, no fees, and unchanged rates. Cover essentials and required payments first; real loan calculations differ.",
+              "अगले महीने के ब्याज में बचत का आसान example: एक्स्ट्रा पेमेंट × सालाना रेट ÷ 12। मान लें पैसे तुरंत मूल रकम घटाते हैं, फ़ीस नहीं है और रेट नहीं बदलता। पहले ज़रूरतें और ज़रूरी किस्तें देखें। असली लोन का हिसाब अलग हो सकता है।",
+              "Agle mahine ke byaaj mein bachat ka aasaan example: extra payment × saalaana rate ÷ 12. Maan lein paise turant mool rakam ghataate hain, fees nahin hai aur rate nahin badalta. Pehle zarooratein aur zaroori kistein dekhein. Asli loan ka hisaab alag ho sakta hai.",
+            )}
+          </p>
+        </>
+      )}
       {lessonId === "money" && (
         <>
           <div className="money-demo">

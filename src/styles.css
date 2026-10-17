@@ -5237,3 +5237,233 @@ select {
     font-size: 0.65rem;
   }
 }
+.document-exercise {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.document-heading {
+  display: flex;
+  gap: 11px;
+  align-items: center;
+  padding: 18px 20px;
+  background: var(--soft);
+  font-size: 0.78rem;
+  font-weight: 650;
+  line-height: 1.8;
+}
+.document-heading > svg {
+  color: var(--green-dark);
+}
+.document-hint {
+  padding: 16px 20px;
+  font-size: 0.67rem;
+  color: var(--sub);
+  border-bottom: 1px solid var(--line);
+}
+.document-row {
+  width: 100%;
+  min-height: 65px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  text-align: left;
+  padding: 17px 19px;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.86rem;
+  line-height: 1.8;
+  background: var(--surface);
+  transition: background 0.2s;
+}
+.document-row:last-child {
+  border-bottom: 0;
+}
+.document-row:hover:not(:disabled),
+.document-row.chosen {
+  background: var(--lime);
+}
+.document-row:disabled {
+  opacity: 1;
+}
+.document-line-number {
+  font-size: 0.6rem;
+  color: var(--sub);
+  font-variant-numeric: tabular-nums;
+}
+.document-line-marker {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  color: var(--sub);
+}
+.document-row.correct-line {
+  background: var(--lime);
+  box-shadow: inset 4px 0 var(--green);
+}
+.document-row.correct-line .document-line-marker {
+  color: var(--green-dark);
+}
+.bucket-exercise > p {
+  font-size: 0.73rem;
+  margin-bottom: 18px;
+}
+.bucket-totals {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 25px;
+}
+.bucket-totals > div {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid var(--line);
+  background: var(--soft);
+  padding: 15px 13px;
+  border-radius: 11px;
+  font-size: 0.74rem;
+}
+.bucket-totals > div > svg {
+  color: var(--green-dark);
+}
+.bucket-totals strong {
+  margin-left: auto;
+  font-size: 1.1rem;
+  color: var(--green-dark);
+}
+.sort-item {
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  padding: 13px 16px 17px;
+  margin: 0 0 17px;
+  min-width: 0;
+}
+.sort-item legend {
+  font-size: 0.84rem;
+  font-weight: 650;
+  line-height: 1.9;
+  padding: 0 7px;
+  max-width: 100%;
+}
+.bucket-choices {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.bucket-choices > label {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  min-height: 48px;
+  padding: 10px 14px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  flex: 1;
+  line-height: 1.8;
+}
+.bucket-choices > label.selected {
+  background: var(--lime);
+  border-color: #8dae69;
+}
+.bucket-choices input {
+  margin: 0;
+  accent-color: #5d9237;
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+}
+.sort-item.sorted-correct {
+  border-color: #8dae69;
+}
+.sort-item.sorted-wrong {
+  border-color: #b9916f;
+}
+.sort-correction {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 0.7rem;
+  color: var(--sub);
+  margin-top: 14px;
+}
+.sort-correction > svg {
+  color: var(--green-dark);
+}
+@media (max-width: 760px) {
+  .document-row {
+    font-size: 0.79rem;
+    padding: 15px 13px;
+    gap: 9px;
+  }
+  .document-heading,
+  .document-hint {
+    padding: 15px;
+  }
+  .document-heading {
+    font-size: 0.72rem;
+  }
+  .bucket-totals {
+    gap: 9px;
+  }
+  .bucket-totals > div {
+    padding: 12px 10px;
+    font-size: 0.65rem;
+    gap: 7px;
+  }
+  .sort-item {
+    padding: 12px 12px 15px;
+  }
+  .sort-item legend {
+    font-size: 0.79rem;
+  }
+  .bucket-choices > label {
+    font-size: 0.69rem;
+    padding: 9px 10px;
+    gap: 7px;
+  }
+}
+
+.path-card + .path-card {
+  margin-top: 24px;
+}
+.debt-comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 20px 0;
+}
+.debt-comparison > div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+}
+.debt-comparison span {
+  font-size: 0.8rem;
+}
+.debt-comparison strong {
+  font-size: 1.6rem;
+  color: var(--green-dark);
+}
+@media (max-width: 480px) {
+  .debt-comparison {
+    grid-template-columns: 1fr;
+  }
+}
+
+.mia-name {
+  color: #52643d;
+}
+.answer-feedback.wrong .text-button {
+  color: inherit;
+}
+
+:root[data-theme="dark"] .mia-name {
+  color: #bed99e;
+}

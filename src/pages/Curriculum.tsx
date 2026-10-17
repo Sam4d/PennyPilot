@@ -1,6 +1,6 @@
 import { useState } from "react";
 import curriculum from "../content/curriculum.json";
-import type { Language } from "../content/lessons";
+import { lessons, type Language } from "../content/lessons";
 import { Icon, Modal } from "../components/UI";
 export default function Curriculum({
   onClose,
@@ -31,8 +31,9 @@ export default function Curriculum({
             : "A whole world of money. Actually, 16."}
         </h2>
         <p>
-          Built for the curious, from absolute beginner to advanced. Explore the
-          full syllabus. Six foundation lessons are playable in this preview.
+          {language === "hi"
+            ? `एकदम शुरुआत से एडवांस तक का सिलेबस देखें। इस प्रीव्यू में ${lessons.length} पाठ अभी खेलकर सीख सकते हैं। बाकी की तैयारी चल रही है।`
+            : `Explore a beginner-to-advanced syllabus. ${lessons.length} foundation lessons are playable in this preview; the rest are in development.`}
         </p>
         <div className="curriculum-layout">
           <nav aria-label="Curriculum worlds">
@@ -58,7 +59,7 @@ export default function Curriculum({
               </span>
               <span className="pill">
                 {selected === 0
-                  ? "6 PLAYABLE LESSONS"
+                  ? `${lessons.length} PLAYABLE LESSONS`
                   : "CURRICULUM · IN DEVELOPMENT"}
               </span>
               <h3>{language === "hi" ? w.hi : w.title}</h3>

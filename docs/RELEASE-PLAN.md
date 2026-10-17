@@ -1,6 +1,6 @@
 # Seven-day first-release plan
 
-A week can produce a tested beginner release. It cannot honestly produce thousands of expert-reviewed multilingual levels. The current 0.1 app is the usable foundation for that release; the complete curriculum remains the product roadmap.
+A week can produce a tested beginner release. It cannot honestly produce thousands of expert-reviewed multilingual levels. The current 0.2 app is the usable foundation for that release; the complete curriculum remains the product roadmap.
 
 | Day | Deliverable | Release gate |
 | --- | --- | --- |
@@ -24,6 +24,10 @@ This is a work plan, not a claim that future steps have been executed or an unat
 
 ## Scope still outstanding
 
-All 16 exercise forms; four-level depth ladders; soft prerequisites; placement and goal tracks; crowns; checkpoints/exams/certificates; structured financial-rule updates; expanded glossary and calculator catalogue; historical paper trading, bond/option/DCF simulators; richer notes/highlights; optional notifications; short progress codes/QR transfer; complete interface localisation; Android native read-aloud; human financial and language review; physical-device performance and native restoration tests.
+The remaining 11 of 16 exercise forms; four-level depth ladders; soft prerequisites; placement and goal tracks; crowns; checkpoints/exams/certificates; structured financial-rule updates; expanded glossary and calculator catalogue; historical paper trading, bond/option/DCF simulators; richer notes/highlights; optional notifications; short progress codes/QR transfer; complete interface localisation; Android native read-aloud; human financial and language review; physical-device performance and native restoration tests.
 
 Google sign-in and cloud sync remain intentionally outside the first release. Do not add accounts or trackers to compensate for missing local reliability.
+
+## Current content expansion (0.2)
+
+Added inflation/purchasing power, fictional bank statements, credit-card minimum due, and debt repayment strategies: four new Hindi-first multilingual drafts with eight exercises each. All ten shipped lessons now have interactive worked-example models. Insurance foundations, primary-source review, complete Hindi interface localisation, four-level depth, and device testing remain open release work. Existing six-lesson progress IDs and version-one backup format are preserved; Android version code is now 2.

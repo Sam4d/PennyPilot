@@ -1,69 +1,8 @@
-export type Language = "en" | "hi" | "hinglish" | "both";
-export type Text = { en: string; hi: string; hinglish: string };
-export const t = (en: string, hi: string, hinglish: string): Text => ({
-  en,
-  hi,
-  hinglish,
-});
-export const read = (text: Text, language: Language) =>
-  text[language === "both" ? "en" : language];
-export type Exercise = {
-  id: string;
-  type: "choice" | "numeric" | "order";
-  prompt: Text;
-  options?: Text[];
-  answer: number | number[];
-  explanation: Text;
-  calculation?: {
-    operation: "subtract" | "multiply" | "compound";
-    values: number[];
-  };
-};
-export type Lesson = {
-  id: string;
-  skill: string;
-  title: Text;
-  subtitle: Text;
-  minutes: number;
-  icon: string;
-  hook: Text;
-  idea: Text;
-  example: Text;
-  mistake: Text;
-  notes: Text[];
-  action: Text;
-  exercises: Exercise[];
-  sources: string[];
-  reviewStatus: "editorial-draft";
-};
-const choice = (
-  id: string,
-  prompt: Text,
-  options: Text[],
-  answer: number,
-  explanation: Text,
-): Exercise => ({ id, type: "choice", prompt, options, answer, explanation });
-const numeric = (
-  id: string,
-  prompt: Text,
-  answer: number,
-  explanation: Text,
-  calculation?: Exercise["calculation"],
-): Exercise => ({
-  id,
-  type: "numeric",
-  prompt,
-  answer,
-  explanation,
-  calculation,
-});
-const order = (
-  id: string,
-  prompt: Text,
-  options: Text[],
-  answer: number[],
-  explanation: Text,
-): Exercise => ({ id, type: "order", prompt, options, answer, explanation });
+import { choice, numeric, order, t } from "./schema";
+import type { Lesson } from "./schema";
+import { everydayLessons } from "./everyday";
+export { read, t } from "./schema";
+export type { Language, Text, Exercise, Lesson } from "./schema";
 const yn = [t("True", "सही", "Sahi"), t("False", "गलत", "Galat")];
 const sources = [
   "https://www.rbi.org.in/FinancialEducation/",
@@ -1405,4 +1344,5 @@ export const lessons: Lesson[] = [
     sources,
     reviewStatus: "editorial-draft",
   },
+  ...everydayLessons,
 ];
