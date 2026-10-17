@@ -1,3 +1,4 @@
+import { insuranceGuides } from "../src/content/insurance-guides";
 import { lessons } from "../src/content/lessons";
 import { glossary } from "../src/content/glossary";
 import curriculum from "../src/content/curriculum.json";
@@ -5,6 +6,11 @@ import type { Text } from "../src/content/lessons";
 const errors: string[] = [];
 const ids = new Set<string>();
 function text(value: Text, path: string) {
+  if (
+    /[\u0900-\u097f]/u.test(value.en) ||
+    /\b(chai|paisa|paise|kirana|bachat|sahi|galat)\b/i.test(value.en)
+  )
+    errors.push(`${path}: English must use standard English`);
   for (const lang of ["en", "hi", "hinglish"] as const)
     if (!value?.[lang]?.trim()) errors.push(`${path}: missing ${lang}`);
   if (!/[\u0900-\u097f]/u.test(value.hi))
@@ -107,9 +113,23 @@ for (const l of lessons)
 for (const g of glossary)
   if (g.length !== 4 || g.some((x) => !x.trim()))
     errors.push(`Incomplete glossary ${g[0]}`);
+for (const g of insuranceGuides) {
+  if (ids.has(g.id)) errors.push(`Duplicate guide ${g.id}`);
+  ids.add(g.id);
+  text(g.title, `${g.id}.title`);
+  text(g.summary, `${g.id}.summary`);
+  text(g.example, `${g.id}.example`);
+  g.sections.forEach((s, i) => {
+    text(s.title, `${g.id}.section${i}.title`);
+    text(s.body, `${g.id}.section${i}.body`);
+  });
+  g.checklist.forEach((s, i) => text(s, `${g.id}.check${i}`));
+  if (g.skills.some((id) => !skills.has(id)))
+    errors.push(`${g.id}: unknown skill`);
+}
 if (errors.length) throw Error(errors.join("\n"));
 console.log(
-  `Validated ${lessons.length} lessons, ${lessons.reduce((n, l) => n + l.exercises.length, 0)} questions, ${glossary.length} glossary entries, and ${curriculum.length} world outlines.`,
+  `Validated ${lessons.length} lessons, ${lessons.reduce((n, l) => n + l.exercises.length, 0)} questions, ${glossary.length} glossary entries, and ${curriculum.length} world outlines, and ${insuranceGuides.length} multilingual insurance guides.`,
 );
 console.log(
   "Editorial checks remain manual: factual accuracy, native-language tone, reading level, and expert review.",

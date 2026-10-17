@@ -5968,3 +5968,461 @@ select {
 .matching-grid button > .translation {
   grid-column: 2;
 }
+
+.investment-mode {
+  display: flex;
+  gap: 10px;
+  margin: 24px 0;
+}
+.investment-mode button {
+  min-height: 48px;
+  flex: 1;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 0.84rem;
+}
+.investment-mode button[aria-pressed="true"] {
+  background: var(--lime);
+  border-color: var(--green-dark);
+  color: var(--green-dark);
+  box-shadow: inset 0 -3px var(--green-dark);
+}
+.insurance-hero {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  padding: 30px;
+  border: 1px solid var(--line);
+  background: var(--hero);
+  border-radius: 20px;
+  margin-bottom: 34px;
+}
+.insurance-hero .mia {
+  width: 175px;
+  flex-shrink: 0;
+}
+.insurance-hero h2 {
+  font-size: 1.6rem;
+  line-height: 1.5;
+  margin: 15px 0 12px;
+}
+.insurance-hero p {
+  font-size: 0.9rem;
+  color: var(--sub);
+  line-height: 1.9;
+  margin-bottom: 20px;
+}
+.insurance-practice {
+  margin-bottom: 35px;
+}
+.insurance-lesson-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+.insurance-lesson-grid > button {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  min-height: 170px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: 15px;
+  text-align: left;
+  line-height: 1.7;
+}
+.insurance-lesson-grid > button > svg {
+  color: var(--green-dark);
+}
+.insurance-lesson-grid strong {
+  font-size: 0.96rem;
+}
+.insurance-lesson-grid button > span {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 0.76rem;
+  color: var(--sub);
+  margin-top: auto;
+}
+.insurance-controls {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin: 25px 0;
+}
+.insurance-controls .search-field {
+  margin: 0;
+  min-width: 200px;
+  flex: 1;
+}
+.insurance-controls .segmented {
+  flex-wrap: wrap;
+}
+.insurance-guide-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+.insurance-guide-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  gap: 15px;
+  padding: 26px;
+  border-radius: 16px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  transition:
+    border-color 0.2s,
+    transform 0.2s;
+}
+.insurance-guide-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--green-dark);
+}
+.insurance-guide-card > strong {
+  font-size: 1.12rem;
+  line-height: 1.7;
+}
+.insurance-guide-card > p {
+  font-size: 0.9rem;
+  line-height: 1.9;
+  color: var(--sub);
+}
+.guide-open {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 0.8rem;
+  color: var(--green-dark);
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+.insurance-catalogue {
+  margin: 28px 0 18px;
+  white-space: normal;
+  line-height: 1.8;
+}
+.insurance-reader {
+  max-width: 790px;
+  margin: 0 auto;
+}
+.insurance-reader > .pill {
+  display: table;
+  margin: 22px 0 16px;
+}
+.insurance-reader > h2 {
+  font-size: 2rem;
+  line-height: 1.5;
+  letter-spacing: -0.5px;
+}
+.reader-summary {
+  font-size: 1.05rem;
+  line-height: 1.9;
+  color: var(--sub);
+  margin: 18px 0 25px;
+}
+.reader-contents {
+  display: grid;
+  gap: 9px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  margin: 25px 0;
+  background: var(--surface);
+}
+.reader-contents a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: var(--green-dark);
+  text-decoration: none;
+}
+.reader-contents a > span:first-child {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  background: var(--lime);
+  border-radius: 8px;
+  font-size: 0.8rem;
+}
+.insurance-reader > section {
+  padding: 28px 0;
+  border-bottom: 1px solid var(--line);
+  scroll-margin-top: 30px;
+}
+.insurance-reader section h3 {
+  display: flex;
+  align-items: baseline;
+  gap: 13px;
+  font-size: 1.15rem;
+  line-height: 1.8;
+  margin-bottom: 15px;
+}
+.insurance-reader section h3 > span:first-child {
+  font-size: 0.72rem;
+  color: var(--green-dark);
+}
+.insurance-reader section p {
+  font-size: 1rem;
+  line-height: 2.05;
+  color: var(--sub);
+}
+.insurance-reader section h3 > svg {
+  flex-shrink: 0;
+  align-self: center;
+  color: var(--green-dark);
+}
+.insurance-reader > .reader-example {
+  background: var(--lime);
+  border-radius: 15px;
+  padding: 24px;
+  margin-top: 25px;
+  border-bottom: 0;
+}
+.reader-checklist ul {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 15px;
+}
+.reader-checklist li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 0.95rem;
+  line-height: 1.9;
+}
+.reader-checklist li > svg {
+  flex-shrink: 0;
+  color: var(--green-dark);
+  margin-top: 5px;
+}
+.reader-review {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: var(--soft);
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  font-size: 0.82rem;
+  line-height: 1.9;
+  margin-top: 28px;
+}
+.reader-review > svg {
+  flex-shrink: 0;
+  color: var(--green-dark);
+  margin-top: 4px;
+}
+.reader-review p {
+  color: var(--sub);
+  margin: 9px 0;
+}
+.reader-review a {
+  display: inline-flex;
+  gap: 7px;
+  align-items: center;
+  color: var(--green-dark);
+}
+.catalogue-topic {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  text-align: left;
+  width: 100%;
+  min-height: 52px;
+  padding: 12px;
+  border-radius: 8px;
+  line-height: 1.8;
+}
+.catalogue-topic:hover {
+  background: var(--soft);
+}
+.catalogue-topic > span {
+  font-size: 0.83rem;
+}
+.catalogue-topic small {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-shrink: 0;
+  font-size: 0.65rem;
+}
+.unit-accordion li {
+  display: block;
+}
+.unit-accordion ul {
+  padding-left: 0;
+  gap: 4px;
+}
+.unit-open {
+  margin-top: 15px;
+  font-size: 0.75rem;
+}
+.catalogue-global {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  min-height: 48px;
+  font-size: 0.8rem;
+  margin: 8px 0 17px;
+}
+.catalogue-global input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--green-dark);
+}
+.topic-heading {
+  font-size: 1.6rem;
+  line-height: 1.7;
+  margin: 17px 0;
+}
+.topic-breadcrumb {
+  font-size: 0.76rem;
+  line-height: 1.9;
+  color: var(--sub);
+  margin: 16px 0;
+}
+.topic-outline,
+.catalogue-lesson {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: 14px;
+  padding: 24px;
+  margin: 24px 0;
+}
+.topic-outline h4,
+.catalogue-lesson h4 {
+  font-size: 1rem;
+  line-height: 1.8;
+  margin-bottom: 14px;
+}
+.topic-outline > p {
+  white-space: pre-line;
+  font-size: 0.96rem;
+  line-height: 2;
+  color: var(--sub);
+  overflow-wrap: anywhere;
+}
+.topic-outline > .tiny-text {
+  font-size: 0.75rem;
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  margin-top: 20px;
+}
+.catalogue-lesson p {
+  line-height: 1.9;
+  color: var(--sub);
+  margin-bottom: 18px;
+}
+.topic-neighbours {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: 30px;
+}
+.app-update {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  background: var(--lime);
+  border-bottom: 1px solid var(--line);
+  padding: 16px 25px;
+  font-size: 0.8rem;
+  line-height: 1.8;
+}
+.app-update > svg {
+  flex-shrink: 0;
+  color: var(--green-dark);
+}
+.app-update p {
+  color: var(--sub);
+}
+.app-update .button {
+  margin-left: auto;
+  white-space: normal;
+}
+@media (max-width: 760px) {
+  .insurance-hero {
+    padding: 22px;
+    gap: 18px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .insurance-hero .mia {
+    width: 130px;
+    align-self: center;
+  }
+  .insurance-hero h2 {
+    font-size: 1.4rem;
+  }
+  .insurance-lesson-grid {
+    grid-template-columns: 1fr;
+  }
+  .insurance-lesson-grid > button {
+    min-height: 110px;
+  }
+  .insurance-guide-grid {
+    grid-template-columns: 1fr;
+  }
+  .insurance-guide-card {
+    padding: 22px;
+  }
+  .insurance-reader > h2 {
+    font-size: 1.6rem;
+  }
+  .reader-contents {
+    padding: 16px;
+  }
+  .insurance-reader > .reader-example {
+    padding: 20px;
+  }
+  .catalogue-topic {
+    padding: 10px 4px;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  .catalogue-topic small {
+    font-size: 0.68rem;
+  }
+  .topic-neighbours {
+    flex-wrap: wrap;
+  }
+  .app-update {
+    flex-wrap: wrap;
+    padding: 15px;
+  }
+  .app-update .button {
+    margin-left: 30px;
+  }
+  .mobile-nav > button {
+    min-width: 0;
+  }
+  .mobile-nav > button > span {
+    font-size: 0.56rem;
+  }
+}
+:root[data-large-text="true"] .insurance-guide-grid,
+:root[data-large-text="true"] .insurance-lesson-grid {
+  grid-template-columns: 1fr;
+}
+.calculator-results .big-result {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}

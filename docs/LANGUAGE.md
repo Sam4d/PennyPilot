@@ -38,3 +38,5 @@ Use standard English with short sentences and common words. Do not mix Hindi or 
 | debt avalanche | pay extra towards the highest interest rate first (debt avalanche) |
 
 The `hi` variant already includes Hinglish terms in its Hindi script and remains the default. The optional `hinglish` variant uses Roman letters; it is not a substitute for Hinglish in the Hindi variant. `en` uses English only, and `both` displays the English and Hindi versions together. All variants preserve amounts, calculations and risk explanations.
+
+English mode must not show Hindi glossary translations; those are shown only in Hindi or paired mode. Preserve user-authored notes even if their language differs. Keep the language selector explicit. When a service worker is waiting, use the app’s save-and-update notice rather than silently resetting local preferences.

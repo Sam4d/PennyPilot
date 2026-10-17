@@ -270,10 +270,11 @@ export default function Profile({
             <details>
               <summary>About this first release</summary>
               <p>
-                Penny Pilot 0.4 · {lessons.length} editorial-preview lessons,{" "}
+                Penny Pilot 0.5 · {lessons.length} editorial-preview lessons,{" "}
                 {lessons.reduce((n, l) => n + l.exercises.length, 0)} exercises,
                 {glossary.length} glossary entries, four calculators, and a
-                16-world curriculum outline. Content needs expert financial and
+                16-world topic library, eight insurance reading guides, and a
+                lump-sum investment mode. Content needs expert financial and
                 Hindi editorial review. Current tax and regulatory rules are
                 intentionally excluded until verified.
               </p>

@@ -45,7 +45,7 @@ Live fetches to the first five destinations returned proxy `403 Forbidden`. The 
 
 Use a separate versioned `rules.json` with `{value, unit, source, effective_from, last_verified, review_status}` per key. The date must reflect a real source check. Resolve `{{rule:key}}` through one loader; never duplicate rates in prose. Show source and verification date beside a displayed rate. Flag a rule older than six months and never silently apply a rule to a different assessment year. Cache a reviewed bundled version; online updates require schema/version validation and a trusted HTTPS source. Offline learning must remain available without inventing newer values.
 
-No rule-dependent lesson is shipped in 0.4, so there is no fake “last verified” date or placeholder rate feed.
+No rule-dependent lesson is shipped in 0.5, so there is no fake “last verified” date or placeholder rate feed.
 
 ## Validation boundaries
 
@@ -62,3 +62,11 @@ The health model applies co-pay to eligible costs, then caps insurer payment at 
 The EMI worksheet uses a fictional first-month payment rounded to rupees; it is not a complete bank quote. The interactive schedule uses fixed annual 12% divided by 12 on a reducing balance, full precision internally, equal monthly payments and final-payment adjustment. It excludes fees, tax, penalties, payment-date effects and rate changes. Displayed rupees are rounded. The full schedule is available in a locally scrollable table.
 
 The purchase-credit lesson and model compare the same fictional phone and delivery/benefits, six payments of ₹6,000, a selectable ₹2,000 cash discount and a selectable upfront fee. No other charges or time-value adjustments are included. The difference is a total-cost amount, never an annual rate or a product recommendation. RBI reference links remain a review queue; no mutable lending regulation or current provider offer is claimed as verified.
+
+## Insurance readers and open catalogue (0.5)
+
+Eight authored reading guides cover beginner, intermediate and advanced insurance concepts. They are fully available in English, Devanagari Hindi and Roman Hinglish, and map to every one of World 12’s 39 skills. Each has three explanatory sections, an example, a practical checklist and a clear editorial-review status. They are reading content, not additional scored lessons; they do not award XP or manufacture completion. The three original insurance quizzes remain separately available.
+
+All 946 named skills and all units are directly accessible in the catalogue. A shipped quiz opens that exact lesson; an insurance topic opens its mapped reading guide; other topics open the supplied outline with an explicit unverified-draft label. An accessible outline is not a completed hundreds-of-hours course. URLs use `#curriculum/S12.3.3`, `#curriculum/unit/12.7` or `#curriculum/world/12`; unknown topic IDs show a recovery message.
+
+English-mode glossary headings no longer render Hindi translations. English examples replace informal Hindi words such as tea-shop terms with standard English. Hindi-specific legal vocabulary that is necessary to recognise a real document is explained in English brackets. The content validator checks authored English fields for Devanagari and selected Hindi words. It does not certify natural writing or replace an editor.

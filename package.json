@@ -1,7 +1,7 @@
 {
   "name": "penny-pilot",
   "private": true,
-  "version": "0.4.0",
+  "version": "0.5.0",
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
@@ -13,7 +13,8 @@
     "android:debug": "npm run android:sync && python3 scripts/build-android.py",
     "test:browser": "playwright test",
     "format": "prettier --write src scripts tests *.ts *.json *.html",
-    "test:offline": "node scripts/check-offline.mjs"
+    "test:offline": "node scripts/check-offline.mjs",
+    "test:updates": "node scripts/check-update.mjs"
   },
   "dependencies": {
     "@capacitor-community/sqlite": "^8.1.1",

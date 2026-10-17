@@ -127,3 +127,38 @@ test("Hindi loan terms match with bracketed explanations", async ({ page }) => {
   await dialog.getByRole("button", { name: "जवाब देखें", exact: true }).click();
   await expect(dialog.getByText("बिल्कुल सही!", { exact: true })).toBeVisible();
 });
+
+test("Hindi insurance guides remain in Hindi and support the reading path", async ({
+  page,
+}) => {
+  await page.goto("/#insurance");
+  await expect(
+    page.getByRole("heading", { name: "इंश्योरेंस समझें।", exact: true }),
+  ).toBeVisible();
+  await page
+    .getByRole("button", { name: "क्यों ज़रूरी है, समझें", exact: true })
+    .click();
+  await expect(
+    page.getByRole("heading", {
+      name: "इंश्योरेंस क्यों ज़रूरी है?",
+      exact: true,
+    }),
+  ).toBeVisible();
+  await expect(page.locator(".insurance-reader")).toContainText(
+    "कीमत (प्रीमियम)",
+  );
+  await expect(page.locator(".reader-checklist li")).toHaveCount(3);
+  await page.getByRole("button", { name: "सभी गाइड", exact: true }).click();
+  await page
+    .getByRole("combobox", { name: "Language", exact: true })
+    .selectOption("en");
+  await page
+    .getByRole("button", {
+      name: "Start with why insurance matters",
+      exact: true,
+    })
+    .click();
+  expect(await page.locator(".insurance-reader").innerText()).not.toMatch(
+    /[\u0900-\u097f]/,
+  );
+});

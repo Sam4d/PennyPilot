@@ -166,7 +166,9 @@ export default function Notebook({
               <article className="glossary-card" key={en}>
                 <h3>
                   {en}
-                  <span lang="hi">{translation}</span>
+                  {(hi || progress.language === "both") && (
+                    <span lang="hi">{translation}</span>
+                  )}
                 </h3>
                 <p>{hi ? hindi : definition}</p>
                 {progress.language === "both" && (

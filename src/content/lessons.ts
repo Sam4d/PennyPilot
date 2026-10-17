@@ -105,7 +105,7 @@ export const lessons: Lesson[] = [
         ),
         [
           t(
-            "Paying ₹20 for chai",
+            "Paying ₹20 for tea",
             "चाय के लिए ₹20 देना",
             "Chai ke liye ₹20 dena",
           ),

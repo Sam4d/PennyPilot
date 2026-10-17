@@ -1,4 +1,4 @@
-# Validation record — 17 October 2026
+# Validation record — 18 October 2026 (India)
 
 ## Passed in this cloud machine
 
@@ -6,9 +6,9 @@
 | --- | --- |
 | Frozen install | `npm ci --cache /workspace/.cache/npm` completed; no lockfile rewriting needed |
 | TypeScript + production web | `npm run build` passed; static artifact and PWA service worker generated |
-| Content structure | 15 lessons, 120 questions, 46 glossary entries, 16 world outlines validated; all numeric answers independently recomputed |
-| Unit suite | 33 tests passed: finance formulas, repayment conservation/final payoff, fee comparison, claim shares/limits, static support gap, Indian formatting, streaks, revision, grading and backup validation |
-| Browser suite | 37 tests passed in Chromium; all 120 exercises completed across fifteen lessons, plus matching reassignment/reload/revision, loan/offer models, Hindi, notes, backups, 200% text and prior regression coverage |
+| Content structure | 15 lessons, 120 questions, 46 glossary entries, 16 world outlines and 8 multilingual insurance guides validated; all numeric answers independently recomputed |
+| Unit suite | 40 tests passed: prior finance/progress checks plus lump-sum assumptions, all 946 skill targets, all unit targets, outline boundaries, and insurance guide coverage |
+| Browser suite | 44 browser cases passed: a full 43-case suite plus the new all-world-search case; focused guide keyboard/a11y cases also pass. Includes all 120 exercises, lump sums, English glossary, insurance readers and direct topic reload/history |
 | Production offline | Service-worker installation, offline reload, lazy lesson player, correct-answer save, curriculum opening, new bank-document answer recovery, and the new health-cover model passed with the browser offline |
 | Layout | No horizontal document/button overflow at 320, 360, 390, 768, 1024, and 1440 px in the learning view |
 | Automated accessibility | No axe violations on the five main screens in light/dark themes, on the interactive lesson example in both themes, on the new document feedback and bucket activity in both themes, and on all three protection models in light/dark themes |
@@ -81,3 +81,16 @@ The downloaded JDK needed the machine's managed Java CA store and the existing H
 - The production offline check also changes the repayment model, answers a matching question and recovers its graded feedback after reload. Existing bank-answer and insurance checks remain included.
 - Web/PWA and Android 0.4.0 (version code 5) builds pass. The release preview APK is debug-signed; signature v2 and 16 KB zip alignment checks pass. Stable package `in.pennypilot.learn`, minimum API 24 and target API 36 are preserved. Physical-device runtime and hosted deployment remain unverified.
 - No dependency was added. The production entry remains about 70 kB with lesson data and stable libraries split for caching; full PWA precache is about 1.07 MiB. This is not a measured device performance claim. Financial and native-language review remain outstanding. Overall full-project completion remains approximately 10%.
+
+## Lump sums, insurance readers and open catalogue (0.5.0)
+
+- SIP now offers monthly contributions or a one-time lump sum. The lump-sum model invests principal once, compounds annually and preserves a separate amount. Assumptions, contribution totals and gain/loss update with the chart. Zero and negative return cases pass. Large results wrap at narrow widths.
+- Added an Insurance navigation section with eight fully authored English/Hindi/Roman-Hinglish reading guides at beginner/intermediate/advanced levels. They cover importance, benefits and limits; health and term cover; deductibles, top-ups, restoration and continuity; savings-linked policies; other covers; claims/complaints; and advanced comparison. All 39 World 12 skill IDs map to a guide. Reading does not create quiz completion or XP.
+- All 946 named skills and all 189 units can open directly. Available quizzes launch the selected lesson. Insurance skills open an authored guide. Other topics show their supplied, unverified draft outline. Hash links survive reload; previous/next and browser-back navigation pass. All-world search is tested separately. No claim is made that all outlines are completed teaching content.
+- Fixed the English glossary leak: Hindi translations are now restricted to Hindi/paired modes. Replaced Hindi words in authored English examples and selected outline text. Automated checks flag Devanagari and selected Hindi words in English fields. English-mode browser cases switch out of paired mode and reload without Hindi leaking into the dictionary or new readers. User-written notes remain untouched.
+- Added a save-and-update banner for a waiting web service worker. The production test starts a temporary local server, changes actual service-worker script bytes, waits for the replacement, selects Save and update, and verifies both the entered profile name and English survive reload. No automatic mid-lesson refresh is forced. The check is added to GitHub CI.
+- The full 43-case Chromium suite passed, then the added all-world search case passed. Two focused guide cases passed again after adding keyboard focus to in-guide section links. All 40 unit tests pass. Content validation includes every guide section, example and checklist in all three content languages.
+- Axe reports no violations for the new insurance readers in light/dark mode and for the insurance hub. Manual production checks found no horizontal overflow in the hub at 320, 360, 390, 768, 1024 and 1440 px; readers at 320–1440 px; or maximum lump-sum results at 320 px. Hub/reader layouts reflow at 200% text size.
+- Production offline checks now also open insurance guides, reload a direct insurance topic and use lump-sum mode. Existing lesson-answer, matching and insurance/loan model recovery checks remain included.
+- Web and Android 0.5.0 (version code 6) builds pass. Debug APK signature v2, 16 KB zip alignment, stable package, minimum API 24 and target API 36 are verified. Native runtime and an actual hosted Vercel deployment remain unverified.
+- No dependencies were added. All shipped content/fonts remain precached. The readers are editorial drafts, with official reference links and no fabricated current regulatory verification. Overall completion is now estimated at 13% using the same weighted full-project scope in PROGRESS.md.

@@ -17,6 +17,7 @@ import {
   saveProgress,
 } from "./lib/store";
 import type { Progress, Session } from "./lib/store";
+import AppUpdate from "./components/AppUpdate";
 import Mia from "./components/Mia";
 import { Icon } from "./components/UI";
 import Learn from "./pages/Learn";
@@ -25,6 +26,7 @@ const Tools = lazy(() => import("./pages/Tools"));
 const Notebook = lazy(() => import("./pages/Notebook"));
 const Profile = lazy(() => import("./pages/Profile"));
 const Revise = lazy(() => import("./pages/Revise"));
+const Insurance = lazy(() => import("./pages/Insurance"));
 const Curriculum = lazy(() => import("./pages/Curriculum"));
 export type Update = (fn: (p: Progress) => Progress) => void;
 export default function App() {
@@ -34,11 +36,20 @@ export default function App() {
   const [storageError, setStorageError] = useState("");
   const [page, setPage] = useState(() => {
     const p = window.location.hash.slice(1);
-    return ["learn", "revise", "tools", "notebook", "me"].includes(p)
+    return ["learn", "revise", "tools", "notebook", "me", "insurance"].includes(
+      p,
+    )
       ? p
       : "learn";
   });
-  const [curriculum, setCurriculum] = useState(false);
+  const [curriculum, setCurriculum] = useState(() =>
+    window.location.hash.startsWith("#curriculum"),
+  );
+  const [catalogueTarget, setCatalogueTarget] = useState(() =>
+    window.location.hash.startsWith("#curriculum/")
+      ? window.location.hash.slice(12)
+      : "",
+  );
   const [active, setActive] = useState(false);
   const [toast, setToast] = useState("");
   const [online, setOnline] = useState(navigator.onLine);
@@ -89,8 +100,14 @@ export default function App() {
   useEffect(() => {
     const route = () => {
       const p = window.location.hash.slice(1);
+      if (p === "curriculum" || p.startsWith("curriculum/")) {
+        setCurriculum(true);
+        setCatalogueTarget(p.slice(11));
+        return;
+      }
+      setCurriculum(false);
       setPage(
-        ["learn", "revise", "tools", "notebook", "me"].includes(p)
+        ["learn", "revise", "tools", "notebook", "me", "insurance"].includes(p)
           ? p
           : "learn",
       );
@@ -103,6 +120,15 @@ export default function App() {
     window.location.hash = next;
     setPage(next);
     window.scrollTo({ top: 0, behavior: "instant" });
+  };
+  const openCurriculum = (target = "") => {
+    setCatalogueTarget(target);
+    setCurriculum(true);
+    window.location.hash = `curriculum/${target}`;
+  };
+  const closeCurriculum = () => {
+    setCurriculum(false);
+    window.location.hash = page;
   };
   const start = (lesson: Lesson, reviewIds?: string[]) => {
     if (
@@ -211,6 +237,7 @@ export default function App() {
                 ["learn", "Route", hi ? "सीखें" : "Learn"],
                 ["revise", "RotateCcw", hi ? "दोहराएं" : "Revise"],
                 ["tools", "SlidersHorizontal", hi ? "टूल्स" : "Playground"],
+                ["insurance", "Umbrella", hi ? "बीमा" : "Insurance"],
                 ["notebook", "BookOpen", hi ? "नोटबुक" : "Notebook"],
                 ["me", "UserRound", hi ? "मेरी प्रोफ़ाइल" : "Me"],
               ].map(([id, icon, label]) => (
@@ -264,13 +291,15 @@ export default function App() {
                   <strong>
                     {page === "learn"
                       ? "Learning journey"
-                      : page === "tools"
-                        ? "The playground"
-                        : page === "me"
-                          ? "Your profile"
-                          : page === "revise"
-                            ? "Your daily refresh"
-                            : "Your notebook"}
+                      : page === "insurance"
+                        ? "Insurance learning"
+                        : page === "tools"
+                          ? "The playground"
+                          : page === "me"
+                            ? "Your profile"
+                            : page === "revise"
+                              ? "Your daily refresh"
+                              : "Your notebook"}
                   </strong>
                 </span>
               </div>
@@ -313,6 +342,7 @@ export default function App() {
                 </button>
               </div>
             </header>
+            <AppUpdate language={progress.language} />
             {storageError && (
               <div className="storage-warning" role="alert">
                 {storageError}{" "}
@@ -341,13 +371,20 @@ export default function App() {
                   <Learn
                     progress={progress}
                     onStart={start}
-                    onCurriculum={() => setCurriculum(true)}
+                    onCurriculum={() => openCurriculum()}
                     onTools={() => navigate("tools")}
                     onGoal={() => navigate("me")}
                     streak={streak(Object.keys(progress.days))}
                   />
                 )}
                 {page === "tools" && <Tools language={progress.language} />}
+                {page === "insurance" && (
+                  <Insurance
+                    language={progress.language}
+                    onStart={start}
+                    onCurriculum={() => openCurriculum("world/12")}
+                  />
+                )}
                 {page === "notebook" && (
                   <Notebook
                     progress={progress}
@@ -382,6 +419,7 @@ export default function App() {
               ["learn", "Route", "Learn"],
               ["revise", "RotateCcw", "Revise"],
               ["tools", "SlidersHorizontal", "Playground"],
+              ["insurance", "Umbrella", hi ? "बीमा" : "Insurance"],
               ["notebook", "BookOpen", "Notebook"],
               ["me", "UserRound", "Me"],
             ].map(([id, icon, label]) => (
@@ -405,11 +443,13 @@ export default function App() {
               }
             >
               <Curriculum
-                onClose={() => setCurriculum(false)}
+                onClose={closeCurriculum}
                 language={progress.language}
-                onStart={() => {
-                  setCurriculum(false);
-                  start(lessons[0]);
+                target={catalogueTarget}
+                onNavigate={openCurriculum}
+                onStart={(lesson) => {
+                  closeCurriculum();
+                  start(lesson);
                 }}
               />
             </Suspense>

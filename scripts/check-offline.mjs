@@ -108,7 +108,48 @@ await p.getByRole("button", { name: "Continue lesson", exact: true }).click();
 await p.getByText("That’s it. Nicely done!", { exact: true }).waitFor();
 if ((await p.locator(".match-review li").count()) !== 3)
   throw Error("Matching feedback did not recover offline.");
+await p.getByRole("button", { name: "Close dialog" }).click();
+await p
+  .getByRole("navigation", { name: "Main navigation", exact: true })
+  .getByRole("button", { name: "Insurance", exact: true })
+  .click();
+await p
+  .getByRole("button", {
+    name: "Start with why insurance matters",
+    exact: true,
+  })
+  .click();
+await p
+  .getByRole("heading", { name: "Why insurance matters", exact: true })
+  .waitFor();
+await p.goto("http://127.0.0.1:4173/#curriculum/S12.3.3");
+await p
+  .getByRole("heading", {
+    name: "Deductibles, top-ups and restored cover",
+    exact: true,
+  })
+  .waitFor();
+await p.reload();
+await p
+  .getByRole("heading", {
+    name: "Deductibles, top-ups and restored cover",
+    exact: true,
+  })
+  .waitFor();
+await p.getByRole("button", { name: "Close dialog" }).click();
+await p
+  .getByRole("navigation", { name: "Main navigation", exact: true })
+  .getByRole("button", { name: "Playground", exact: true })
+  .click();
+await p.getByRole("button", { name: "Lump sum", exact: true }).click();
+await p
+  .getByRole("slider", { name: "Assumed annual return", exact: true })
+  .fill("0");
+await p
+  .locator(".big-result")
+  .getByText("₹1,00,000", { exact: true })
+  .waitFor();
 console.log(
-  "PASS: production offline reload, lazy lessons and curriculum, bank answer recovery, insurance/repayment models, and matching answer recovery.",
+  "PASS: production offline reload, lazy lessons and curriculum, bank answer recovery, insurance/repayment models, matching answer recovery, insurance guides, direct topic reload, and lump-sum mode.",
 );
 await b.close();

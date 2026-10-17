@@ -900,3 +900,214 @@ for (const theme of ["light", "dark"]) {
     }
   });
 }
+
+test("lump sum invests once and preserves separate SIP amounts", async ({
+  page,
+}) => {
+  await page
+    .getByRole("navigation", { name: "Main navigation", exact: true })
+    .getByRole("button", { name: "Playground", exact: true })
+    .click();
+  await page.getByRole("button", { name: "Lump sum", exact: true }).click();
+  await expect(
+    page.getByRole("slider", { name: "One-time investment", exact: true }),
+  ).toHaveValue("100000");
+  await page
+    .getByRole("slider", { name: "Assumed annual return", exact: true })
+    .fill("0");
+  await expect(page.locator(".big-result")).toHaveText("₹1,00,000");
+  await page
+    .getByRole("slider", { name: "Assumed annual return", exact: true })
+    .fill("10");
+  await expect(page.locator(".big-result")).toHaveText("₹2,59,374");
+  await page
+    .getByRole("button", { name: "Monthly (SIP)", exact: true })
+    .click();
+  await expect(
+    page.getByRole("slider", { name: "Monthly investment", exact: true }),
+  ).toHaveValue("5000");
+  await page.getByRole("button", { name: "Lump sum", exact: true }).click();
+  await page
+    .getByRole("slider", { name: "Time period", exact: true })
+    .fill("1");
+  await page
+    .getByRole("slider", { name: "Assumed annual return", exact: true })
+    .fill("-20");
+  await expect(page.locator(".big-result")).toHaveText("₹80,000");
+});
+
+test("English dictionary and examples do not display Hindi translations", async ({
+  page,
+}) => {
+  await page
+    .getByRole("navigation", { name: "Main navigation", exact: true })
+    .getByRole("button", { name: "Notebook", exact: true })
+    .click();
+  await page.getByRole("button", { name: /Money dictionary/ }).click();
+  await expect(page.locator(".glossary-card")).toHaveCount(46);
+  expect(await page.locator("#main").innerText()).not.toMatch(
+    /[\u0900-\u097f]|\b(chai|paisa|paise|kirana|bachat)\b/i,
+  );
+  await page
+    .getByRole("combobox", { name: "Language", exact: true })
+    .selectOption("both");
+  await expect(
+    page.locator('.glossary-card [lang="hi"]').first(),
+  ).toBeVisible();
+  await page
+    .getByRole("combobox", { name: "Language", exact: true })
+    .selectOption("en");
+  await expect(page.locator('.glossary-card [lang="hi"]')).toHaveCount(0);
+  await page.reload();
+  await expect(
+    page.getByRole("combobox", { name: "Language", exact: true }),
+  ).toHaveValue("en");
+  expect(await page.locator("#main").innerText()).not.toMatch(
+    /[\u0900-\u097f]/,
+  );
+});
+
+test("catalogue opens the chosen lesson and reloadable advanced topic directly", async ({
+  page,
+}) => {
+  await page.getByRole("button", { name: "All worlds", exact: true }).click();
+  await page
+    .getByRole("textbox", { name: "Search curriculum", exact: true })
+    .fill("Barter");
+  await page.getByText("What is Money?", { exact: true }).click();
+  await page
+    .getByRole("button", { name: /Barter to Rupee Open lesson/ })
+    .click();
+  await page
+    .getByRole("button", { name: "Open this lesson", exact: true })
+    .click();
+  await expect(
+    page
+      .getByRole("dialog")
+      .getByRole("heading", { name: "Meet your money", exact: true }),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "Close dialog" }).click();
+  await page.goto("/#curriculum/S5.1.3");
+  await expect(
+    page.getByRole("heading", { name: "Unit Economics", exact: true }),
+  ).toBeVisible();
+  await expect(page.locator(".topic-outline")).toContainText(
+    "Cost and profit per unit",
+  );
+  await expect(page.getByText("Draft outline", { exact: true })).toBeVisible();
+  await page.reload();
+  await expect(
+    page.getByRole("heading", { name: "Unit Economics", exact: true }),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "Next topic", exact: true }).click();
+  await expect(
+    page.getByRole("heading", {
+      name: "Cyclical vs Defensive Businesses",
+      exact: true,
+    }),
+  ).toBeVisible();
+  await page.goBack();
+  await expect(
+    page.getByRole("heading", { name: "Unit Economics", exact: true }),
+  ).toBeVisible();
+});
+
+for (const theme of ["light", "dark"]) {
+  test(`insurance reading and catalogue guides are accessible in ${theme} mode`, async ({
+    page,
+  }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.setViewportSize({ width: 390, height: 844 });
+    if (theme === "dark") {
+      await page
+        .getByRole("navigation", { name: "Mobile navigation" })
+        .getByRole("button", { name: "Me", exact: true })
+        .click();
+      await page
+        .getByRole("button", { name: "After hours", exact: true })
+        .click();
+    }
+    await page
+      .getByRole("navigation", { name: "Mobile navigation" })
+      .getByRole("button", { name: "Insurance", exact: true })
+      .click();
+    await expect(
+      page.getByRole("heading", {
+        name: "Insurance, clearly explained.",
+        exact: true,
+      }),
+    ).toBeVisible();
+    await expect(page.locator(".insurance-guide-card")).toHaveCount(8);
+    await page
+      .getByRole("group", { name: "Guide level", exact: true })
+      .getByRole("button", { name: "Advanced", exact: true })
+      .click();
+    await expect(page.locator(".insurance-guide-card")).toHaveCount(3);
+    await page
+      .getByRole("button", { name: /Deductibles, top-ups and restored cover/ })
+      .click();
+    await expect(page.locator(".reader-example")).toContainText("₹30,000");
+    await page
+      .getByRole("navigation", { name: "In this guide", exact: true })
+      .getByRole("link")
+      .first()
+      .click();
+    await expect(
+      page.locator("#guide-section-deductibles-and-layers-0"),
+    ).toBeFocused();
+    expect(await page.locator("#main").innerText()).not.toMatch(
+      /[\u0900-\u097f]/,
+    );
+    expect(
+      (await new AxeBuilder({ page }).include("#main").analyze()).violations,
+    ).toEqual([]);
+    await page
+      .getByRole("button", { name: "All insurance guides", exact: true })
+      .click();
+    await page
+      .getByRole("button", {
+        name: "Explore all 39 insurance topics in World 12",
+        exact: true,
+      })
+      .click();
+    await page.getByText("Term Insurance", { exact: true }).click();
+    await page
+      .getByRole("button", {
+        name: /Claim Settlement Ratio and What It Hides Read guide/,
+      })
+      .click();
+    await expect(
+      page.getByRole("heading", {
+        name: "Compare policies without being misled",
+        exact: true,
+      }),
+    ).toBeVisible();
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+    ).toBe(true);
+  });
+}
+
+test("all-world search reaches a topic outside the selected world", async ({
+  page,
+}) => {
+  await page.getByRole("button", { name: "All worlds", exact: true }).click();
+  await page
+    .getByRole("checkbox", { name: "Search all 16 worlds", exact: true })
+    .check();
+  await page
+    .getByRole("textbox", { name: "Search curriculum", exact: true })
+    .fill("Unit Economics");
+  const unit = page
+    .locator(".unit-accordion")
+    .filter({ hasText: "Unit Economics" })
+    .first();
+  await unit.locator("summary").click();
+  await unit.getByRole("button", { name: /^Unit Economics/ }).click();
+  await expect(
+    page.getByRole("heading", { name: "Unit Economics", exact: true }),
+  ).toBeVisible();
+  await expect(page).toHaveURL(/#curriculum\/S5\.1\.3$/);
+});

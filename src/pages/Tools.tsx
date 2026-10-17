@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { Language } from "../content/lessons";
-import { emi, rupees, sip } from "../lib/learning";
+import { compound, emi, rupees, sip } from "../lib/learning";
 import Mia from "../components/Mia";
 import { Icon } from "../components/UI";
 type Tool = "sip" | "emi" | "inflation" | "emergency";
@@ -40,6 +40,10 @@ export default function Tools({ language }: { language: Language }) {
     [rate, setRate] = useState(10),
     [years, setYears] = useState(10),
     [saved, setSaved] = useState(0);
+  const [investmentMode, setInvestmentMode] = useState<"sip" | "lump">("sip");
+  const [lumpSum, setLumpSum] = useState(100000);
+  const once = tool === "sip" && investmentMode === "lump";
+  const investedAmount = once ? lumpSum : amount;
   const hi = language === "hi";
   const config = tools.find((t) => t.id === tool)!;
   const change = (id: Tool) => {
@@ -51,7 +55,9 @@ export default function Tools({ language }: { language: Language }) {
   };
   const total =
     tool === "sip"
-      ? sip(amount, rate, years)
+      ? once
+        ? compound(lumpSum, rate, years)
+        : sip(amount, rate, years)
       : tool === "emi"
         ? emi(amount, rate, years)
         : tool === "inflation"
@@ -59,7 +65,9 @@ export default function Tools({ language }: { language: Language }) {
           : amount * years;
   const principal =
     tool === "sip"
-      ? amount * years * 12
+      ? once
+        ? lumpSum
+        : amount * years * 12
       : tool === "emi"
         ? amount
         : tool === "inflation"
@@ -67,7 +75,10 @@ export default function Tools({ language }: { language: Language }) {
           : saved;
   const chartPoints = Array.from({ length: 41 }, (_, i) => {
     const elapsed = (years * i) / 40;
-    if (tool === "sip") return sip(amount, rate, elapsed);
+    if (tool === "sip")
+      return once
+        ? compound(lumpSum, rate, elapsed)
+        : sip(amount, rate, elapsed);
     if (tool === "inflation") return amount / (1 + rate / 100) ** elapsed;
     if (tool === "emergency") return amount * elapsed;
     const months = elapsed * 12,
@@ -127,7 +138,11 @@ export default function Tools({ language }: { language: Language }) {
           <span className="eyebrow">{config.tag}</span>
           <h2>
             {tool === "sip"
-              ? "Small habits. Room to grow."
+              ? once
+                ? hi
+                  ? "एक बार इन्वेस्ट करें। समय दें।"
+                  : "Invest once. Give it time."
+                : "Small habits. Room to grow."
               : tool === "emi"
                 ? "The real cost of borrowing."
                 : tool === "inflation"
@@ -136,28 +151,56 @@ export default function Tools({ language }: { language: Language }) {
           </h2>
           <p>
             {tool === "sip"
-              ? "See how monthly contributions could add up over time."
+              ? once
+                ? hi
+                  ? "एक बार लगाए पैसे मानकर लिए रेट पर कैसे बदलते हैं, देखें।"
+                  : "See how a one-time investment could change over time."
+                : "See how monthly contributions could add up over time."
               : tool === "emi"
                 ? "Explore a fixed-rate, reducing-balance loan."
                 : tool === "inflation"
                   ? "Look at today’s money through tomorrow’s prices."
                   : "Start with your essentials. Make the buffer fit your life."}
           </p>
+          {tool === "sip" && (
+            <div
+              className="investment-mode"
+              role="group"
+              aria-label={hi ? "इन्वेस्ट करने का तरीका" : "Investment mode"}
+            >
+              <button
+                aria-pressed={!once}
+                onClick={() => setInvestmentMode("sip")}
+              >
+                {hi ? "हर महीने (SIP)" : "Monthly (SIP)"}
+              </button>
+              <button
+                aria-pressed={once}
+                onClick={() => setInvestmentMode("lump")}
+              >
+                {hi ? "एक बार (लंपसम)" : "Lump sum"}
+              </button>
+            </div>
+          )}
           <Slider
             label={
               tool === "sip"
-                ? "Monthly investment"
+                ? once
+                  ? hi
+                    ? "एक बार की रकम"
+                    : "One-time investment"
+                  : "Monthly investment"
                 : tool === "emi"
                   ? "Loan amount"
                   : tool === "inflation"
                     ? "Money today"
                     : "Monthly essentials"
             }
-            value={amount}
-            onChange={setAmount}
+            value={investedAmount}
+            onChange={once ? setLumpSum : setAmount}
             min={tool === "emi" ? 10000 : 500}
             max={
-              tool === "emi"
+              tool === "emi" || once
                 ? 10000000
                 : tool === "inflation"
                   ? 1000000
@@ -177,7 +220,7 @@ export default function Tools({ language }: { language: Language }) {
               }
               value={rate}
               onChange={setRate}
-              min={0}
+              min={tool === "sip" ? -20 : 0}
               max={tool === "emi" ? 24 : 20}
               step={0.5}
               display={`${rate}%`}
@@ -211,7 +254,11 @@ export default function Tools({ language }: { language: Language }) {
             <Icon name="Info" size={18} />
             <p>
               {tool === "sip"
-                ? "Monthly deposits at month-end. Constant assumed return, compounded monthly. Fees, taxes, and inflation excluded."
+                ? once
+                  ? hi
+                    ? "रकम शुरुआत में एक बार लगाई है। सालाना कंपाउंडिंग और वही रेट माना है। रेट असली रिटर्न नहीं है; फ़ीस, टैक्स और महँगाई नहीं जोड़े। नुकसान भी हो सकता है।"
+                    : "One deposit at the start, compounded yearly at a constant assumed rate. No further deposits. Fees, taxes and inflation excluded. Returns can be negative."
+                  : "Monthly deposits at month-end. Constant assumed return, compounded monthly. Fees, taxes, and inflation excluded."
                 : tool === "emi"
                   ? "Fixed interest, monthly payments, no fees or prepayments. Actual lender terms can differ."
                   : tool === "inflation"
@@ -235,7 +282,9 @@ export default function Tools({ language }: { language: Language }) {
           </div>
           <p>
             {tool === "sip"
-              ? `after ${years} years of showing up`
+              ? once
+                ? `after ${years} years from one deposit`
+                : `after ${years} years of monthly deposits`
               : tool === "emi"
                 ? `each month, for ${years} years`
                 : tool === "inflation"
@@ -306,7 +355,7 @@ export default function Tools({ language }: { language: Language }) {
             <div>
               <span>
                 {tool === "sip"
-                  ? "Illustrative growth"
+                  ? "Illustrative gain or loss"
                   : tool === "emi"
                     ? "Total interest"
                     : tool === "inflation"

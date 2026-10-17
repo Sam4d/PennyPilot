@@ -18,3 +18,7 @@ The product is **Penny Pilot**, never the earlier working name. The mascot is **
 - Do not commit signing keys, caches, personal backups, built artifacts, or `local.properties`. Keep TLS and checksum checks enabled.
 
 See README, docs/CONTENT.md, docs/RELEASE-PLAN.md and docs/ANDROID.md for current scope and release gates. The original master brief is aspirational; do not mark its entire checklist complete merely because the shell exists.
+
+- English mode hides Hindi translations in the glossary; `both` deliberately pairs the languages. Validate authored English fields and preserve user-written notes.
+- All curriculum topics/units must remain directly openable. Link to the matching lesson/insurance guide when authored; otherwise show an honestly labelled draft outline. Never turn an outline into fake lesson completion.
+- Insurance readings are in src/content/insurance-guides.ts; their guide IDs, language coverage and mappings to all 39 World 12 topics are tested.

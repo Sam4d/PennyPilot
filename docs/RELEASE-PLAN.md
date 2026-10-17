@@ -1,6 +1,6 @@
 # Seven-day first-release plan
 
-A week can produce a tested beginner release. It cannot honestly produce thousands of expert-reviewed multilingual levels. The current 0.4 app is the usable foundation for that release; the complete curriculum remains the product roadmap.
+A week can produce a tested beginner release. It cannot honestly produce thousands of expert-reviewed multilingual levels. The current 0.5 app is the usable foundation for that release; the complete curriculum remains the product roadmap.
 
 | Day | Deliverable | Release gate |
 | --- | --- | --- |
@@ -39,3 +39,7 @@ Added three Hindi-first multilingual insurance drafts with 24 exercises, fiction
 ## Borrowing expansion (0.4)
 
 Added EMI and same-purchase cost comparison, taking the preview to 15 lessons and 120 questions. One-to-one matching is the sixth implemented exercise engine. Repayment and fee/discount models add explicit arithmetic and assumptions, not current loan offers. Four chapter groups preserve prior lesson ordering and IDs. Financial/language approval and production release checks remain outstanding.
+
+## Insurance and library access (0.5)
+
+Added lump-sum investing, a separate insurance section with eight multilingual reading guides, open access to every catalogue topic/unit, direct links, and a safe web update notice. Fixed English-mode dictionary leakage. Full interactive content for outlined topics, expert review, complete localisation and physical-device/production release validation remain open. Overall full-project progress is estimated at 13% using PROGRESS.md.

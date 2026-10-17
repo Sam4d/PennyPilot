@@ -19,3 +19,6 @@ jobs:
       - run: npm run test:browser
         env:
           PENNY_USE_PLAYWRIGHT_BROWSER: '1'
+      - run: npm run test:updates
+        env:
+          PENNY_USE_PLAYWRIGHT_BROWSER: '1'
