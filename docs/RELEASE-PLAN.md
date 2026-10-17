@@ -1,6 +1,6 @@
 # Seven-day first-release plan
 
-A week can produce a tested beginner release. It cannot honestly produce thousands of expert-reviewed multilingual levels. The current 0.2 app is the usable foundation for that release; the complete curriculum remains the product roadmap.
+A week can produce a tested beginner release. It cannot honestly produce thousands of expert-reviewed multilingual levels. The current 0.3 app is the usable foundation for that release; the complete curriculum remains the product roadmap.
 
 | Day | Deliverable | Release gate |
 | --- | --- | --- |
@@ -31,3 +31,7 @@ Google sign-in and cloud sync remain intentionally outside the first release. Do
 ## Current content expansion (0.2)
 
 Added inflation/purchasing power, fictional bank statements, credit-card minimum due, and debt repayment strategies: four new Hindi-first multilingual drafts with eight exercises each. All ten shipped lessons now have interactive worked-example models. Insurance foundations, primary-source review, complete Hindi interface localisation, four-level depth, and device testing remain open release work. Existing six-lesson progress IDs and version-one backup format are preserved; Android version code is now 2.
+
+## Protection expansion (0.3)
+
+Added three Hindi-first multilingual insurance drafts with 24 exercises, fictional policy documents and interactive coverage, health-claim and family-support models. Thirteen lessons and 104 exercises are playable. The path has three named chapters with groups capped at six nodes. Primary-source access for IRDAI remains blocked; financial/language approval and real-device release gates remain open.

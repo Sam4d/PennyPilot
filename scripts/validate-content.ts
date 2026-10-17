@@ -79,11 +79,13 @@ for (const l of lessons) {
     if (q.calculation) {
       const { operation, values: v } = q.calculation;
       const recomputed =
-        operation === "multiply"
-          ? v.reduce((a, b) => a * b, 1)
-          : operation === "subtract"
-            ? v.slice(1).reduce((a, b) => a - b, v[0])
-            : v[0] * (1 + v[1]) ** v[2];
+        operation === "min"
+          ? Math.min(...v)
+          : operation === "multiply"
+            ? v.reduce((a, b) => a * b, 1)
+            : operation === "subtract"
+              ? v.slice(1).reduce((a, b) => a - b, v[0])
+              : v[0] * (1 + v[1]) ** v[2];
       if (Math.abs(recomputed - Number(q.answer)) > 0.01)
         errors.push(`${q.id}: expected ${recomputed}, got ${q.answer}`);
     }

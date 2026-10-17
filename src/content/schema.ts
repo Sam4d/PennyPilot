@@ -17,11 +17,12 @@ export type Exercise = {
   answer: number | number[];
   explanation: Text;
   calculation?: {
-    operation: "subtract" | "multiply" | "compound";
+    operation: "subtract" | "multiply" | "compound" | "min";
     values: number[];
   };
 };
 export type Lesson = {
+  chapter?: "foundation" | "everyday" | "protection";
   id: string;
   skill: string;
   title: Text;

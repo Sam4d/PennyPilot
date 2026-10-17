@@ -32,5 +32,24 @@ export default defineConfig({
       },
     }),
   ],
+  build: {
+    rolldownOptions: {
+      output: {
+        codeSplitting: {
+          groups: [
+            {
+              name: "react",
+              test: /[\/]node_modules[\/](react|react-dom|scheduler)[\/]/,
+            },
+            { name: "storage", test: /[\/]node_modules[\/]dexie[\/]/ },
+            {
+              name: "lessons",
+              test: /[\/]src[\/]content[\/](schema|lessons|everyday|protection)\.ts$/,
+            },
+          ],
+        },
+      },
+    },
+  },
   test: { include: ["tests/**/*.test.ts"] },
 });

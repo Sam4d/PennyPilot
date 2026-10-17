@@ -270,7 +270,7 @@ export default function Profile({
             <details>
               <summary>About this first release</summary>
               <p>
-                Penny Pilot 0.2 · {lessons.length} editorial-preview lessons,{" "}
+                Penny Pilot 0.3 · {lessons.length} editorial-preview lessons,{" "}
                 {lessons.reduce((n, l) => n + l.exercises.length, 0)} exercises,
                 {glossary.length} glossary entries, four calculators, and a
                 16-world curriculum outline. Content needs expert financial and

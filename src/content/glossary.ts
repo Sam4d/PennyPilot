@@ -192,4 +192,53 @@ export const glossary = [
     "A charge that may apply to early repayment under a loan’s actual terms. Check whether it applies before comparing repayment options.",
     "लोन समय से पहले चुकाने पर लग सकने वाली फ़ीस। पेमेंट का प्लान बनाने से पहले अपने लोन के असली नियम देखें।",
   ],
+
+  [
+    "Insurance premium",
+    "कवर की कीमत (प्रीमियम)",
+    "The price paid for insurance cover. It is not your personal savings balance or a guaranteed claim amount.",
+    "इंश्योरेंस कवर लेने की कीमत। यह आपका निजी बचत बैलेंस या क्लेम में पक्की मिलने वाली रकम नहीं है।",
+  ],
+  [
+    "Cover limit",
+    "कवर की सीमा (लिमिट)",
+    "The maximum payable under specified policy terms. Other conditions may reduce payment for a particular claim.",
+    "पॉलिसी की तय शर्तों में मिलने वाली अधिकतम रकम। किसी क्लेम में दूसरी शर्तों से कम रकम मिल सकती है।",
+  ],
+  [
+    "Exclusion",
+    "कवर से बाहर (एक्सक्लूज़न)",
+    "A risk, event or cost the policy does not cover under its terms. Check the exact wording and any exceptions.",
+    "ऐसा रिस्क, घटना या खर्च जो पॉलिसी की शर्तों में कवर नहीं है। असली शब्द और कोई छूट हो तो देखें।",
+  ],
+  [
+    "Co-pay",
+    "आपका प्रतिशत वाला हिस्सा (को-पे)",
+    "A share of eligible claim costs that you must pay, often stated as a percentage. The policy defines how it applies.",
+    "क्लेम में माने गए खर्च का वह हिस्सा जो आपको देना है, अक्सर प्रतिशत में। कैसे लगेगा, यह पॉलिसी बताती है।",
+  ],
+  [
+    "Deductible",
+    "पहले खुद देने की रकम (डिडक्टिबल)",
+    "An amount you bear before the insurer pays eligible costs under the policy. Check the period and how it combines with other conditions.",
+    "कंपनी के पेमेंट से पहले शर्तों के हिसाब से खुद दी जाने वाली रकम। कब लागू है और दूसरी शर्तों के साथ कैसे लगेगी, चेक करें।",
+  ],
+  [
+    "Waiting period",
+    "कवर शुरू होने का इंतज़ार (वेटिंग पीरियड)",
+    "A stated time before specified cover applies. Start dates, exceptions and continuity rules depend on the policy and applicable rules.",
+    "किसी तय कवर के लागू होने से पहले का समय। शुरू की तारीख, छूट और पुराना कवर जारी रखने के नियम असली पॉलिसी और लागू नियमों पर हैं।",
+  ],
+  [
+    "Insurance claim",
+    "कवर के पैसे माँगना (क्लेम)",
+    "A request for an insurance payment. Approval and the amount depend on evidence and the policy’s terms.",
+    "इंश्योरेंस से पेमेंट माँगना। मंज़ूरी और रकम सबूत और पॉलिसी की शर्तों पर निर्भर हैं।",
+  ],
+  [
+    "Pure term life cover",
+    "तय अवधि का लाइफ़ कवर (प्योर टर्म)",
+    "Life protection for a stated period under the policy. Pure term cover generally has no payment simply for surviving to the end; check the exact product.",
+    "पॉलिसी के हिसाब से तय अवधि का लाइफ़ कवर। प्योर टर्म में आम तौर पर अवधि पूरी होने पर जीवित रहने की रकम नहीं मिलती। असली प्लान चेक करें।",
+  ],
 ];

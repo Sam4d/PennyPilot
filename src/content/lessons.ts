@@ -1,6 +1,7 @@
 import { choice, numeric, order, t } from "./schema";
 import type { Lesson } from "./schema";
 import { everydayLessons } from "./everyday";
+import { protectionLessons } from "./protection";
 export { read, t } from "./schema";
 export type { Language, Text, Exercise, Lesson } from "./schema";
 const yn = [t("True", "सही", "Sahi"), t("False", "गलत", "Galat")];
@@ -1345,4 +1346,5 @@ export const lessons: Lesson[] = [
     reviewStatus: "editorial-draft",
   },
   ...everydayLessons,
+  ...protectionLessons,
 ];

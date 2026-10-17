@@ -2,6 +2,7 @@
 
 The primary teaching script is **simple Hindi in Devanagari, with familiar Hinglish elements**. Mia should sound like a helpful friend explaining money, not a textbook or a formal bank notice.
 
+- Use brackets in Hindi too when helpful: पॉलिसी की कीमत (प्रीमियम), आपका प्रतिशत वाला हिस्सा (को-पे), तय समय तक रुकना (वेटिंग पीरियड). Explain the idea before relying on the term; do not add brackets to every ordinary word.
 - Use short, natural sentences. Address the learner respectfully as आप.
 - Prefer everyday words: कमाई, पैसे, खर्च, बचत, प्लान, चेक, and फिर इन्वेस्ट करें.
 - Keep familiar finance words: बजट, EMI, SIP, बैंक बैलेंस, रिफ़ंड, कंपाउंडिंग, and रिटर्न. Explain each idea before relying on its name.

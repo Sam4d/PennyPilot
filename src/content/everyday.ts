@@ -57,6 +57,7 @@ const debts = [
 export const everydayLessons: Lesson[] = [
   {
     id: "inflation",
+    chapter: "everyday",
     skill: "S0.5.4",
     title: t(
       "Same rupees. Smaller basket.",
@@ -304,6 +305,7 @@ export const everydayLessons: Lesson[] = [
   },
   {
     id: "banking",
+    chapter: "everyday",
     skill: "S0.4.7",
     title: t(
       "Read your bank’s money story",
@@ -541,6 +543,7 @@ export const everydayLessons: Lesson[] = [
   },
   {
     id: "credit-card",
+    chapter: "everyday",
     skill: "S0.6.4",
     title: t(
       "The minimum-due trap",
@@ -796,6 +799,7 @@ export const everydayLessons: Lesson[] = [
   },
   {
     id: "debt-plan",
+    chapter: "everyday",
     skill: "S0.6.8",
     title: t(
       "A calmer way out of debt",

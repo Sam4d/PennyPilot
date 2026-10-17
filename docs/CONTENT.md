@@ -10,9 +10,9 @@ At four 3–5 minute levels per explicit skill, the eventual outline implies rou
 
 ## What is shipped
 
-Ten lesson drafts with eight questions each. Each has a relatable hook, concept, worked example, mistake, three note points, and a practical action. Full English, Devanagari Hindi, and Roman-script Hinglish are included. Questions use Indian settings and explicit illustrative amounts. Five exercise engines are implemented: choice, numeric entry, sequencing, document-row discovery, and bucket sorting. Document discovery uses fictional bank statements, bills, grocery labels and loan summaries. Sorting uses native radio controls so it works with touch, keyboard and assistive technology without dragging. The remaining 11 exercise forms must be built and tested before claiming the full specification.
+Thirteen lesson drafts with eight questions each. Each has a relatable hook, concept, worked example, mistake, three note points, and a practical action. Full English, Devanagari Hindi, and Roman-script Hinglish are included. Questions use Indian settings and explicit illustrative amounts. Five exercise engines are implemented: choice, numeric entry, sequencing, document-row discovery, and bucket sorting. Document discovery uses fictional bank statements, bills, grocery labels and loan summaries. Sorting uses native radio controls so it works with touch, keyboard and assistive technology without dragging. The remaining 11 exercise forms must be built and tested before claiming the full specification.
 
-The two-section path is a foundation sampler across World 0, not a claim that all World 0 units are finished. The catalogue keeps the larger syllabus visible while labelling unimplemented material.
+The three-section path is a foundation sampler across World 0, not a claim that all World 0 units are finished. The catalogue keeps the larger syllabus visible while labelling unimplemented material.
 
 ## Primary-source review queue
 
@@ -24,10 +24,10 @@ The two-section path is a foundation sampler across World 0, not a claim that al
 | Mutual funds | https://www.amfiindia.com/ | Scheme structure, factsheet definitions, riskometer |
 | Content inspiration | https://zerodha.com/varsity/ and https://zerodha.com/varsity/hi/ | Coverage comparison and learning progression, not copying text or artwork |
 | Tax | Income Tax Department official publications | Assessment year, effective dates, slabs, deductions, capital gains |
-| Protection | IRDAI official policyholder resources | Cover terminology, exclusions, claims and current regulations |
+| Protection | https://irdai.gov.in/ | Cover terminology, exclusions, claims and current regulations |
 | Retirement | EPFO, PFRDA, National Savings official resources | Contribution, withdrawal and taxation rules |
 
-Live fetches to the first five destinations returned proxy `403 Forbidden`. Their content was not read in this build. Adding domains to a saved draft does not activate network access; apply the settings and retry. Do not mark a fact as current merely because a URL exists.
+Live fetches to the first five destinations returned proxy `403 Forbidden`. The insurance expansion also attempted https://irdai.gov.in/ and https://policyholder.gov.in/; both returned proxy tunnel `403 Forbidden`. Their content was not read in this build. Adding domains to a saved draft does not activate network access; apply the settings and retry. Do not mark a fact as current merely because a URL exists.
 
 ## Review pipeline
 
@@ -45,8 +45,14 @@ Live fetches to the first five destinations returned proxy `403 Forbidden`. Thei
 
 Use a separate versioned `rules.json` with `{value, unit, source, effective_from, last_verified, review_status}` per key. The date must reflect a real source check. Resolve `{{rule:key}}` through one loader; never duplicate rates in prose. Show source and verification date beside a displayed rate. Flag a rule older than six months and never silently apply a rule to a different assessment year. Cache a reviewed bundled version; online updates require schema/version validation and a trusted HTTPS source. Offline learning must remain available without inventing newer values.
 
-No rule-dependent lesson is shipped in 0.2, so there is no fake “last verified” date or placeholder rate feed.
+No rule-dependent lesson is shipped in 0.3, so there is no fake “last verified” date or placeholder rate feed.
 
 ## Validation boundaries
 
 The current validator verifies presence of all content languages, Devanagari presence, identifiers, source links, eight questions per lesson, answer ranges, complete orderings, glossary records, and all numeric results from separate operands. It flags unresolved rule references and selected promotional phrases. It does not establish factual accuracy, natural translation, reading level, or regulatory freshness. Those require editorial review.
+
+## Protection lesson assumptions
+
+The three new safety-net lessons cover insurance roles, health claim cost sharing and pure term life cover. All contract summaries, premiums and claim figures are fictional. No real product prices, universal waiting periods, current tax benefits, claim deadlines or specific regulatory entitlements are asserted.
+
+The health model applies co-pay to eligible costs, then caps insurer payment at available cover. Excluded costs, co-pay and any amount beyond remaining cover add up to the learner’s share. There is no deductible, restoration, second payer or other sub-limit in this simplified model. The family-support model uses unchanged monthly costs, a selected number of years, ₹2 lakh debt and ₹3 lakh usable savings. It omits inflation, growth, other income and existing cover and is explicitly not a recommended insurance amount.

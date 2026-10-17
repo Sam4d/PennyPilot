@@ -4,18 +4,18 @@ A thoughtful, playful finance-learning app for India. **Penny Pilot** is the pro
 
 ## What works in this preview
 
-- Ten foundation lessons: money and barter, cash flow, budgeting, UPI scam awareness, compounding, emergency savings, inflation, bank statements, credit-card bills, and debt repayment.
-- 80 authored exercises across five engines: multiple choice / true–false, numeric answers, sequencing, document-row discovery, and accessible bucket sorting; immediate explanation and optional deeper context.
+- Thirteen foundation lessons: money and barter, cash flow, budgeting, UPI scam awareness, compounding, emergency savings, inflation, bank statements, credit-card bills, debt repayment, insurance basics, health cover and term life cover.
+- 104 authored exercises across five engines: multiple choice / true–false, numeric answers, sequencing, document-row discovery, and accessible bucket sorting; immediate explanation and optional deeper context.
 - English, conversational Hindi, Hinglish, and paired English/Hindi **lesson content**. Much of the surrounding interface is still English.
 - Progress saved after each answer, resume after reload, XP, calendar-day streaks, daily goals, simplified SM-2 revision, and mistakes practice.
-- Automatic note cards, personal notes, search, 32 glossary entries, and print-to-PDF notebook export on the web.
+- Automatic note cards, personal notes, search, 40 glossary entries, and print-to-PDF notebook export on the web.
 - Interactive worked-example sandboxes inside the swipeable concept cards, plus four standalone calculators: end-of-month SIP, reducing-balance EMI, purchasing-power erosion, and an emergency buffer. Assumptions and limitations are visible.
 - IndexedDB on web and a native SQLite adapter on Android. JSON backup/restore; native backup uses the system share sheet.
 - Light/dark themes, reduced-motion support, text scaling with a reflow layout up to 200%, keyboard interaction, and focus-managed dialogs.
 - Installable PWA, precached content and local fonts, plus a generated Capacitor Android project with Mia launcher assets and Android Auto Backup enabled.
 - A searchable **16-world curriculum outline**, preserving 189 units and 946 explicitly identified skills from the supplied brief.
 
-This is a working **0.2 editorial preview**, not the full multi-hundred-hour course. An outline is not a completed lesson. There are no fabricated learner statistics, leaderboards, or completed-content counts.
+This is a working **0.3 editorial preview**, not the full multi-hundred-hour course. An outline is not a completed lesson. There are no fabricated learner statistics, leaderboards, or completed-content counts.
 
 ## Run
 
@@ -54,7 +54,7 @@ Fresh installs start in **simple Devanagari Hindi with familiar Hinglish element
 npm run test:browser
 ```
 
-The cloud configuration uses the installed `/usr/bin/chromium`. On another machine, change `executablePath` in `playwright.config.ts` or install Playwright Chromium and remove that override. Tests cover the full lesson loop for all ten lessons, answer recovery, notebook persistence, calculators, language switching, backup import/export, mistakes, text enlargement, bank-statement and sorting recovery, version-one backup compatibility, Hindi slider models, and accessibility checks in light/dark themes.
+The cloud configuration uses the installed `/usr/bin/chromium`. On another machine, change `executablePath` in `playwright.config.ts` or install Playwright Chromium and remove that override. Tests cover the full lesson loop for all thirteen lessons, answer recovery, notebook persistence, calculators, language switching, backup import/export, mistakes, text enlargement, bank-statement and sorting recovery, insurance model limits and cost sharing, version-one backup compatibility, Hindi slider models, and accessibility checks in light/dark themes.
 
 ## Build artifacts
 
@@ -72,7 +72,7 @@ See [Android build guide](docs/ANDROID.md). The native project targets Android 7
 - `src/lib/learning.ts`: pure financial calculations, scoring, streak, and revision scheduling.
 - `src/lib/store.ts`: versioned progress, IndexedDB/SQLite adapters, queued writes, and validated backups.
 - `src/components/Mia.tsx`: original vector mascot, with motion limited to transforms.
-- `src/pages/`: learning path, lesson player, revision, tools, notebook, profile, and curriculum browser. Secondary screens are lazy loaded.
+- `src/pages/`: learning path, lesson player, revision, tools, notebook, profile, and curriculum browser. Secondary screens are lazy loaded. The production build separates lesson data, React and local-storage libraries for caching; the first page still loads its required data and libraries.
 - `scripts/validate-content.ts`: language coverage, identifiers, answer ranges, source links, arithmetic recomputation, and unresolved rules.
 - `docs/MASTER-BRIEF.md`: supplied long-term requirements; later user directions supersede its placeholder branding and colours.
 

@@ -43,7 +43,31 @@ await p.getByRole("button", { name: "Close dialog" }).click();
 await p.reload();
 await p.getByRole("button", { name: "Continue lesson", exact: true }).click();
 await p.getByText("That’s it. Nicely done!").waitFor();
+await p.getByRole("button", { name: "Close dialog" }).click();
+await p
+  .getByRole("button", {
+    name: "Who pays which part?, available lesson",
+    exact: true,
+  })
+  .click();
+await p.getByRole("button", { name: "Let’s learn this" }).click();
+await p.getByRole("button", { name: "Concept 3", exact: true }).click();
+const health = p.locator(".visual-health-cover");
+await health
+  .getByRole("slider", {
+    name: "Your share of eligible costs (co-pay %)",
+    exact: true,
+  })
+  .fill("30");
+await health
+  .getByRole("slider", { name: "Available cover in rupees", exact: true })
+  .fill("0");
+await health
+  .locator(".claim-legend > span")
+  .nth(1)
+  .getByText("₹50,000", { exact: true })
+  .waitFor();
 console.log(
-  "PASS: production service worker, offline reload, lazy lesson player, answer save, offline curriculum, and new bank-document answer recovery.",
+  "PASS: production service worker, offline reload, lazy lesson player, answer save, offline curriculum, and new bank-document answer recovery, and the insurance model.",
 );
 await b.close();

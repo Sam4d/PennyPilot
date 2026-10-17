@@ -4,6 +4,7 @@ The product is **Penny Pilot**, never the earlier working name. The mascot is **
 
 - Use the existing checkout. Cloud tasks are already isolated; do not create a Git worktree unless the user requests it.
 - New installs start in simple Devanagari Hindi with familiar Hinglish terms. Preserve existing saved language choices. Prefer कमाई, पैसे, प्लान, चेक, and फिर इन्वेस्ट करें over formal wording; explain technical terms before using them.
+- Hindi may also use brackets to explain unfamiliar terms: "पॉलिसी की कीमत (प्रीमियम)". Keep explanations short and natural; avoid unexplained jargon in either language.
 - English uses simple, standard English without Hindi or Roman Hindi. Explain necessary jargon in brackets on first use, preferably after the plain meaning: "the amount you start with (principal)". The Hindi variant is Devanagari Hindi with familiar Hinglish terms; the optional Roman Hinglish variant is separate.
 - End each user-facing task response with an estimated overall project completion percentage. Use the full agreed app and curriculum scope and the evidence/weights in docs/PROGRESS.md; label the number as an estimate, not measured hours or approved content. Do not inflate progress for routine fixes.
 - Keep lesson content genuinely multilingual: English, conversational Hindi, and Roman Hinglish. The shell's remaining English strings are an explicit localisation backlog.

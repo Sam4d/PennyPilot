@@ -529,3 +529,135 @@ test("a version-one backup keeps six completed lessons and opens the new batch",
     }),
   ).toBeVisible();
 });
+
+for (const theme of ["light", "dark"]) {
+  test(`protection models explain shares and limits in ${theme} mode`, async ({
+    page,
+  }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.setViewportSize({ width: 360, height: 800 });
+    if (theme === "dark") {
+      await page
+        .getByRole("navigation", { name: "Mobile navigation" })
+        .getByRole("button", { name: "Me", exact: true })
+        .click();
+      await page
+        .getByRole("button", { name: "After hours", exact: true })
+        .click();
+      await page
+        .getByRole("navigation", { name: "Mobile navigation" })
+        .getByRole("button", { name: "Learn", exact: true })
+        .click();
+    }
+    await expect(page.locator(".path-card")).toHaveCount(3);
+    await expect(page.locator(".lesson-node")).toHaveCount(13);
+    for (const id of ["insurance", "health-cover", "term-cover"]) {
+      const lesson = lessons.find((l) => l.id === id)!;
+      await page
+        .getByRole("button", {
+          name: `${lesson.title.en}, available lesson`,
+          exact: true,
+        })
+        .click();
+      await page
+        .getByRole("button", { name: "Let’s learn this", exact: true })
+        .click();
+      await page
+        .getByRole("button", { name: "Concept 3", exact: true })
+        .click();
+      const visual = page.locator(`.visual-${id}`);
+      if (id === "insurance") {
+        await visual
+          .getByRole("button", { name: "Excluded treatment", exact: true })
+          .click();
+        await expect(
+          visual
+            .locator(".claim-legend > span")
+            .nth(1)
+            .getByText("₹40,000", { exact: true }),
+        ).toBeVisible();
+        await expect(
+          visual.getByRole("button", {
+            name: "Excluded treatment",
+            exact: true,
+          }),
+        ).toHaveAttribute("aria-pressed", "true");
+      } else if (id === "health-cover") {
+        await visual
+          .getByRole("slider", {
+            name: "Your share of eligible costs (co-pay %)",
+            exact: true,
+          })
+          .fill("30");
+        await expect(
+          visual
+            .locator(".claim-legend > span")
+            .nth(1)
+            .getByText("₹22,000", { exact: true }),
+        ).toBeVisible();
+        await visual
+          .getByRole("slider", {
+            name: "Available cover in rupees",
+            exact: true,
+          })
+          .fill("10000");
+        await expect(
+          visual
+            .locator(".claim-legend > span")
+            .nth(1)
+            .getByText("₹40,000", { exact: true }),
+        ).toBeVisible();
+        await expect(
+          visual
+            .locator(".claim-breakdown")
+            .getByText("₹18,000", { exact: true }),
+        ).toBeVisible();
+        await visual
+          .getByRole("slider", {
+            name: "Available cover in rupees",
+            exact: true,
+          })
+          .fill("0");
+        await expect(
+          visual
+            .locator(".claim-legend > span")
+            .nth(1)
+            .getByText("₹50,000", { exact: true }),
+        ).toBeVisible();
+      } else {
+        await visual
+          .getByRole("slider", {
+            name: "Monthly essential family costs",
+            exact: true,
+          })
+          .fill("10000");
+        await visual
+          .getByRole("slider", {
+            name: "Years of support in this example",
+            exact: true,
+          })
+          .fill("1");
+        await expect(
+          visual
+            .locator(".support-result")
+            .getByText("₹20,000", { exact: true }),
+        ).toBeVisible();
+        await expect(
+          visual.getByText("A planning example, not a cover recommendation", {
+            exact: true,
+          }),
+        ).toBeVisible();
+      }
+      expect(
+        (await new AxeBuilder({ page }).include(".learning-visual").analyze())
+          .violations,
+      ).toEqual([]);
+      expect(
+        await page.evaluate(
+          () => document.documentElement.scrollWidth <= innerWidth,
+        ),
+      ).toBe(true);
+      await page.getByRole("button", { name: "Close dialog" }).click();
+    }
+  });
+}

@@ -42,3 +42,52 @@ test("new learners start in simple Hindi with familiar Hinglish terms", async ({
     page.getByRole("combobox", { name: "Language", exact: true }),
   ).toHaveValue("hi");
 });
+
+test("Hindi explains insurance terms in brackets and scores a health-cost answer", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await page
+    .getByRole("button", {
+      name: "बिल का कौन सा हिस्सा आपका?, available lesson",
+      exact: true,
+    })
+    .click();
+  await page
+    .getByRole("button", { name: "पाठ शुरू करें", exact: true })
+    .click();
+  await page.getByRole("button", { name: "Concept 2", exact: true }).click();
+  await expect(
+    page
+      .getByRole("dialog")
+      .getByText(/पहले खुद देनी पड़ सकती है \(डिडक्टिबल\)/),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "Concept 3", exact: true }).click();
+  const visual = page.locator(".visual-health-cover");
+  await visual
+    .getByRole("slider", {
+      name: "कवर वाले खर्च में आपका हिस्सा (को-पे %)",
+      exact: true,
+    })
+    .fill("25");
+  await expect(
+    visual
+      .locator(".claim-legend > span")
+      .nth(1)
+      .getByText("₹20,000", { exact: true }),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "आज़माएं", exact: true }).click();
+  await page.getByRole("button", { name: /03 कवर के बाहर वाले खर्च/ }).click();
+  await page.getByRole("button", { name: "जवाब देखें", exact: true }).click();
+  await expect(page.getByText("बिल्कुल सही!", { exact: true })).toBeVisible();
+  await page.getByRole("button", { name: "आगे बढ़ें", exact: true }).click();
+  await page.getByRole("spinbutton").fill("8000");
+  await page.getByRole("button", { name: "जवाब देखें", exact: true }).click();
+  await expect(page.getByText("बिल्कुल सही!", { exact: true })).toBeVisible();
+  await page.getByRole("button", { name: "Close dialog" }).click();
+  await page.reload();
+  await page
+    .getByRole("button", { name: "पाठ जारी रखें", exact: true })
+    .click();
+  await expect(page.getByText("बिल्कुल सही!", { exact: true })).toBeVisible();
+});

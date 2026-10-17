@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { Language } from "../content/lessons";
 import { compound, rupees } from "../lib/learning";
 import { Icon } from "./UI";
+import ProtectionVisual from "./ProtectionVisual";
 export default function LearningVisual({
   lessonId,
   language,
@@ -51,6 +52,9 @@ export default function LearningVisual({
         <Icon name="MousePointer2" size={13} />
         {s("A LITTLE EXPLORATION", "थोड़ा आज़माएं", "Thoda aazmaayein")}
       </span>
+      {["insurance", "health-cover", "term-cover"].includes(lessonId) && (
+        <ProtectionVisual lessonId={lessonId} language={language} />
+      )}
       {lessonId === "inflation" && (
         <>
           <div className="visual-equation">
