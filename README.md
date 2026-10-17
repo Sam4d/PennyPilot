@@ -4,18 +4,18 @@ A thoughtful, playful finance-learning app for India. **Penny Pilot** is the pro
 
 ## What works in this preview
 
-- Thirteen foundation lessons: money and barter, cash flow, budgeting, UPI scam awareness, compounding, emergency savings, inflation, bank statements, credit-card bills, debt repayment, insurance basics, health cover and term life cover.
-- 104 authored exercises across five engines: multiple choice / true–false, numeric answers, sequencing, document-row discovery, and accessible bucket sorting; immediate explanation and optional deeper context.
+- Fifteen foundation lessons: money and barter, cash flow, budgeting, UPI scam awareness, compounding, emergency savings, inflation, bank statements, credit-card bills, debt repayment, insurance basics, health cover, term life cover, EMI and purchase-credit costs.
+- 120 authored exercises across six engines: multiple choice / true–false, numeric answers, sequencing, document-row discovery, accessible bucket sorting, and one-to-one matching; immediate explanation and optional deeper context.
 - English, conversational Hindi, Hinglish, and paired English/Hindi **lesson content**. Much of the surrounding interface is still English.
 - Progress saved after each answer, resume after reload, XP, calendar-day streaks, daily goals, simplified SM-2 revision, and mistakes practice.
-- Automatic note cards, personal notes, search, 40 glossary entries, and print-to-PDF notebook export on the web.
+- Automatic note cards, personal notes, search, 46 glossary entries, and print-to-PDF notebook export on the web.
 - Interactive worked-example sandboxes inside the swipeable concept cards, plus four standalone calculators: end-of-month SIP, reducing-balance EMI, purchasing-power erosion, and an emergency buffer. Assumptions and limitations are visible.
 - IndexedDB on web and a native SQLite adapter on Android. JSON backup/restore; native backup uses the system share sheet.
 - Light/dark themes, reduced-motion support, text scaling with a reflow layout up to 200%, keyboard interaction, and focus-managed dialogs.
 - Installable PWA, precached content and local fonts, plus a generated Capacitor Android project with Mia launcher assets and Android Auto Backup enabled.
 - A searchable **16-world curriculum outline**, preserving 189 units and 946 explicitly identified skills from the supplied brief.
 
-This is a working **0.3 editorial preview**, not the full multi-hundred-hour course. An outline is not a completed lesson. There are no fabricated learner statistics, leaderboards, or completed-content counts.
+This is a working **0.4 editorial preview**, not the full multi-hundred-hour course. An outline is not a completed lesson. There are no fabricated learner statistics, leaderboards, or completed-content counts.
 
 ## Run
 
@@ -54,7 +54,7 @@ Fresh installs start in **simple Devanagari Hindi with familiar Hinglish element
 npm run test:browser
 ```
 
-The cloud configuration uses the installed `/usr/bin/chromium`. On another machine, change `executablePath` in `playwright.config.ts` or install Playwright Chromium and remove that override. Tests cover the full lesson loop for all thirteen lessons, answer recovery, notebook persistence, calculators, language switching, backup import/export, mistakes, text enlargement, bank-statement and sorting recovery, insurance model limits and cost sharing, version-one backup compatibility, Hindi slider models, and accessibility checks in light/dark themes.
+The cloud configuration uses the installed `/usr/bin/chromium`. On another machine, change `executablePath` in `playwright.config.ts` or install Playwright Chromium and remove that override. Tests cover the full lesson loop for all fifteen lessons, answer recovery, notebook persistence, calculators, language switching, backup import/export, mistakes, text enlargement, bank-statement and sorting recovery, insurance model limits and cost sharing, matching/reassignment/revision, repayment tables and fee comparisons, version-one backup compatibility, Hindi slider models, and accessibility checks in light/dark themes.
 
 ## Build artifacts
 

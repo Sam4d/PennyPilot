@@ -44,7 +44,7 @@ export default defineConfig({
             { name: "storage", test: /[\/]node_modules[\/]dexie[\/]/ },
             {
               name: "lessons",
-              test: /[\/]src[\/]content[\/](schema|lessons|everyday|protection)\.ts$/,
+              test: /[\/]src[\/]content[\/](schema|lessons|everyday|protection|borrowing)\.ts$/,
             },
           ],
         },

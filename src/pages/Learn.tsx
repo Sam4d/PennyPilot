@@ -33,6 +33,15 @@ const pathGroups = [
       "Apne logon aur plan ki suraksha",
     ),
   },
+  {
+    id: "borrowing",
+    eyebrow: "BORROW WITH YOUR EYES OPEN",
+    title: t(
+      "Understand the full cost",
+      "उधार का पूरा हिसाब",
+      "Udhaar ka poora hisaab",
+    ),
+  },
 ].flatMap((chapter) => {
   const items = lessons.filter(
     (l) => (l.chapter ?? "foundation") === chapter.id,

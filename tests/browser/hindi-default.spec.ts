@@ -91,3 +91,39 @@ test("Hindi explains insurance terms in brackets and scores a health-cost answer
     .click();
   await expect(page.getByText("बिल्कुल सही!", { exact: true })).toBeVisible();
 });
+
+test("Hindi loan terms match with bracketed explanations", async ({ page }) => {
+  await page.goto("/");
+  await page
+    .getByRole("button", {
+      name: "आपकी EMI के अंदर क्या है?, available lesson",
+      exact: true,
+    })
+    .click();
+  await page
+    .getByRole("button", { name: "पाठ शुरू करें", exact: true })
+    .click();
+  await page.getByRole("button", { name: "Concept 2", exact: true }).click();
+  await expect(
+    page.getByRole("dialog").getByText(/उधार की रकम \(प्रिंसिपल\)/),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "आज़माएं", exact: true }).click();
+  const dialog = page.getByRole("dialog");
+  const pairs = [
+    ["शुरू की उधार रकम (प्रिंसिपल)", "शुरुआत में उधार लिए पैसे"],
+    ["ब्याज", "उधार लेने पर लगने वाली कीमत"],
+    ["महीने की किस्त (EMI)", "ब्याज और उधार वापसी जोड़कर नियमित पेमेंट"],
+  ];
+  for (const [term, meaning] of pairs) {
+    await dialog
+      .getByRole("group", { name: "शब्द", exact: true })
+      .getByRole("button", { name: term, exact: true })
+      .click();
+    await dialog
+      .getByRole("group", { name: "मतलब", exact: true })
+      .getByRole("button", { name: meaning, exact: true })
+      .click();
+  }
+  await dialog.getByRole("button", { name: "जवाब देखें", exact: true }).click();
+  await expect(dialog.getByText("बिल्कुल सही!", { exact: true })).toBeVisible();
+});

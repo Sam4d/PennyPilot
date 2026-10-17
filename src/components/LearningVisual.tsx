@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { Language } from "../content/lessons";
 import { compound, rupees } from "../lib/learning";
 import { Icon } from "./UI";
+import BorrowingVisual from "./BorrowingVisual";
 import ProtectionVisual from "./ProtectionVisual";
 export default function LearningVisual({
   lessonId,
@@ -54,6 +55,9 @@ export default function LearningVisual({
       </span>
       {["insurance", "health-cover", "term-cover"].includes(lessonId) && (
         <ProtectionVisual lessonId={lessonId} language={language} />
+      )}
+      {["emi", "loan-cost"].includes(lessonId) && (
+        <BorrowingVisual lessonId={lessonId} language={language} />
       )}
       {lessonId === "inflation" && (
         <>

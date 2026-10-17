@@ -58,7 +58,7 @@ for (const l of lessons) {
     )
       errors.push(`${q.id}: invalid order`);
     if (q.type === "document") text(q.documentTitle!, `${q.id}.documentTitle`);
-    if (q.type === "bucket") {
+    if (q.type === "bucket" || q.type === "match") {
       if (
         !q.options?.length ||
         !q.categories ||
@@ -69,7 +69,14 @@ for (const l of lessons) {
           (n) => !Number.isInteger(n) || n < 0 || n >= q.categories!.length,
         )
       )
-        errors.push(`${q.id}: invalid bucket mapping`);
+        errors.push(`${q.id}: invalid mapping`);
+      if (
+        q.type === "match" &&
+        (q.options?.length !== q.categories?.length ||
+          !Array.isArray(q.answer) ||
+          new Set(q.answer).size !== q.categories?.length)
+      )
+        errors.push(`${q.id}: matching must be one-to-one`);
       q.categories?.forEach((category, i) =>
         text(category, `${q.id}.category${i}`),
       );

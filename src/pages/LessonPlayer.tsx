@@ -5,6 +5,7 @@ import type { Session } from "../lib/store";
 import type { Update } from "../App";
 import { isCorrect } from "../lib/learning";
 import Mia from "../components/Mia";
+import MatchingExercise from "../components/MatchingExercise";
 import LearningVisual from "../components/LearningVisual";
 import {
   DocumentExercise,
@@ -70,8 +71,10 @@ export default function LessonPlayer({
       ? selection !== null
       : q.type === "numeric"
         ? number.trim() !== "" && Number.isFinite(Number(number))
-        : q.type === "bucket"
-          ? q.options!.every(
+        : q.type === "bucket" || q.type === "match"
+          ? (q.type !== "match" ||
+              new Set(classified).size === q.options!.length) &&
+            q.options!.every(
               (_, i) =>
                 Number.isInteger(classified[i]) &&
                 classified[i] >= 0 &&
@@ -85,7 +88,7 @@ export default function LessonPlayer({
         ? selection!
         : q.type === "numeric"
           ? Number(number)
-          : q.type === "bucket"
+          : q.type === "bucket" || q.type === "match"
             ? classified
             : ordered;
     onAnswer(q.id, answer, isCorrect(answer, q.answer));
@@ -382,6 +385,16 @@ export default function LessonPlayer({
               )}
               {q.type === "bucket" && (
                 <BucketExercise
+                  question={q}
+                  language={language}
+                  values={classified}
+                  result={result}
+                  onChange={setClassified}
+                />
+              )}
+              {q.type === "match" && (
+                <MatchingExercise
+                  key={q.id}
                   question={q}
                   language={language}
                   values={classified}

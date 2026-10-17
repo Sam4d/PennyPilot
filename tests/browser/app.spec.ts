@@ -229,7 +229,18 @@ for (const lesson of lessons.slice(1)) {
           .click();
       else if (q.type === "numeric")
         await dialog.getByRole("spinbutton").fill(String(q.answer));
-      else if (q.type === "bucket")
+      else if (q.type === "match") {
+        for (const [i, right] of (q.answer as number[]).entries()) {
+          await dialog
+            .getByRole("group", { name: "Terms", exact: true })
+            .getByRole("button", { name: q.options![i].en, exact: true })
+            .click();
+          await dialog
+            .getByRole("group", { name: "Meanings", exact: true })
+            .getByRole("button", { name: q.categories![right].en, exact: true })
+            .click();
+        }
+      } else if (q.type === "bucket")
         for (const [i, category] of (q.answer as number[]).entries())
           await dialog
             .getByRole("group", { name: q.options![i].en, exact: true })
@@ -549,8 +560,8 @@ for (const theme of ["light", "dark"]) {
         .getByRole("button", { name: "Learn", exact: true })
         .click();
     }
-    await expect(page.locator(".path-card")).toHaveCount(3);
-    await expect(page.locator(".lesson-node")).toHaveCount(13);
+    await expect(page.locator(".path-card")).toHaveCount(4);
+    await expect(page.locator(".lesson-node")).toHaveCount(15);
     for (const id of ["insurance", "health-cover", "term-cover"]) {
       const lesson = lessons.find((l) => l.id === id)!;
       await page
@@ -646,6 +657,234 @@ for (const theme of ["light", "dark"]) {
           visual.getByText("A planning example, not a cover recommendation", {
             exact: true,
           }),
+        ).toBeVisible();
+      }
+      expect(
+        (await new AxeBuilder({ page }).include(".learning-visual").analyze())
+          .violations,
+      ).toEqual([]);
+      expect(
+        await page.evaluate(
+          () => document.documentElement.scrollWidth <= innerWidth,
+        ),
+      ).toBe(true);
+      await page.getByRole("button", { name: "Close dialog" }).click();
+    }
+  });
+}
+
+for (const theme of ["light", "dark"]) {
+  test(`matching reassigns pairs and restores graded feedback in ${theme} mode`, async ({
+    page,
+  }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.setViewportSize({ width: 360, height: 800 });
+    if (theme === "dark") {
+      await page
+        .getByRole("navigation", { name: "Mobile navigation" })
+        .getByRole("button", { name: "Me", exact: true })
+        .click();
+      await page
+        .getByRole("button", { name: "After hours", exact: true })
+        .click();
+      await page
+        .getByRole("navigation", { name: "Mobile navigation" })
+        .getByRole("button", { name: "Learn", exact: true })
+        .click();
+    }
+    const lesson = lessons.find((l) => l.id === "emi")!,
+      q = lesson.exercises[0];
+    await page
+      .getByRole("button", {
+        name: `${lesson.title.en}, available lesson`,
+        exact: true,
+      })
+      .click();
+    await page
+      .getByRole("button", { name: "Let’s learn this", exact: true })
+      .click();
+    await page
+      .getByRole("button", { name: "Let’s try it", exact: true })
+      .click();
+    const dialog = page.getByRole("dialog");
+    const left = (i: number) =>
+      dialog
+        .getByRole("group", { name: "Terms", exact: true })
+        .getByRole("button", { name: q.options![i].en, exact: true });
+    const right = (i: number) =>
+      dialog
+        .getByRole("group", { name: "Meanings", exact: true })
+        .getByRole("button", { name: q.categories![i].en, exact: true });
+    const check = dialog.getByRole("button", {
+      name: "Check answer",
+      exact: true,
+    });
+    await expect(check).toBeDisabled();
+    await left(0).press("Enter");
+    await right(1).press("Enter");
+    await expect(left(1)).toBeFocused();
+    await left(1).click();
+    await right(1).click();
+    await expect(left(0)).toHaveAccessibleDescription("Not paired");
+    await expect(check).toBeDisabled();
+    for (const [i, n] of [1, 2, 0].entries()) {
+      await left(i).click();
+      await right(n).click();
+    }
+    await expect(check).toBeEnabled();
+    await left(0).click();
+    await right(2).click();
+    await expect(check).toBeDisabled();
+    await left(1).click();
+    await right(1).click();
+    await expect(check).toBeEnabled();
+    expect(
+      (await new AxeBuilder({ page }).include(".matching-exercise").analyze())
+        .violations,
+    ).toEqual([]);
+    await check.click();
+    await expect(
+      dialog.getByText("Correct pair: Money originally borrowed", {
+        exact: true,
+      }),
+    ).toBeVisible();
+    await dialog.getByRole("button", { name: "Close dialog" }).click();
+    await page.reload();
+    await page
+      .getByRole("button", { name: "Continue lesson", exact: true })
+      .click();
+    await expect(left(0)).toHaveAccessibleDescription(
+      "Paired with: The cost charged for borrowing",
+    );
+    await expect(left(0)).toBeDisabled();
+    await expect(
+      dialog.getByText("Correct pair: Money originally borrowed", {
+        exact: true,
+      }),
+    ).toBeVisible();
+    expect(
+      (await new AxeBuilder({ page }).include(".matching-exercise").analyze())
+        .violations,
+    ).toEqual([]);
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+    ).toBe(true);
+    await dialog.getByRole("button", { name: "Close dialog" }).click();
+    await page
+      .getByRole("navigation", { name: "Mobile navigation" })
+      .getByRole("button", { name: "Revise", exact: true })
+      .click();
+    await page
+      .getByRole("button", {
+        name: "Inside your monthly payment Practise again",
+        exact: true,
+      })
+      .click();
+    await page
+      .getByRole("button", { name: "Let’s try it", exact: true })
+      .click();
+    await expect(check).toBeDisabled();
+    for (const [i, n] of (q.answer as number[]).entries()) {
+      await left(i).click();
+      await right(n).click();
+    }
+    await check.click();
+    await expect(
+      dialog.getByText("That’s it. Nicely done!", { exact: true }),
+    ).toBeVisible();
+  });
+  test(`repayment and offer models respond in ${theme} mode`, async ({
+    page,
+  }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.setViewportSize({ width: 360, height: 800 });
+    if (theme === "dark") {
+      await page
+        .getByRole("navigation", { name: "Mobile navigation" })
+        .getByRole("button", { name: "Me", exact: true })
+        .click();
+      await page
+        .getByRole("button", { name: "After hours", exact: true })
+        .click();
+      await page
+        .getByRole("navigation", { name: "Mobile navigation" })
+        .getByRole("button", { name: "Learn", exact: true })
+        .click();
+    }
+    for (const id of ["emi", "loan-cost"]) {
+      const lesson = lessons.find((l) => l.id === id)!;
+      await page
+        .getByRole("button", {
+          name: `${lesson.title.en}, available lesson`,
+          exact: true,
+        })
+        .click();
+      await page
+        .getByRole("button", { name: "Let’s learn this", exact: true })
+        .click();
+      await page
+        .getByRole("button", { name: "Concept 3", exact: true })
+        .click();
+      const visual = page.locator(`.visual-${id}`);
+      if (id === "emi") {
+        await expect(
+          visual.locator(".loan-summary").getByText("₹10,662", { exact: true }),
+        ).toBeVisible();
+        await visual
+          .getByRole("slider", {
+            name: "Repayment period in months",
+            exact: true,
+          })
+          .fill("24");
+        await expect(
+          visual.locator(".loan-summary").getByText("₹5,649", { exact: true }),
+        ).toBeVisible();
+        await visual
+          .getByRole("button", { name: "Month 24", exact: true })
+          .click();
+        await expect(
+          visual.locator(".loan-month").getByText("₹0", { exact: true }),
+        ).toBeVisible();
+        await visual.locator("summary").click();
+        await expect(visual.getByRole("table").getByRole("row")).toHaveCount(
+          25,
+        );
+      } else {
+        await visual
+          .getByRole("slider", { name: "Upfront fee in rupees", exact: true })
+          .fill("2500");
+        await expect(
+          visual
+            .locator(".offer-comparison")
+            .getByText("₹38,500", { exact: true }),
+        ).toBeVisible();
+        await expect(
+          visual
+            .locator(".claim-breakdown")
+            .getByText("₹4,500", { exact: true }),
+        ).toBeVisible();
+        await visual
+          .getByRole("checkbox", {
+            name: "Include a ₹2,000 cash discount",
+            exact: true,
+          })
+          .uncheck();
+        await expect(
+          visual
+            .locator(".claim-breakdown")
+            .getByText("₹2,500", { exact: true })
+            .last(),
+        ).toBeVisible();
+        await visual
+          .getByRole("slider", { name: "Upfront fee in rupees", exact: true })
+          .fill("0");
+        await expect(
+          visual
+            .locator(".claim-breakdown > div")
+            .last()
+            .getByText("₹0", { exact: true }),
         ).toBeVisible();
       }
       expect(

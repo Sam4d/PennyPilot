@@ -10,9 +10,9 @@ At four 3–5 minute levels per explicit skill, the eventual outline implies rou
 
 ## What is shipped
 
-Thirteen lesson drafts with eight questions each. Each has a relatable hook, concept, worked example, mistake, three note points, and a practical action. Full English, Devanagari Hindi, and Roman-script Hinglish are included. Questions use Indian settings and explicit illustrative amounts. Five exercise engines are implemented: choice, numeric entry, sequencing, document-row discovery, and bucket sorting. Document discovery uses fictional bank statements, bills, grocery labels and loan summaries. Sorting uses native radio controls so it works with touch, keyboard and assistive technology without dragging. The remaining 11 exercise forms must be built and tested before claiming the full specification.
+Fifteen lesson drafts with eight questions each. Each has a relatable hook, concept, worked example, mistake, three note points, and a practical action. Full English, Devanagari Hindi, and Roman-script Hinglish are included. Questions use Indian settings and explicit illustrative amounts. Six exercise engines are implemented: choice, numeric entry, sequencing, document-row discovery, bucket sorting, and one-to-one matching. Document discovery uses fictional bank statements, bills, grocery labels and loan summaries. Sorting uses native radio controls so it works with touch, keyboard and assistive technology without dragging. The remaining 10 exercise forms must be built and tested before claiming the full specification.
 
-The three-section path is a foundation sampler across World 0, not a claim that all World 0 units are finished. The catalogue keeps the larger syllabus visible while labelling unimplemented material.
+The four-section path is a foundation sampler across World 0, not a claim that all World 0 units are finished. The catalogue keeps the larger syllabus visible while labelling unimplemented material.
 
 ## Primary-source review queue
 
@@ -45,7 +45,7 @@ Live fetches to the first five destinations returned proxy `403 Forbidden`. The 
 
 Use a separate versioned `rules.json` with `{value, unit, source, effective_from, last_verified, review_status}` per key. The date must reflect a real source check. Resolve `{{rule:key}}` through one loader; never duplicate rates in prose. Show source and verification date beside a displayed rate. Flag a rule older than six months and never silently apply a rule to a different assessment year. Cache a reviewed bundled version; online updates require schema/version validation and a trusted HTTPS source. Offline learning must remain available without inventing newer values.
 
-No rule-dependent lesson is shipped in 0.3, so there is no fake “last verified” date or placeholder rate feed.
+No rule-dependent lesson is shipped in 0.4, so there is no fake “last verified” date or placeholder rate feed.
 
 ## Validation boundaries
 
@@ -56,3 +56,9 @@ The current validator verifies presence of all content languages, Devanagari pre
 The three new safety-net lessons cover insurance roles, health claim cost sharing and pure term life cover. All contract summaries, premiums and claim figures are fictional. No real product prices, universal waiting periods, current tax benefits, claim deadlines or specific regulatory entitlements are asserted.
 
 The health model applies co-pay to eligible costs, then caps insurer payment at available cover. Excluded costs, co-pay and any amount beyond remaining cover add up to the learner’s share. There is no deductible, restoration, second payer or other sub-limit in this simplified model. The family-support model uses unchanged monthly costs, a selected number of years, ₹2 lakh debt and ₹3 lakh usable savings. It omits inflation, growth, other income and existing cover and is explicitly not a recommended insurance amount.
+
+## Borrowing lesson assumptions
+
+The EMI worksheet uses a fictional first-month payment rounded to rupees; it is not a complete bank quote. The interactive schedule uses fixed annual 12% divided by 12 on a reducing balance, full precision internally, equal monthly payments and final-payment adjustment. It excludes fees, tax, penalties, payment-date effects and rate changes. Displayed rupees are rounded. The full schedule is available in a locally scrollable table.
+
+The purchase-credit lesson and model compare the same fictional phone and delivery/benefits, six payments of ₹6,000, a selectable ₹2,000 cash discount and a selectable upfront fee. No other charges or time-value adjustments are included. The difference is a total-cost amount, never an annual rate or a product recommendation. RBI reference links remain a review queue; no mutable lending regulation or current provider offer is claimed as verified.

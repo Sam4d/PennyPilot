@@ -9,7 +9,7 @@ export const read = (text: Text, language: Language) =>
   text[language === "both" ? "en" : language];
 export type Exercise = {
   id: string;
-  type: "choice" | "numeric" | "order" | "document" | "bucket";
+  type: "choice" | "numeric" | "order" | "document" | "bucket" | "match";
   prompt: Text;
   options?: Text[];
   categories?: Text[];
@@ -22,7 +22,7 @@ export type Exercise = {
   };
 };
 export type Lesson = {
-  chapter?: "foundation" | "everyday" | "protection";
+  chapter?: "foundation" | "everyday" | "protection" | "borrowing";
   id: string;
   skill: string;
   title: Text;
@@ -97,6 +97,24 @@ export const bucket = (
   prompt,
   options: items,
   categories,
+  answer,
+  explanation,
+});
+
+/** One-to-one term-to-meaning mapping; each meaning is used exactly once. */
+export const match = (
+  id: string,
+  prompt: Text,
+  terms: Text[],
+  meanings: Text[],
+  answer: number[],
+  explanation: Text,
+): Exercise => ({
+  id,
+  type: "match",
+  prompt,
+  options: terms,
+  categories: meanings,
   answer,
   explanation,
 });

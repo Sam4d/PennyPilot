@@ -2,6 +2,7 @@ import { choice, numeric, order, t } from "./schema";
 import type { Lesson } from "./schema";
 import { everydayLessons } from "./everyday";
 import { protectionLessons } from "./protection";
+import { borrowingLessons } from "./borrowing";
 export { read, t } from "./schema";
 export type { Language, Text, Exercise, Lesson } from "./schema";
 const yn = [t("True", "सही", "Sahi"), t("False", "गलत", "Galat")];
@@ -1347,4 +1348,5 @@ export const lessons: Lesson[] = [
   },
   ...everydayLessons,
   ...protectionLessons,
+  ...borrowingLessons,
 ];

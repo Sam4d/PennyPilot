@@ -241,4 +241,41 @@ export const glossary = [
     "Life protection for a stated period under the policy. Pure term cover generally has no payment simply for surviving to the end; check the exact product.",
     "पॉलिसी के हिसाब से तय अवधि का लाइफ़ कवर। प्योर टर्म में आम तौर पर अवधि पूरी होने पर जीवित रहने की रकम नहीं मिलती। असली प्लान चेक करें।",
   ],
+
+  [
+    "Loan balance",
+    "बचा लोन (बैलेंस)",
+    "The loan amount still owed at a given time. A payment may include interest, so it may not reduce this balance by the full amount.",
+    "किसी समय उधार की जितनी रकम लौटानी बाकी है। पेमेंट में ब्याज भी हो सकता है, इसलिए पूरे पेमेंट जितना लोन नहीं घटता।",
+  ],
+  [
+    "Loan tenure",
+    "चुकाने का समय (टेन्योर)",
+    "The planned repayment period. More months can mean smaller payments but more total interest at the same fixed rate.",
+    "लोन चुकाने के लिए तय समय। वही तय रेट रहे तो ज़्यादा महीनों में किस्त छोटी, पर कुल ब्याज ज़्यादा हो सकता है।",
+  ],
+  [
+    "Reducing-balance interest",
+    "घटते बैलेंस पर ब्याज",
+    "Interest charged on the amount still owed, rather than always on the original amount. The actual schedule defines dates, payments and rounding.",
+    "हमेशा शुरू की पूरी रकम पर लगाने के बजाय बचे लोन पर ब्याज। असली शेड्यूल में तारीख़, पेमेंट और राउंडिंग देखें।",
+  ],
+  [
+    "Flat-rate loan quote",
+    "शुरू की रकम पर रेट (फ़्लैट रेट)",
+    "A quote that calculates interest using the original loan amount over the term. It is not directly comparable with the same percentage on a reducing balance; compare full cash flows and terms.",
+    "ऐसा हिसाब जिसमें अवधि के लिए शुरू की लोन रकम से ब्याज निकलता है। उतने ही प्रतिशत का घटते बैलेंस वाला रेट सीधे बराबर नहीं है। पूरे पेमेंट और शर्तें मिलाएं।",
+  ],
+  [
+    "Processing fee",
+    "लोन की प्रोसेसिंग फ़ीस",
+    "A charge for processing a credit arrangement. Check the amount, when it is paid, what is included and whether it is deducted before you receive money.",
+    "उधार की व्यवस्था की प्रक्रिया का चार्ज। कितना है, कब देना है, क्या शामिल है और पैसे मिलने से पहले कटता है या नहीं—चेक करें।",
+  ],
+  [
+    "BNPL",
+    "अभी खरीदें, बाद में दें (BNPL)",
+    "Buy now, pay later: a purchase-credit arrangement with future payments. Check the provider, required costs, dates and late-payment conditions.",
+    "खरीद अभी, पेमेंट बाद में करने की व्यवस्था। देने वाला कौन है, ज़रूरी कीमत, तारीख़ें और देर से पेमेंट की शर्तें चेक करें।",
+  ],
 ];

@@ -114,6 +114,7 @@ export default function Revise({
               <button
                 className="review-item"
                 key={l.id}
+                aria-label={`${read(l.title, progress.language)} ${progress.language === "hi" ? "फिर आज़माएं" : "Practise again"}`}
                 onClick={() =>
                   onStart(
                     l,
