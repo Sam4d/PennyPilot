@@ -23,3 +23,17 @@ Examples:
 | आधिकारिक संपर्क से पुष्टि करें | बैंक का ऑफ़िशियल ऐप या नंबर खुद खोलकर चेक करें। |
 | मासिक व्यय | हर महीने का खर्च |
 | परिसंपत्ति आवंटन | अपने पैसे अलग-अलग तरह के इन्वेस्टमेंट में बाँटना; इसे asset allocation कहते हैं। |
+
+## English variant
+
+Use standard English with short sentences and common words. Do not mix Hindi or Roman Hindi into English content. When a technical term is needed, give the plain meaning first and put the term in brackets on first use. Keep the exact term available for recognising a real bank document. Later mentions may use a term already explained in the same lesson.
+
+| Avoid unexplained jargon | Prefer |
+| --- | --- |
+| principal | the amount you start with (principal) |
+| EMI | a monthly loan payment (EMI) |
+| issuer | your card provider (issuer) |
+| sinking fund | save a little each month for an expected cost (a sinking fund) |
+| debt avalanche | pay extra towards the highest interest rate first (debt avalanche) |
+
+The `hi` variant already includes Hinglish terms in its Hindi script and remains the default. The optional `hinglish` variant uses Roman letters; it is not a substitute for Hinglish in the Hindi variant. `en` uses English only, and `both` displays the English and Hindi versions together. All variants preserve amounts, calculations and risk explanations.

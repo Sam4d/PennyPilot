@@ -295,7 +295,7 @@ export default function App() {
                   >
                     <option value="en">English</option>
                     <option value="hi">हिन्दी</option>
-                    <option value="hinglish">Hinglish</option>
+                    <option value="hinglish">Hinglish (Roman)</option>
                     <option value="both">English + हिन्दी</option>
                   </select>
                   <Icon name="ChevronDown" size={12} />

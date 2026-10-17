@@ -76,7 +76,7 @@ export const everydayLessons: Lesson[] = [
       "Sunita dukaan par ₹100 le gayi. Pehle paanch packet milte the. Ab chaar hi mile. Note chhote nahin hue. Unse milne waala saamaan kam ho gaya.",
     ),
     idea: t(
-      "Inflation means prices in a broad basket tend to rise over time. One expensive tomato does not tell the whole story. Purchasing power means how much your money buys.",
+      "A general rise in prices over time (inflation) means the same money buys less. One expensive tomato does not tell the whole story. How much your money can buy (purchasing power) depends on these prices.",
       "कई चीज़ों के दाम समय के साथ बढ़ें, तो इसे महँगाई कहते हैं। सिर्फ़ टमाटर महँगा हुआ, उससे पूरी तस्वीर नहीं मिलती। आपके पैसे कितनी चीज़ें खरीद पाते हैं—यही खरीदने की ताकत है।",
       "Kai cheezon ke daam samay ke saath badhein, toh ise mehngaai kehte hain. Sirf tamaatar mehnga hua, usse poori tasveer nahin milti. Aapke paise kitni cheezein khareed paate hain—yahi khareedne ki taakat hai.",
     ),
@@ -323,7 +323,7 @@ export const everydayLessons: Lesson[] = [
       "Sunita ne dekha: “DEBIT ₹12,000”. Kya yeh karz hai? Mia ne kiraaye waali line dikhaayi. Yahaan debit ka matlab khaate se paise gaye hain.",
     ),
     idea: t(
-      "On a customer bank statement, credit usually means money came in and debit means money went out. The balance is what remains. Read the date, description, amount, and reference together.",
+      "Your bank statement lists money coming in (credit) and going out (debit). The money left is your balance. Read the date, description, amount, and payment reference together.",
       "आपके बैंक स्टेटमेंट में क्रेडिट मतलब पैसे आए। डेबिट मतलब पैसे गए। बैलेंस मतलब खाते में बचे पैसे। तारीख, किस काम का पेमेंट है, रकम और रेफ़रेंस साथ पढ़ें।",
       "Aapke bank statement mein credit matlab paise aaye. Debit matlab paise gaye. Balance matlab khaate mein bache paise. Taareekh, kis kaam ka payment hai, rakam aur reference saath padhein.",
     ),
@@ -333,7 +333,7 @@ export const everydayLessons: Lesson[] = [
       "Shuru mein ₹10,000 + salary ₹30,000 − kiraaya ₹12,000 = ₹28,000. Yeh seekhne ka chhota example hai. Asli statement mein doosre payment, fees ya byaaj bhi ho sakte hain.",
     ),
     mistake: t(
-      "An unfamiliar description is a reason to check, not automatic proof of fraud. Match receipts and references; report an unauthorised debit promptly through the bank’s official route.",
+      "A description you do not recognise is a reason to check. It does not always mean fraud. Compare receipts and payment references. Tell the bank quickly through its official app or number if money went out without your permission (an unauthorised debit).",
       "अनजान नाम दिखा तो पहले चेक करें। ज़रूरी नहीं कि वह स्कैम हो। रसीद और रेफ़रेंस मिलाएं। पेमेंट आपने नहीं किया हो, तो बैंक के ऑफ़िशियल तरीके से जल्दी बताएं।",
       "Anjaan naam dikha toh pehle check karein. Zaroori nahin ki woh scam ho. Raseed aur reference milaayein. Payment aapne nahin kiya ho, toh bank ke official tareeke se jaldi bataayein.",
     ),
@@ -560,7 +560,7 @@ export const everydayLessons: Lesson[] = [
       "Aman ke card ka bill ₹10,000 hai. Neeche likha hai: “minimum due ₹500”. Usne ₹500 de diye. Mia poochhti hai: baaki ₹9,500 ka kya hua?",
     ),
     idea: t(
-      "A credit card lets you borrow within a limit. Minimum due is not the full bill. Unpaid amounts can attract interest and fees under the issuer’s terms; carrying a balance can affect the interest-free period.",
+      "A credit card lets you borrow up to a limit. The smallest payment required (minimum due) is not the full bill. What you leave unpaid may lead to interest and fees under the card provider’s terms. It can also affect the time when no interest is charged (the interest-free period).",
       "क्रेडिट कार्ड से आप एक लिमिट तक उधार लेते हैं। minimum due पूरा बिल नहीं है। बचे पैसे पर बैंक की शर्तों के हिसाब से ब्याज और फ़ीस लग सकती है। बिना ब्याज वाला समय भी बदल सकता है।",
       "Credit card se aap ek limit tak udhaar lete hain. Minimum due poora bill nahin hai. Bache paise par bank ki sharton ke hisaab se byaaj aur fees lag sakti hai. Bina byaaj waala samay bhi badal sakta hai.",
     ),
@@ -586,7 +586,7 @@ export const everydayLessons: Lesson[] = [
         "Bacha hua bill ab bhi aapka karz hai.",
       ),
       t(
-        "If you cannot pay, contact the issuer early and understand the available terms.",
+        "If you cannot pay, contact the card provider (issuer) early. Ask about your options and their costs.",
         "पेमेंट मुश्किल हो तो बैंक से जल्दी बात करें। दिए गए विकल्पों की शर्तें समझें।",
         "Payment mushkil ho toh bank se jaldi baat karein. Diye gaye vikalpon ki shartein samjhein.",
       ),
@@ -815,7 +815,7 @@ export const everydayLessons: Lesson[] = [
       "Priya ke do loan hain. Zaroori kharch aur kishton ke baad ₹1,000 extra bache hain. Bada loan pehle, chhota pehle ya zyada byaaj waala?",
     ),
     idea: t(
-      "List balances, comparable interest rates, fees, and required payments. Protect essentials. With extra money after required payments, avalanche targets the highest rate; snowball targets the smallest balance for motivation. If minimums are unaffordable, seek help first.",
+      "List what you owe, the interest rates over the same time period, fees, and required payments. Cover essential costs first. After required payments, put extra money towards the highest rate (debt avalanche) or the smallest amount owed (debt snowball). Paying off a small debt can help you keep going. If you cannot afford required payments, seek help first.",
       "हर लोन के बचे पैसे, एक जैसे समय के ब्याज रेट, फ़ीस और किस्त लिखें। पहले ज़रूरी खर्च संभालें। फिर एक्स्ट्रा पैसों से सबसे ऊँचे रेट वाला कर्ज़ घटाना avalanche है। सबसे छोटा कर्ज़ पहले खत्म करना snowball है। किस्तें मुश्किल हों तो पहले मदद लें।",
       "Har loan ke bache paise, ek jaise samay ke byaaj rate, fees aur kisht likhein. Pehle zaroori kharch sambhaalein. Phir extra paison se sabse oonche rate waala karz ghataana avalanche hai. Sabse chhota karz pehle khatam karna snowball hai. Kishtein mushkil hon toh pehle madad lein.",
     ),
@@ -825,7 +825,7 @@ export const everydayLessons: Lesson[] = [
       "Sirf example: A ₹10,000, saalaana 24%. B ₹30,000, saalaana 12%. Aasaan hisaab mein saalaana rate ÷ 12: A ka ek mahine ka byaaj ₹200, B ka ₹300. Extra ₹1,000 chukaane par agle mahine A mein ₹20, B mein ₹10 byaaj kam hoga. Fees nahin jodi hai.",
     ),
     mistake: t(
-      "Comparing a monthly rate with a yearly rate can mislead. Extra repayment must also consider prepayment fees, essential needs, and the actual loan terms.",
+      "Compare interest rates over the same time period. Before paying extra, check any fee for early repayment (prepayment fee), your essential costs, and your loan’s actual terms.",
       "महीने के रेट को सीधे साल के रेट से न मिलाएं। एक्स्ट्रा किस्त से पहले ज़रूरी खर्च, जल्दी चुकाने की फ़ीस और लोन की शर्तें देखें।",
       "Mahine ke rate ko seedhe saal ke rate se na milaayein. Extra kisht se pehle zaroori kharch, jaldi chukaane ki fees aur loan ki shartein dekhein.",
     ),

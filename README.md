@@ -46,7 +46,7 @@ Navigation uses URL hashes, so nested page rewrites are unnecessary. Service-wor
 
 ## Language
 
-Fresh installs start in **simple Devanagari Hindi with familiar Hinglish elements**. Mia uses everyday terms such as कमाई, प्लान, बजट, EMI, SIP, चेक, and रिटर्न, and explains technical ideas before naming them. English, Roman Hinglish and bilingual modes remain available. Existing saved language choices are preserved. See [language guide](docs/LANGUAGE.md).
+Fresh installs start in **simple Devanagari Hindi with familiar Hinglish elements**. Mia uses everyday terms such as कमाई, प्लान, बजट, EMI, SIP, चेक, and रिटर्न, and explains technical ideas before naming them. The English variant uses simple, standard English, with necessary jargon explained in brackets. English, optional Roman Hinglish and bilingual modes remain available. Existing saved language choices are preserved. See [language guide](docs/LANGUAGE.md).
 
 ## Browser checks
 

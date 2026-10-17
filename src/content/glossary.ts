@@ -26,7 +26,7 @@ export const glossary = [
   [
     "Compound interest",
     "कंपाउंड इंटरेस्ट: ब्याज पर भी ब्याज",
-    "Interest calculated on the principal plus previously accumulated interest.",
+    "Interest earned on your starting money (principal) and on interest already added.",
     "शुरुआत के पैसे और पहले मिले ब्याज, दोनों पर ब्याज मिलना।",
   ],
   [
@@ -38,13 +38,13 @@ export const glossary = [
   [
     "Diversification",
     "अलग-अलग निवेश",
-    "Spreading investments across different assets to reduce concentration risk. It cannot remove every risk.",
+    "Spreading money across different investments (assets) so you depend less on one of them (concentration risk). It cannot remove every risk.",
     "सारा पैसा एक जगह लगाने के बजाय अलग-अलग जगह इन्वेस्ट करना। इससे कुछ रिस्क घटता है, सारे नहीं।",
   ],
   [
     "EMI",
     "मासिक किस्त",
-    "Equated Monthly Instalment: a regular loan payment covering interest and principal.",
+    "A regular monthly loan payment (Equated Monthly Instalment). It covers interest and part of the amount borrowed (principal).",
     "लोन की हर महीने की किस्त। इसमें उधार लिए पैसे का हिस्सा और ब्याज, दोनों होते हैं।",
   ],
   [
@@ -80,7 +80,7 @@ export const glossary = [
   [
     "Liability",
     "देनदारी",
-    "An amount or financial obligation you owe. An outstanding loan is a liability.",
+    "Money you owe or must pay. The part of a loan you still owe (the outstanding balance) is a liability.",
     "वे पैसे जो आपको किसी को वापस देने हैं। बचा हुआ लोन भी देनदारी है।",
   ],
   [
@@ -92,7 +92,7 @@ export const glossary = [
   [
     "Net worth",
     "कुल संपत्ति का हिसाब",
-    "The value of your assets minus your liabilities.",
+    "The value of what you own (assets) minus what you owe (liabilities).",
     "आपकी अपनी चीज़ों की कुल कीमत माइनस जो पैसे आपको लौटाने हैं।",
   ],
   [
@@ -104,7 +104,7 @@ export const glossary = [
   [
     "Real return",
     "महँगाई के बाद रिटर्न",
-    "Return adjusted for inflation. Exact real return is (1 + nominal return) ÷ (1 + inflation) − 1.",
+    "How much an investment grows after allowing for rising prices (inflation). Exact real return = (1 + growth before inflation) ÷ (1 + inflation) − 1. Write both rates as decimals.",
     "महँगाई के बाद आपका पैसा कितना बढ़ा? सही हिसाब: (1 + रिटर्न) ÷ (1 + महँगाई) − 1। रेट दशमलव में लिखें।",
   ],
   [
@@ -171,7 +171,7 @@ export const glossary = [
   [
     "Debt avalanche",
     "पहले ऊँचे रेट वाला कर्ज़",
-    "A repayment approach that directs affordable extra money to the highest comparable interest rate after required payments. Check fees and terms.",
+    "After required payments, put affordable extra money towards the debt with the highest interest rate. Compare rates over the same time period and check fees.",
     "ज़रूरी किस्तों के बाद जो एक्स्ट्रा दे सकें, उसे सबसे ऊँचे ब्याज रेट वाले कर्ज़ में लगाना। फ़ीस और नियम भी देखें।",
   ],
   [

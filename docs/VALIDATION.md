@@ -50,3 +50,10 @@ The downloaded JDK needed the machine's managed Java CA store and the existing H
 - Rechecked the two-section path at 320, 360, 390, 768, 1024 and 1440 px: ten nodes, two cards, no horizontal document overflow. The final production offline check also recovers a new bank-document answer after reload.
 - Android version code 2 / version name 0.2.0 builds successfully. APK signature v2 and 16 KB zip alignment checks pass; package `in.pennypilot.learn`, minimum API 24, target API 36 and app label Penny Pilot are verified. Physical-device runtime testing remains outstanding.
 - No new dependency was added. The final service worker precaches the shipped content and local fonts; bundled precache content remains below 1 MiB. GitHub push and hosted Vercel deployment are separate checks.
+
+## Language clarification (0.2.1)
+
+- Preserved Devanagari Hindi with familiar Hinglish terms as the default. Labelled the optional Roman-script variant “Hinglish (Roman)” to make the distinction clear.
+- Simplified English teaching explanations across the shipped lessons and selected glossary definitions. Necessary terms follow plain meanings in brackets, including principal, EMI, debit, minimum due, debt avalanche and debt snowball. Amounts, question identifiers, answers and saved progress are unchanged.
+- Content validation, all 15 unit tests and all 24 browser tests pass. Production web build, offline answer recovery, Android version 0.2.1 / version code 3 build, APK signature and 16 KB zip alignment checks pass.
+- Saved the requested completion-reporting convention in AGENTS.md and a weighted, explicitly estimated full-project baseline in PROGRESS.md. Overall completion is approximately 10%; this wording update does not materially advance the full curriculum or production release gates.

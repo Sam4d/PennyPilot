@@ -26,7 +26,7 @@ export const lessons: Lesson[] = [
       "Raju gehun ugata hai. Use baal katwane hain. Lekin naai ko chawal chahiye. Ab kya?",
     ),
     idea: t(
-      "Swapping goods directly is barter. It only works when both people want what the other has. Money makes the swap simpler: sell your wheat, then pay the barber.",
+      "Swapping goods directly (barter) works when both people want what the other has. Money makes this easier: sell your wheat, then pay the barber.",
       "चीज़ों के बदले चीज़ें देना अदला-बदली है। दोनों को एक-दूसरे की चीज़ चाहिए। पैसा इसे आसान बनाता है। गेहूँ बेचें, फिर नाई को पैसे दें।",
       "Cheezon ke badle cheezein dena adla-badli hai. Dono ko ek-doosre ki cheez chahiye. Paisa ise aasaan banata hai. Gehun bechein, phir naai ko paise dein.",
     ),
@@ -248,17 +248,17 @@ export const lessons: Lesson[] = [
       "Sunita har mahine ₹30,000 kamaati hai. Mahine ke ant mein kuch nahin bachta. Aaiye uska kharch dekhein.",
     ),
     idea: t(
-      "Income is money coming in. Expenses are money going out. Cash flow is the difference. Regularly tracking both shows what you can save and where you need to adjust.",
+      "Money comes in (income) and goes out (expenses). The difference (cash flow) shows whether more money came in or went out. Keep track of both to see what you can save and what spending you can change.",
       "इन्कम यानी आने वाला पैसा, जैसे सैलरी। खर्च यानी जाने वाला पैसा। दोनों का फ़र्क कैश फ़्लो है। हिसाब रखेंगे तो पता चलेगा, पैसे बचे या कम पड़े।",
       "Aay aane waala paisa hai. Kharch jaane waala paisa hai. Dono ka antar cash flow hai. Hisaab rakhne se bachat samajh aati hai.",
     ),
     example: t(
-      "Income ₹30,000 − essentials ₹18,000 − other spending ₹7,000 = ₹5,000 surplus. ₹80 spent daily becomes ₹2,400 over 30 days.",
+      "Income ₹30,000 − essential costs ₹18,000 − other spending ₹7,000 = ₹5,000 left over (surplus). Spending ₹80 a day adds up to ₹2,400 in 30 days.",
       "₹30,000 कमाई − ₹18,000 ज़रूरी खर्च − ₹7,000 बाकी खर्च = ₹5,000 बचे। रोज़ ₹80 खर्च करें तो 30 दिन में ₹2,400 हो जाते हैं।",
       "₹30,000 aay − ₹18,000 zaroori kharch − ₹7,000 anya kharch = ₹5,000 bachat. Roz ₹80 ka kharch 30 dinon mein ₹2,400 hai.",
     ),
     mistake: t(
-      "A loan is cash coming in, but it is not earned income. It creates an obligation to repay.",
+      "A loan brings money in, but you have not earned it. You must pay it back under the agreed terms.",
       "लोन से पैसा आता है, लेकिन यह कमाई नहीं है। इसे वापस देना होता है।",
       "Loan se paisa aata hai, lekin yeh kamaai nahin hai. Ise waapas dena hota hai.",
     ),
@@ -274,7 +274,7 @@ export const lessons: Lesson[] = [
         "Chhote roz ke kharch judte jaate hain.",
       ),
       t(
-        "Irregular income needs a bigger buffer.",
+        "If your income changes each month, you may need more money set aside for gaps.",
         "हर महीने कमाई अलग हो तो कुछ एक्स्ट्रा पैसे अलग रखें। यही आपका बफ़र है।",
         "Aniyamit aay mein bada buffer madad karta hai.",
       ),
@@ -460,7 +460,7 @@ export const lessons: Lesson[] = [
       "₹30,000 mein: 50% zarooratein = ₹15,000; 30% ichchhaayein = ₹9,000; 20% bachat = ₹6,000. Zaroori kharch zyada ho toh anupaat badlein.",
     ),
     mistake: t(
-      "An EMI is a commitment even if the item was a want. Do not ignore it when planning essential payments.",
+      "A monthly loan payment (EMI) must still be paid, even if you borrowed for something optional. Include it when planning required payments.",
       "कोई चीज़ शौक से खरीदी हो, तब भी उसकी EMI देनी है। बजट में EMI भूलना नहीं।",
       "Cheez ichchha ho sakti hai, par EMI tay bhugtaan hai. Budget mein use na bhoolein.",
     ),
@@ -482,7 +482,7 @@ export const lessons: Lesson[] = [
       ),
     ],
     action: t(
-      "Choose one predictable annual expense. Divide it by 12 to make a monthly sinking fund.",
+      "Choose one cost you expect each year. Divide it by 12 and save that amount each month (a sinking fund).",
       "कोई साल भर का खर्च चुनें। उसे 12 से भाग दें। अब पता है, हर महीने कितना बचाना है।",
       "Ek saalaana kharch chunein. 12 se bhaag dekar maasik bachat nikaalein.",
     ),
@@ -680,7 +680,7 @@ export const lessons: Lesson[] = [
       "“Refund taiyaar hai. QR scan karein aur UPI PIN daalein.” Mia ko kuch gadbad lag rahi hai.",
     ),
     idea: t(
-      "A UPI PIN authorises a debit or another protected action. You do not enter it simply to receive a normal transfer. Stop when someone pressures you to scan, approve, or share a code.",
+      "Your secret payment code (UPI PIN) approves money going out (a debit) or another protected action. You do not enter it simply to receive a normal transfer. Stop if someone pressures you to scan, approve, or share a code.",
       "UPI PIN से आप पेमेंट जैसे काम approve करते हैं। आम तौर पर पैसे पाने के लिए PIN नहीं डालना होता। कोई जल्दी करवाए तो रुककर चेक करें।",
       "UPI PIN bhugtaan ya surakshit kaarrawaai ki anumati deta hai. Saamaanya paise paane ke liye PIN nahin chahiye. Dabaav mein scan ya manzoori na dein.",
     ),
@@ -696,7 +696,7 @@ export const lessons: Lesson[] = [
     ),
     notes: [
       t(
-        "Never share your PIN or OTP with a caller.",
+        "Never share your payment code (PIN) or one-time password (OTP) with a caller.",
         "कॉलर को PIN या OTP कभी न बताएं।",
         "Caller ko PIN ya OTP kabhi na bataayein.",
       ),
@@ -706,7 +706,7 @@ export const lessons: Lesson[] = [
         "Kaarrawaai, paane waala aur rakam padhein.",
       ),
       t(
-        "If money is lost, alert the bank quickly and preserve evidence.",
+        "If money is lost, tell the bank quickly. Keep the messages and payment details as evidence.",
         "नुकसान हो तो बैंक को जल्द बताएं और सबूत रखें।",
         "Nuksaan ho toh bank ko jald bataayein aur saboot rakhein.",
       ),
@@ -925,7 +925,7 @@ export const lessons: Lesson[] = [
       "Mia beej lagaati hai. Shaakhaayein badhti hain, phir aur shaakhaayein nikalti hain. Compounding bhi kuch aisi hai.",
     ),
     idea: t(
-      "Simple interest is earned on the original amount. Compound interest is earned on the amount plus earlier interest. Time and reinvestment matter. Investment returns can also be negative.",
+      "You can earn interest only on your starting money (simple interest). You can also earn interest on that money and earlier interest (compound interest). Leaving the interest invested (reinvesting) gives it time to grow. Investments can also lose money.",
       "सिंपल इंटरेस्ट सिर्फ़ शुरुआत के पैसों पर मिलता है। कंपाउंडिंग में पहले मिले ब्याज पर भी ब्याज मिलता है। याद रखें: इन्वेस्टमेंट का रिटर्न माइनस भी हो सकता है।",
       "Saadhaaran byaaj mool rakam par milta hai. Chakravriddhi byaaj mein pichhle byaaj par bhi byaaj milta hai. Nivesh ka return negative bhi ho sakta hai.",
     ),
@@ -935,18 +935,18 @@ export const lessons: Lesson[] = [
       "Udaaharan: saalaana 10%, har saal compound. ₹10,000 → ₹11,000 → ₹12,100. Atirikt ₹100 pichhle ₹1,000 byaaj se aaye. Yeh sirf udaaharan hai.",
     ),
     mistake: t(
-      "A smooth calculator line is not a market forecast. Real returns change; taxes, fees, and inflation reduce what you keep.",
+      "A smooth calculator line does not predict the market. Earnings can change. Taxes, fees, and rising prices (inflation) reduce what you keep or can buy.",
       "कैलकुलेटर की बढ़ती लाइन देखकर रिटर्न पक्का मत मानें। असली रिटर्न बदलता है। टैक्स, फ़ीस और महँगाई भी असर करते हैं।",
       "Calculator ki seedhi badhti line bhavishyavaani nahin. Asli returns badalte hain. Tax, fees aur mehngaai asar karte hain.",
     ),
     notes: [
       t(
-        "Annual compounding: amount = principal × (1 + rate) ^ years.",
+        "With interest added each year: amount = starting money (principal) × (1 + yearly rate) ^ years. Write the rate as a decimal.",
         "हर साल कंपाउंडिंग का हिसाब: कुल पैसे = शुरुआती पैसे × (1 + सालाना रेट) ^ साल। 10% को 0.10 लिखें।",
         "Saalaana compounding: rakam = mooldhan × (1 + dar) ^ saal.",
       ),
       t(
-        "Reinvesting lets earlier returns participate.",
+        "Keeping earlier earnings invested (reinvesting) lets them earn more too.",
         "मिले रिटर्न को फिर इन्वेस्ट करें, तो उस पर भी रिटर्न मिल सकता है।",
         "Dobaara nivesh se pichhle return bhi badh sakte hain.",
       ),
@@ -1143,7 +1143,7 @@ export const lessons: Lesson[] = [
       "Client ka bhugtaan ruka hai. Priya ka laptop toot gaya. Kiraaya bhi dena hai. Use surakshit sahaara chahiye.",
     ),
     idea: t(
-      "An emergency fund covers unexpected essential costs or an income gap. A common starting target is 3–6 months of essentials. Your dependants, job security, and income pattern can require more.",
+      "Money set aside for unexpected essential costs or a gap in income is an emergency fund. A common starting target is 3–6 months of essential costs. You may need more if others rely on you, your job is uncertain, or your income changes.",
       "इमरजेंसी फ़ंड मुश्किल समय के लिए अलग रखे पैसे हैं। शुरुआत में 3–6 महीने के ज़रूरी खर्च सोचें। कमाई हर महीने अलग हो, तो बड़ा बफ़र चाहिए हो सकता है।",
       "Emergency fund achaanak zaroori kharch ya aay ki kami mein kaam aata hai. Shuruaat mein 3–6 mahine ke zaroori kharch sochein. Aapki sthiti mein adhik chahiye ho sakta hai.",
     ),
@@ -1153,7 +1153,7 @@ export const lessons: Lesson[] = [
       "₹20,000 maasik zaroori kharch × 6 mahine = ₹1,20,000. ₹5,000 maasik bachat se 24 mahine lagenge, bina byaaj ya nikaasi ke.",
     ),
     mistake: t(
-      "A credit card is borrowing capacity, not an emergency fund. A volatile asset may be down when you need to sell.",
+      "A credit card lets you borrow; it is not money you have saved. An investment whose price changes sharply (a volatile asset) may be worth less when you need to sell.",
       "क्रेडिट कार्ड से उधार मिलता है। वह आपकी बचत नहीं है। मार्केट में लगाए पैसे ज़रूरत के समय कम भी हो सकते हैं।",
       "Credit card udhaar ki suvidha hai, emergency fund nahin. Asthir nivesh zaroorat ke samay gir sakta hai.",
     ),
@@ -1164,7 +1164,7 @@ export const lessons: Lesson[] = [
         "Lakshya = maasik zaroori kharch × sahaare ke mahine.",
       ),
       t(
-        "Prioritise access and capital stability.",
+        "Keep this money easy to reach and focus on protecting the amount saved (capital).",
         "ऐसे पैसे रखें जो ज़रूरत पर आसानी से मिलें और जिनकी कीमत बहुत न घटे।",
         "Aasaan nikaasi aur rakam ki sthirta ko mahatva dein.",
       ),
