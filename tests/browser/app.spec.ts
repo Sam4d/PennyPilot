@@ -936,6 +936,61 @@ test("lump sum invests once and preserves separate SIP amounts", async ({
   await expect(page.locator(".big-result")).toHaveText("₹80,000");
 });
 
+for (const language of ["en", "hi"] as const) {
+  test(`lump-sum amount follows live dragging and keyboard changes in ${language}`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page
+      .getByRole("navigation", { name: "Mobile navigation", exact: true })
+      .getByRole("button", { name: "Playground", exact: true })
+      .click();
+    await page
+      .getByRole("combobox", { name: "Language", exact: true })
+      .selectOption(language);
+    await page
+      .getByRole("button", {
+        name: language === "hi" ? "एक बार (लंपसम)" : "Lump sum",
+        exact: true,
+      })
+      .click();
+    const slider = page.getByRole("slider", {
+      name: language === "hi" ? "एक बार की रकम" : "One-time investment",
+      exact: true,
+    });
+    const output = slider.locator("..").locator("output");
+    const format = (value: number) =>
+      new Intl.NumberFormat("en-IN", {
+        style: "currency",
+        currency: "INR",
+        maximumFractionDigits: 0,
+      }).format(value);
+    // Check before releasing the pointer: the amount must track the thumb live.
+    await slider.scrollIntoViewIfNeeded();
+    const box = (await slider.boundingBox())!;
+    const start =
+      box.x + 9 + ((box.width - 18) * (100000 - 500)) / (10000000 - 500);
+    await page.mouse.move(start, box.y + box.height / 2);
+    await page.mouse.down();
+    for (const fraction of [0.25, 0.65, 0.4]) {
+      await page.mouse.move(
+        box.x + box.width * fraction,
+        box.y + box.height / 2,
+        { steps: 5 },
+      );
+      const value = Number(await slider.inputValue());
+      expect(value).toBeGreaterThan(100000);
+      await expect(output).toHaveText(format(value));
+    }
+    await page.mouse.up();
+    await slider.focus();
+    const previous = Number(await slider.inputValue());
+    await slider.press("ArrowRight");
+    await expect(slider).toHaveValue(String(previous + 500));
+    await expect(output).toHaveText(format(previous + 500));
+  });
+}
+
 test("English dictionary and examples do not display Hindi translations", async ({
   page,
 }) => {

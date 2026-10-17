@@ -19,3 +19,7 @@ Added a separate insurance section with eight detailed reading guides from begin
 Added lump-sum mode with a single contribution and explicit annual-compounding assumptions, separate SIP amount state, zero/negative return checks and mobile reflow. Fixed English-mode glossary leakage and Hindi words in English examples, added English-content validation, and verified a real service-worker update saves data and preserves English.
 
 Engineering completion is now estimated at roughly 40% of its weighted area; the full-project estimate rounds to 13%. This increase reflects working navigation, reading and calculator features, not 946 completed lessons. Financial/native-language approval, most curriculum depth, remaining exercise types, advanced tools and production device/deployment gates remain outstanding.
+
+### Maintenance patch 0.5.1
+
+Fixed the lump-sum amount label reading monthly SIP state. English/Hindi live-drag and keyboard regressions, affected calculator checks, production offline/update checks, and the rebuilt Android preview pass. This routine fix does not change the overall estimate: approximately 13%.

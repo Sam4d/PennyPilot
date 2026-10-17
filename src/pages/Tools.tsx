@@ -207,7 +207,7 @@ export default function Tools({ language }: { language: Language }) {
                   : 100000
             }
             step={tool === "emi" ? 10000 : 500}
-            display={rupees(amount)}
+            display={rupees(investedAmount)}
           />
           {tool !== "emergency" && (
             <Slider

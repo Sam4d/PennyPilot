@@ -1,4 +1,4 @@
-import { chromium } from "@playwright/test";
+import { chromium, expect } from "@playwright/test";
 const b = await chromium.launch({
   executablePath: "/usr/bin/chromium",
   args: ["--no-sandbox"],
@@ -148,6 +148,18 @@ await p
 await p
   .locator(".big-result")
   .getByText("₹1,00,000", { exact: true })
+  .waitFor();
+const lumpAmount = p.getByRole("slider", {
+  name: "One-time investment",
+  exact: true,
+});
+await lumpAmount.fill("500000");
+await expect(lumpAmount.locator("..").locator("output")).toHaveText(
+  "₹5,00,000",
+);
+await p
+  .locator(".big-result")
+  .getByText("₹5,00,000", { exact: true })
   .waitFor();
 console.log(
   "PASS: production offline reload, lazy lessons and curriculum, bank answer recovery, insurance/repayment models, matching answer recovery, insurance guides, direct topic reload, and lump-sum mode.",

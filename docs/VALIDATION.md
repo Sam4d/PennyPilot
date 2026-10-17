@@ -94,3 +94,11 @@ The downloaded JDK needed the machine's managed Java CA store and the existing H
 - Production offline checks now also open insurance guides, reload a direct insurance topic and use lump-sum mode. Existing lesson-answer, matching and insurance/loan model recovery checks remain included.
 - Web and Android 0.5.0 (version code 6) builds pass. Debug APK signature v2, 16 KB zip alignment, stable package, minimum API 24 and target API 36 are verified. Native runtime and an actual hosted Vercel deployment remain unverified.
 - No dependencies were added. All shipped content/fonts remain precached. The readers are editorial drafts, with official reference links and no fabricated current regulatory verification. Overall completion is now estimated at 13% using the same weighted full-project scope in PROGRESS.md.
+
+## Lump-sum slider fix (0.5.1)
+
+- Reproduced the stale amount in English and Hindi at a 390 px viewport: the slider moved to ₹23,27,000 while its displayed amount remained ₹5,000. The label was bound to the monthly SIP state instead of the selected investment amount. Fixed that binding without changing the investment formulas.
+- Two new browser regressions verify the displayed amount while dragging forward and backward before releasing the pointer, then after a keyboard increment. Both failed on the original binding and pass with the fix. All four affected calculator/browser cases pass, including separate SIP/lump-sum state and zero/negative returns. The previously validated broader browser suite was not rerun for this patch.
+- Content validation, all 40 unit tests and the production web build pass. Production offline checks now change the lump-sum amount and verify both its displayed value and zero-return result. Offline recovery and the real service-worker update check pass.
+- Android 0.5.1 (version code 7) builds and syncs the fixed web assets. APK signature v2 and 16 KB zip alignment pass; package identity, minimum API 24 and target API 36 are preserved. The APK remains debug-signed; physical-device runtime and hosted Vercel deployment remain unverified.
+- This maintenance patch leaves overall full-project completion at approximately 13%.
