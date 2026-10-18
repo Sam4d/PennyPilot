@@ -1,18 +1,30 @@
+import { useUICopy } from "../lib/ui-copy";
 import { useId } from "react";
 export default function Mia({
   className = "",
   pose = "wave",
 }: {
   className?: string;
-  pose?: "wave" | "read" | "celebrate" | "face";
+  pose?:
+    | "wave"
+    | "read"
+    | "celebrate"
+    | "face"
+    | "encourage"
+    | "thinking"
+    | "concerned";
 }) {
+  const ui = useUICopy();
+  const facePose = ["face", "encourage", "thinking", "concerned"].includes(
+    pose,
+  );
   const id = useId().replace(/:/g, "");
   return (
     <svg
       className={`mia ${className}`}
-      viewBox={pose === "face" ? "38 16 180 162" : "0 0 280 280"}
+      viewBox={facePose ? "38 16 180 162" : "0 0 280 280"}
       role="img"
-      aria-label="Mia, your friendly cat finance guide"
+      aria-label={ui("Mia, your friendly cat finance guide")}
     >
       <defs>
         <linearGradient id={`fur${id}`} x2="0.3" y2="1">
@@ -24,7 +36,7 @@ export default function Mia({
           <stop offset="1" stopColor="var(--color-4f9d39)" />
         </linearGradient>
       </defs>
-      {pose !== "face" && (
+      {!facePose && (
         <>
           <ellipse
             cx="142"
@@ -50,7 +62,13 @@ export default function Mia({
             stroke="var(--color-374b36)"
             strokeWidth="3"
           />
-          <ellipse cx="137" cy="211" rx="32" ry="32" fill="var(--color-fafbf5)" />
+          <ellipse
+            cx="137"
+            cy="211"
+            rx="32"
+            ry="32"
+            fill="var(--color-fafbf5)"
+          />
           <path
             d="M111 239q-22-9-26 5q-4 16 29 13M161 239q24-7 27 7q2 14-31 11"
             fill="var(--color-e5ebdf)"
@@ -65,7 +83,11 @@ export default function Mia({
                 stroke="var(--color-374b36)"
                 strokeWidth="3"
               />
-              <path d="M138 208v43" stroke="var(--color-374b36)" strokeWidth="3" />
+              <path
+                d="M138 208v43"
+                stroke="var(--color-374b36)"
+                strokeWidth="3"
+              />
               <path
                 d="m99 213 23 5m-22 5 22 5m32-10 21-6m-21 16 20-5"
                 stroke="var(--color-6e9c4f)"
@@ -133,7 +155,18 @@ export default function Mia({
         strokeWidth="5"
         strokeLinecap="round"
       />
-      <g className="mia-eyes">
+      {pose === "concerned" && (
+        <path
+          d="M94 91l20 5m48 0 20-5"
+          fill="none"
+          stroke="var(--color-374b36)"
+          strokeWidth="3"
+        />
+      )}
+      <g
+        className="mia-eyes"
+        transform={pose === "thinking" ? "translate(-3 0)" : undefined}
+      >
         <ellipse cx="106" cy="109" rx="8" ry="12" fill="var(--color-293c2c)" />
         <ellipse cx="170" cy="109" rx="8" ry="12" fill="var(--color-293c2c)" />
         <circle cx="109" cy="105" r="2.5" fill="white" />
@@ -147,15 +180,29 @@ export default function Mia({
         strokeWidth="2.8"
         strokeLinecap="round"
       />
-      <ellipse cx="84" cy="131" rx="12" ry="6.5" fill="var(--color-edb3a5)" opacity=".8" />
-      <ellipse cx="192" cy="131" rx="12" ry="6.5" fill="var(--color-edb3a5)" opacity=".8" />
+      <ellipse
+        cx="84"
+        cy="131"
+        rx="12"
+        ry="6.5"
+        fill="var(--color-edb3a5)"
+        opacity=".8"
+      />
+      <ellipse
+        cx="192"
+        cy="131"
+        rx="12"
+        ry="6.5"
+        fill="var(--color-edb3a5)"
+        opacity=".8"
+      />
       <path
         d="m65 120-16-4m17 13-19 1m161-10 18-5m-18 15 20 1"
         stroke="var(--color-71816a)"
         strokeWidth="2"
         strokeLinecap="round"
       />
-      {pose !== "face" && (
+      {!facePose && (
         <>
           <path
             d="M94 166q44 18 87-1l-5 16q-38 16-76-1Z"

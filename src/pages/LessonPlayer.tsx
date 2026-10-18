@@ -1,9 +1,10 @@
+import { Copy, useUICopy } from "../lib/ui-copy";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Language, Lesson } from "../content/lessons";
 import { read } from "../content/lessons";
 import type { Session } from "../lib/store";
 import type { Update } from "../App";
-import { isCorrect } from "../lib/learning";
+import { isCorrect, parseAmount } from "../lib/learning";
 import Mia from "../components/Mia";
 import MatchingExercise from "../components/MatchingExercise";
 import ConceptScroller from "../components/ConceptScroller";
@@ -22,6 +23,8 @@ export default function LessonPlayer({
   onAnswer,
   onFinish,
   onNext,
+  report,
+  onReport,
 }: {
   lesson: Lesson;
   session: Session;
@@ -31,14 +34,44 @@ export default function LessonPlayer({
   onAnswer: (id: string, value: number | number[], correct: boolean) => void;
   onFinish: () => void;
   onNext: () => void;
+  report: string;
+  onReport: (text: string) => void;
 }) {
+  const ui = useUICopy();
+
   const hi = language === "hi";
+  const [exitRequested, setExitRequested] = useState(false);
+  const [practising, setPractising] = useState(false);
+  const [practiceResult, setPracticeResult] = useState<
+    { answer: number | number[]; correct: boolean } | undefined
+  >();
+  const exitRef = useRef<HTMLElement>(null);
+  const requestExit = () => {
+    if (session.stage === 3) onClose();
+    else setExitRequested(true);
+  };
+  useEffect(() => {
+    if (exitRequested) {
+      exitRef.current?.focus();
+      exitRef.current
+        ?.closest(".modal")
+        ?.scrollTo({ top: 0, behavior: "instant" });
+    }
+  }, [exitRequested]);
+  useEffect(() => {
+    const back = () => setExitRequested(true);
+    window.addEventListener("popstate", back);
+    return () => window.removeEventListener("popstate", back);
+  }, []);
+
   const [audioMessage, setAudioMessage] = useState("");
-  const questions = session.review
-    ? lesson.exercises.filter((e) => session.questionIds?.includes(e.id))
-    : lesson.exercises;
+  const questions = session.quickStart
+    ? lesson.exercises.slice(0, 1)
+    : session.review
+      ? lesson.exercises.filter((e) => session.questionIds?.includes(e.id))
+      : lesson.exercises;
   const q = questions[session.question];
-  const result = q && session.answers[q.id];
+  const result = practising ? practiceResult : q && session.answers[q.id];
   const [selection, setSelection] = useState<number | null>(null),
     [number, setNumber] = useState(""),
     [ordered, setOrdered] = useState<number[]>([]),
@@ -52,6 +85,8 @@ export default function LessonPlayer({
     setOrdered([]);
     setClassified([]);
     setDeep(false);
+    setPractising(false);
+    setPracticeResult(undefined);
     answerRef.current?.focus();
   }, [session.question]);
   useEffect(
@@ -70,7 +105,7 @@ export default function LessonPlayer({
     (q.type === "choice" || q.type === "document"
       ? selection !== null
       : q.type === "numeric"
-        ? number.trim() !== "" && Number.isFinite(Number(number))
+        ? number.trim() !== "" && Number.isFinite(parseAmount(number))
         : q.type === "bucket" || q.type === "match"
           ? (q.type !== "match" ||
               new Set(classified).size === q.options!.length) &&
@@ -87,12 +122,24 @@ export default function LessonPlayer({
       q.type === "choice" || q.type === "document"
         ? selection!
         : q.type === "numeric"
-          ? Number(number)
+          ? parseAmount(number)
           : q.type === "bucket" || q.type === "match"
             ? classified
             : ordered;
-    onAnswer(q.id, answer, isCorrect(answer, q.answer));
-  }, [canAnswer, result, q, selection, number, ordered, classified, onAnswer]);
+    if (practising)
+      setPracticeResult({ answer, correct: isCorrect(answer, q.answer) });
+    else onAnswer(q.id, answer, isCorrect(answer, q.answer));
+  }, [
+    canAnswer,
+    result,
+    q,
+    selection,
+    number,
+    ordered,
+    classified,
+    onAnswer,
+    practising,
+  ]);
   const next = () => {
     if (session.question + 1 < questions.length)
       update((p) => ({
@@ -114,6 +161,7 @@ export default function LessonPlayer({
   };
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
+      if (exitRequested) return;
       const target = e.target as HTMLElement;
       if (
         e.defaultPrevented ||
@@ -138,7 +186,7 @@ export default function LessonPlayer({
     };
     document.addEventListener("keydown", handler);
     return () => document.removeEventListener("keydown", handler);
-  }, [session.stage, result, q]);
+  }, [session.stage, result, q, exitRequested]);
   const cards = [
     {
       label: hi ? "एक छोटी कहानी" : "A LITTLE STORY",
@@ -196,14 +244,56 @@ export default function LessonPlayer({
     <Modal
       topAligned
       wide
-      onClose={onClose}
+      onClose={exitRequested ? () => setExitRequested(false) : requestExit}
       label={`${read(lesson.title, language)} lesson`}
     >
-      <div className="lesson-player">
+      {exitRequested && (
+        <section
+          className="exit-confirmation"
+          role="alertdialog"
+          aria-label={hi ? "पाठ से बाहर जाएं?" : "Leave this lesson?"}
+          ref={exitRef}
+          tabIndex={-1}
+        >
+          <h2>{hi ? "बाद में जारी रखें?" : "Continue later?"}</h2>
+          <p>
+            {hi
+              ? "जाँचे हुए जवाब अपने आप सेव हैं। इसी सवाल से फिर शुरू कर सकते हैं।"
+              : "Checked answers are saved automatically. You can return to this question."}
+          </p>
+          <button
+            className="button green"
+            onClick={() => setExitRequested(false)}
+          >
+            {hi ? "पाठ में रहें" : "Keep learning"}
+          </button>
+          <button
+            className="button secondary"
+            data-testid="confirm-exit"
+            onClick={onClose}
+          >
+            {hi ? "सेव करके बाहर जाएं" : "Save and leave"}
+          </button>
+        </section>
+      )}
+      <div
+        className="lesson-player"
+        inert={exitRequested}
+        aria-hidden={exitRequested}
+      >
+        <p className="content-status">
+          <Icon name="FileText" size={16} />
+          {hi
+            ? "ड्राफ़्ट · स्वतंत्र विशेषज्ञ की समीक्षा बाकी"
+            : "Draft · Independent review pending"}
+        </p>
         <div className="player-top">
           <span className="eyebrow">
-            PENNY PILOT <span> / </span>{" "}
-            {session.review ? "DAILY REFRESH" : "MONEY FOUNDATIONS"}
+            PENNY PILOT <span> / </span>
+            <Copy> </Copy>
+            <Copy>
+              {session.review ? "DAILY REFRESH" : "MONEY FOUNDATIONS"}
+            </Copy>
           </span>
           <div className="player-progress">
             <div
@@ -221,7 +311,7 @@ export default function LessonPlayer({
           <label>
             <Icon name="Languages" size={16} />
             <select
-              aria-label="Lesson language"
+              aria-label={ui("Lesson language")}
               value={language}
               onChange={(e) =>
                 update((p) => ({ ...p, language: e.target.value as Language }))
@@ -236,21 +326,23 @@ export default function LessonPlayer({
           {"speechSynthesis" in window && (
             <button className="text-button" onClick={speak}>
               <Icon name="Volume2" size={17} />
-              {hi ? "सुनें" : "Listen"}
+              <Copy>{hi ? "सुनें" : "Listen"}</Copy>
             </button>
           )}
         </div>
         {audioMessage && (
           <p className="tiny-text" role="status">
-            {audioMessage}
+            <Copy>{audioMessage}</Copy>
           </p>
         )}
         {session.stage === 0 && (
           <>
             <div className="lesson-intro-heading">
-              <Mia pose="face" />
+              <Mia pose={lesson.id === "safety" ? "concerned" : "thinking"} />
               <span className="eyebrow">
-                {session.review ? "A LITTLE REFRESH" : "YOUR NEXT SMALL STEP"}
+                <Copy>
+                  {session.review ? "A LITTLE REFRESH" : "YOUR NEXT SMALL STEP"}
+                </Copy>
               </span>
               <h2>
                 <Local text={lesson.title} lang={language} />
@@ -263,7 +355,9 @@ export default function LessonPlayer({
                   <span className={`concept-icon concept-${i}`}>
                     <Icon name={c.icon} size={27} />
                   </span>
-                  <span className="eyebrow">{c.label}</span>
+                  <span className="eyebrow">
+                    <Copy>{c.label}</Copy>
+                  </span>
                   <p>
                     <Local text={c.text} lang={language} />
                   </p>
@@ -276,10 +370,11 @@ export default function LessonPlayer({
             <div className="player-footer">
               <span>
                 <Icon name="Clock3" size={16} />
-                {questions.length} exercises · Your pace
+                <Copy>{questions.length}</Copy>
+                <Copy en="exercises · Your pace " />
               </span>
               <button className="button green" onClick={() => setStage(1)}>
-                {hi ? "आज़माएं" : "Let’s try it"}
+                <Copy>{hi ? "आज़माएं" : "Let’s try it"}</Copy>
                 <Icon name="ArrowRight" size={18} />
               </button>
             </div>
@@ -290,10 +385,10 @@ export default function LessonPlayer({
             <div className="question-content" ref={answerRef} tabIndex={-1}>
               <div className="question-eyebrow">
                 <span className="eyebrow">
-                  {hi ? "खुद करके सीखें" : "YOUR TURN TO EXPLORE"}
+                  <Copy>{hi ? "खुद करके सीखें" : "YOUR TURN TO EXPLORE"}</Copy>
                 </span>
                 <span>
-                  {session.question + 1} / {questions.length}
+                  {session.question + 1} / <Copy>{questions.length}</Copy>
                 </span>
               </div>
               <h2>
@@ -356,15 +451,17 @@ export default function LessonPlayer({
               {q.type === "numeric" && (
                 <div className="numeric-exercise">
                   <label htmlFor="numeric-answer">
-                    {hi
-                      ? "आपका जवाब (सिर्फ़ संख्या)"
-                      : "Your answer (number only)"}
+                    <Copy>
+                      {hi
+                        ? "आपका जवाब (सिर्फ़ संख्या)"
+                        : "Your answer (number only)"}
+                    </Copy>
                   </label>
                   <div className="numeric-input">
                     <span>₹</span>
                     <input
                       id="numeric-answer"
-                      type="number"
+                      type="text"
                       inputMode={Number(q.answer) < 0 ? "text" : "decimal"}
                       value={result ? String(result.answer) : number}
                       onChange={(e) => setNumber(e.target.value)}
@@ -381,18 +478,27 @@ export default function LessonPlayer({
                     />
                   </div>
                   <small>
-                    {hi
-                      ? "अनुमान ठीक है। मिलकर समझेंगे।"
-                      : "Take your time. The working comes next."}
+                    <span>
+                      {hi
+                        ? "1,00,000 या १,००,००० भी लिख सकते हैं। "
+                        : "You can also type 1,00,000 or १,००,०००. "}
+                    </span>
+                    <Copy>
+                      {hi
+                        ? "अनुमान ठीक है। मिलकर समझेंगे।"
+                        : "Take your time. The working comes next."}
+                    </Copy>
                   </small>
                 </div>
               )}
               {q.type === "order" && (
                 <div className="order-exercise">
                   <p className="muted">
-                    {hi
-                      ? "सही क्रम में चुनें। हटाने के लिए फिर टैप करें।"
-                      : "Tap in order. Tap again to remove a step."}
+                    <Copy>
+                      {hi
+                        ? "सही क्रम में चुनें। हटाने के लिए फिर टैप करें।"
+                        : "Tap in order. Tap again to remove a step."}
+                    </Copy>
                   </p>
                   {q.options!.map((o, i) => {
                     const sequence = result
@@ -424,6 +530,13 @@ export default function LessonPlayer({
                   })}
                 </div>
               )}
+              {practising && (
+                <p className="tiny-text">
+                  {hi
+                    ? "यह अभ्यास है। सेव किया जवाब और XP वही रहेंगे।"
+                    : "Practice mode. Your saved answer and XP stay unchanged."}
+                </p>
+              )}
               {result && (
                 <div
                   className={`answer-feedback ${result.correct ? "right" : "wrong"}`}
@@ -435,13 +548,15 @@ export default function LessonPlayer({
                   />
                   <div>
                     <strong>
-                      {result.correct
-                        ? hi
-                          ? "बिल्कुल सही!"
-                          : "That’s it. Nicely done!"
-                        : hi
-                          ? "गलतियाँ सीखने का हिस्सा हैं।"
-                          : "A good moment to learn."}
+                      <Copy>
+                        {result.correct
+                          ? hi
+                            ? "बिल्कुल सही!"
+                            : "That’s it. Nicely done!"
+                          : hi
+                            ? "गलतियाँ सीखने का हिस्सा हैं।"
+                            : "A good moment to learn."}
+                      </Copy>
                     </strong>
                     <p>
                       <Local text={q.explanation} lang={language} />
@@ -449,7 +564,7 @@ export default function LessonPlayer({
                     {!result.correct &&
                       (q.type === "choice" || q.type === "document") && (
                         <p className="correct-label">
-                          {hi ? "सही जवाब: " : "Correct answer: "}
+                          <Copy>{hi ? "सही जवाब: " : "Correct answer: "}</Copy>
                           <Local
                             text={q.options![q.answer as number]}
                             lang={language}
@@ -458,10 +573,23 @@ export default function LessonPlayer({
                       )}
                     <button
                       className="text-button"
+                      onClick={() => {
+                        setPractising(true);
+                        setPracticeResult(undefined);
+                        setSelection(null);
+                        setNumber("");
+                        setOrdered([]);
+                        setClassified([]);
+                      }}
+                    >
+                      {hi ? "एक बार और आज़माएं" : "Try once more"}
+                    </button>
+                    <button
+                      className="text-button"
                       aria-expanded={deep}
                       onClick={() => setDeep(!deep)}
                     >
-                      {hi ? "और समझें" : "A little more from Mia"}
+                      <Copy>{hi ? "और समझें" : "A little more from Mia"}</Copy>
                       <Icon
                         name={deep ? "ChevronUp" : "ChevronDown"}
                         size={15}
@@ -479,34 +607,62 @@ export default function LessonPlayer({
             <div className="player-footer">
               <span>
                 <Icon name="ShieldCheck" size={16} />
-                {hi
-                  ? "प्रगति अपने-आप सेव होती है"
-                  : "Progress saved after every answer"}
+                <Copy>
+                  {hi
+                    ? "प्रगति अपने-आप सेव होती है"
+                    : "Progress saved after every answer"}
+                </Copy>
               </span>
               <button
                 className="button green"
                 disabled={!result && !canAnswer}
                 onClick={result ? next : check}
               >
-                {result
-                  ? hi
-                    ? "आगे बढ़ें"
-                    : "Continue"
-                  : hi
-                    ? "जवाब देखें"
-                    : "Check answer"}
+                <Copy>
+                  {result
+                    ? hi
+                      ? "आगे बढ़ें"
+                      : "Continue"
+                    : hi
+                      ? "जवाब देखें"
+                      : "Check answer"}
+                </Copy>
                 <Icon name="ArrowRight" size={18} />
               </button>
             </div>
           </>
         )}
-        {session.stage === 2 && (
+        {session.stage === 2 && session.quickStart && (
+          <div className="notes-stage">
+            <Mia pose="celebrate" />
+            <h2>
+              <Copy>{hi ? "पहला कदम पूरा!" : "Your first step, done."}</Copy>
+            </h2>
+            <p>
+              <Copy>
+                {hi
+                  ? "आपने एक सवाल आज़माया। पूरा पाठ और नोट्स सीखने के सफ़र में मिलेंगे।"
+                  : "You tried one question. The full lesson and its notes are waiting on your learning path."}
+              </Copy>
+            </p>
+            <button className="button green" onClick={onFinish}>
+              <Copy>{hi ? "पहला कदम सेव करें" : "Save my first step"}</Copy>
+            </button>
+          </div>
+        )}
+        {session.stage === 2 && !session.quickStart && (
           <div className="notes-stage">
             <span className="preview-icon">
               <Icon name="NotebookPen" size={30} />
             </span>
-            <span className="eyebrow">A LITTLE KNOWLEDGE TO KEEP</span>
-            <h2>{hi ? "आपकी नोट्स कार्ड" : "Your pocket-sized wisdom."}</h2>
+            <span className="eyebrow">
+              <Copy en="A LITTLE KNOWLEDGE TO KEEP " />
+            </span>
+            <h2>
+              <Copy>
+                {hi ? "आपकी नोट्स कार्ड" : "Your pocket-sized wisdom."}
+              </Copy>
+            </h2>
             <div className="notes-paper">
               <h3>
                 <Local text={lesson.title} lang={language} />
@@ -519,7 +675,9 @@ export default function LessonPlayer({
                 ))}
               </ul>
               <div className="note-example">
-                <span className="eyebrow">WORKED EXAMPLE</span>
+                <span className="eyebrow">
+                  <Copy en="WORKED EXAMPLE " />
+                </span>
                 <p>
                   <Local text={lesson.example} lang={language} />
                 </p>
@@ -528,7 +686,9 @@ export default function LessonPlayer({
                 <Icon name="Footprints" size={20} />
                 <div>
                   <strong>
-                    {hi ? "असल ज़िंदगी में करें" : "One tiny real-life step"}
+                    <Copy>
+                      {hi ? "असल ज़िंदगी में करें" : "One tiny real-life step"}
+                    </Copy>
                   </strong>
                   <p>
                     <Local text={lesson.action} lang={language} />
@@ -539,12 +699,14 @@ export default function LessonPlayer({
             <div className="player-footer">
               <span>
                 <Icon name="BookOpen" size={16} />
-                {hi
-                  ? "नोटबुक में जुड़ जाएगी"
-                  : "Auto-collected in your Notebook"}
+                <Copy>
+                  {hi
+                    ? "नोटबुक में जुड़ जाएगी"
+                    : "Auto-collected in your Notebook"}
+                </Copy>
               </span>
               <button className="button green" onClick={onFinish}>
-                {hi ? "पाठ पूरा करें" : "Finish lesson"}
+                <Copy>{hi ? "पाठ पूरा करें" : "Finish lesson"}</Copy>
                 <Icon name="Check" size={18} />
               </button>
             </div>
@@ -559,60 +721,98 @@ export default function LessonPlayer({
               <span className="confetti c3">✦</span>
             </div>
             <span className="eyebrow">
-              ONE SMALL STEP. A LITTLE MORE CONFIDENT.
+              <Copy en="ONE SMALL STEP. A LITTLE MORE CONFIDENT. " />
             </span>
             <h2>
-              {hi
-                ? "शाबाश! मिया को आप पर गर्व है।"
-                : "Look at you, money human."}
+              <Copy>
+                {hi
+                  ? "शाबाश! मिया को आप पर गर्व है।"
+                  : "Look at you, money human."}
+              </Copy>
             </h2>
             <p>
-              {hi
-                ? "आपने आज खुद में निवेश किया।"
-                : "You showed up for yourself. That’s a great investment."}
+              <Copy>
+                {hi
+                  ? "आपने आज खुद में निवेश किया।"
+                  : "You showed up for yourself. That’s a great investment."}
+              </Copy>
             </p>
             <div className="result-stats">
               <div>
                 <Icon name="Zap" />
                 <strong>
-                  +{correct * 10 + (correct === questions.length ? 20 : 0)}
+                  +
+                  {correct * 10 +
+                    (correct === questions.length && !session.quickStart
+                      ? 20
+                      : 0)}
                 </strong>
-                <span>XP EARNED</span>
+                <span>
+                  <Copy en="XP EARNED " />
+                </span>
               </div>
               <div>
                 <Icon name="Target" />
                 <strong>
-                  {correct}/{questions.length}
+                  <Copy>{correct}</Copy>/<Copy>{questions.length}</Copy>
                 </strong>
-                <span>CORRECT ANSWERS</span>
+                <span>
+                  <Copy en="CORRECT ANSWERS " />
+                </span>
               </div>
               <div>
                 <Icon name="BookOpen" />
-                <strong>1</strong>
-                <span>NOTE CARD SAVED</span>
+                <strong>
+                  <Copy>{session.quickStart ? 0 : 1}</Copy>
+                </strong>
+                <span>
+                  <Copy en="NOTE CARD SAVED " />
+                </span>
               </div>
             </div>
             <button className="button green full" onClick={onNext}>
-              {hi ? "अगला कदम" : "Keep the good thing going"}
+              <Copy>{hi ? "अगला कदम" : "Keep the good thing going"}</Copy>
               <Icon name="ArrowRight" size={18} />
             </button>
             <button className="text-button return-path" onClick={onClose}>
-              {hi ? "सफ़र पर वापस" : "Back to my learning path"}
+              <Copy>{hi ? "सफ़र पर वापस" : "Back to my learning path"}</Copy>
             </button>
           </div>
         )}
+        <details className="lesson-report">
+          <summary>
+            {hi
+              ? "कोई गलती मिली? निजी नोट लिखें"
+              : "Report an error (local note)"}
+          </summary>
+          <label>
+            {hi
+              ? "कौन-सी बात गलत या उलझाने वाली लगी?"
+              : "What seems wrong or unclear?"}
+            <textarea
+              maxLength={10000}
+              value={report}
+              onChange={(e) => onReport(e.target.value)}
+            />
+          </label>
+          <p className="tiny-text">
+            {hi
+              ? "यह नोट इसी डिवाइस पर सेव है। किसी को भेजा नहीं जाता।"
+              : "This note is saved only on this device. It is not sent to anyone."}
+          </p>
+        </details>
         <details className="lesson-sources">
           <summary>
-            {hi ? "स्रोत और सामग्री की स्थिति" : "Sources & content status"}
+            <Copy>
+              {hi ? "स्रोत और सामग्री की स्थिति" : "Sources & content status"}
+            </Copy>
           </summary>
           <p>
-            Editorial preview. These source links are provided for verification;
-            this content has not yet received independent expert review.
-            Education only, not financial advice.
+            <Copy en="Editorial preview. These source links are provided for verification; this content has not yet received independent expert review. Education only, not financial advice. " />
           </p>
           {lesson.sources.map((s) => (
             <a key={s} href={s} target="_blank" rel="noreferrer">
-              {new URL(s).hostname}
+              <Copy>{new URL(s).hostname}</Copy>
               <Icon name="ExternalLink" size={12} />
             </a>
           ))}

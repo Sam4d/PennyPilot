@@ -1,3 +1,4 @@
+import { Copy } from "../lib/ui-copy";
 import { useState } from "react";
 import type { Language, Lesson } from "../content/schema";
 import { insuranceGuides } from "../content/insurance-guides";
@@ -43,17 +44,23 @@ export default function Insurance({
           <div className="page-heading">
             <div>
               <span className="eyebrow">
-                {hi
-                  ? "अपने लोगों और प्लान की सुरक्षा"
-                  : "PROTECT YOUR PEOPLE AND PLANS"}
+                <Copy>
+                  {hi
+                    ? "अपने लोगों और प्लान की सुरक्षा"
+                    : "PROTECT YOUR PEOPLE AND PLANS"}
+                </Copy>
               </span>
               <h1>
-                {hi ? "इंश्योरेंस समझें।" : "Insurance, clearly explained."}
+                <Copy>
+                  {hi ? "इंश्योरेंस समझें।" : "Insurance, clearly explained."}
+                </Copy>
               </h1>
               <p>
-                {hi
-                  ? "क्यों चाहिए, क्या फायदा है, किन शर्तों पर है—शुरुआत से एडवांस तक।"
-                  : "Why it matters, how it helps and where its limits lie—from the basics to advanced policy comparison."}
+                <Copy>
+                  {hi
+                    ? "क्यों चाहिए, क्या फायदा है, किन शर्तों पर है—शुरुआत से एडवांस तक।"
+                    : "Why it matters, how it helps and where its limits lie—from the basics to advanced policy comparison."}
+                </Copy>
               </p>
             </div>
             <Icon name="Umbrella" size={38} />
@@ -62,25 +69,33 @@ export default function Insurance({
             <Mia pose="read" />
             <div>
               <span className="pill">
-                {hi ? "मिया की सुरक्षा क्लास" : "MIA’S PROTECTION CLASS"}
+                <Copy>
+                  {hi ? "मिया की सुरक्षा क्लास" : "MIA’S PROTECTION CLASS"}
+                </Copy>
               </span>
               <h2>
-                {hi
-                  ? "बड़ा नुकसान, छोटा नहीं लगता। तैयारी मदद करती है।"
-                  : "A large loss can change a plan. Preparation helps."}
+                <Copy>
+                  {hi
+                    ? "बड़ा नुकसान, छोटा नहीं लगता। तैयारी मदद करती है।"
+                    : "A large loss can change a plan. Preparation helps."}
+                </Copy>
               </h2>
               <p>
-                {hi
-                  ? "बचत तुरंत मदद देती है। सही कवर तय बड़े रिस्क में मदद कर सकता है। दोनों की अपनी जगह है।"
-                  : "Savings help with urgent needs. Suitable insurance can help with specified larger risks. Learn how the two work together."}
+                <Copy>
+                  {hi
+                    ? "बचत तुरंत मदद देती है। सही कवर तय बड़े रिस्क में मदद कर सकता है। दोनों की अपनी जगह है।"
+                    : "Savings help with urgent needs. Suitable insurance can help with specified larger risks. Learn how the two work together."}
+                </Copy>
               </p>
               <button
                 className="button green"
                 onClick={() => open("why-insurance")}
               >
-                {hi
-                  ? "क्यों ज़रूरी है, समझें"
-                  : "Start with why insurance matters"}
+                <Copy>
+                  {hi
+                    ? "क्यों ज़रूरी है, समझें"
+                    : "Start with why insurance matters"}
+                </Copy>
                 <Icon name="ArrowRight" size={17} />
               </button>
             </div>
@@ -88,11 +103,15 @@ export default function Insurance({
           <section className="insurance-practice">
             <div className="section-heading">
               <div>
-                <h2>{hi ? "खेलकर समझें" : "Learn by doing"}</h2>
+                <h2>
+                  <Copy>{hi ? "खेलकर समझें" : "Learn by doing"}</Copy>
+                </h2>
                 <p>
-                  {hi
-                    ? "तीन पाठ: सुरक्षा, हेल्थ बिल और परिवार की ज़रूरत।"
-                    : "Three interactive lessons: protection, health bills and family needs."}
+                  <Copy>
+                    {hi
+                      ? "तीन पाठ: सुरक्षा, हेल्थ बिल और परिवार की ज़रूरत।"
+                      : "Three interactive lessons: protection, health bills and family needs."}
+                  </Copy>
                 </p>
               </div>
             </div>
@@ -106,7 +125,8 @@ export default function Insurance({
                       <Local text={l.title} lang={language} />
                     </strong>
                     <span>
-                      {l.exercises.length} {hi ? "एक्सरसाइज़" : "exercises"}
+                      <Copy>{l.exercises.length}</Copy>{" "}
+                      <Copy>{hi ? "एक्सरसाइज़" : "exercises"}</Copy>
                       <Icon name="ArrowRight" size={16} />
                     </span>
                   </button>
@@ -115,11 +135,17 @@ export default function Insurance({
           </section>
           <div className="section-heading">
             <div>
-              <h2>{hi ? "शुरुआत से एडवांस तक" : "Build your understanding"}</h2>
+              <h2>
+                <Copy>
+                  {hi ? "शुरुआत से एडवांस तक" : "Build your understanding"}
+                </Copy>
+              </h2>
               <p>
-                {hi
-                  ? "8 गाइड, उदाहरण और काम की चेकलिस्ट।"
-                  : "Eight reading guides with examples and practical checklists."}
+                <Copy>
+                  {hi
+                    ? "8 गाइड, उदाहरण और काम की चेकलिस्ट।"
+                    : "Eight reading guides with examples and practical checklists."}
+                </Copy>
               </p>
             </div>
           </div>
@@ -136,14 +162,16 @@ export default function Insurance({
                   className={level === item ? "active" : ""}
                   onClick={() => setLevel(item)}
                 >
-                  {hi
-                    ? {
-                        All: "सभी",
-                        Beginner: "शुरुआत",
-                        Intermediate: "आगे",
-                        Advanced: "एडवांस",
-                      }[item]
-                    : item}
+                  <Copy>
+                    {hi
+                      ? {
+                          All: "सभी",
+                          Beginner: "शुरुआत",
+                          Intermediate: "आगे",
+                          Advanced: "एडवांस",
+                        }[item]
+                      : item}
+                  </Copy>
                 </button>
               ))}
             </div>
@@ -168,7 +196,9 @@ export default function Insurance({
                 className="insurance-guide-card"
                 onClick={() => open(g.id)}
               >
-                <span className="pill">{g.level}</span>
+                <span className="pill">
+                  <Copy>{g.level}</Copy>
+                </span>
                 <strong>
                   <Local text={g.title} lang={language} />
                 </strong>
@@ -176,7 +206,7 @@ export default function Insurance({
                   <Local text={g.summary} lang={language} />
                 </p>
                 <span className="guide-open">
-                  {hi ? "गाइड पढ़ें" : "Read guide"}
+                  <Copy>{hi ? "गाइड पढ़ें" : "Read guide"}</Copy>
                   <Icon name="ArrowUpRight" size={18} />
                 </span>
               </button>
@@ -184,9 +214,11 @@ export default function Insurance({
           </div>
           {!results.length && (
             <p role="status">
-              {hi
-                ? "कोई गाइड नहीं मिली। दूसरा शब्द आज़माएं।"
-                : "No guides match. Try another search or level."}
+              <Copy>
+                {hi
+                  ? "कोई गाइड नहीं मिली। दूसरा शब्द आज़माएं।"
+                  : "No guides match. Try another search or level."}
+              </Copy>
             </p>
           )}
           <button
@@ -194,15 +226,19 @@ export default function Insurance({
             onClick={onCurriculum}
           >
             <Icon name="Grid2X2" size={19} />
-            {hi
-              ? "वर्ल्ड 12 के सभी 39 टॉपिक देखें"
-              : "Explore all 39 insurance topics in World 12"}
+            <Copy>
+              {hi
+                ? "वर्ल्ड 12 के सभी 39 टॉपिक देखें"
+                : "Explore all 39 insurance topics in World 12"}
+            </Copy>
             <Icon name="ArrowRight" size={17} />
           </button>
           <p className="tiny-text">
-            {hi
-              ? "गाइड और पाठ अभी एडिटोरियल ड्राफ़्ट हैं; जाँच बाकी है। गाइड पढ़ने से क्विज़ पूरा या XP नहीं मिलता।"
-              : "Guides and lessons are editorial drafts pending review. Reading a guide does not complete a quiz or award XP."}
+            <Copy>
+              {hi
+                ? "गाइड और पाठ अभी एडिटोरियल ड्राफ़्ट हैं; जाँच बाकी है। गाइड पढ़ने से क्विज़ पूरा या XP नहीं मिलता।"
+                : "Guides and lessons are editorial drafts pending review. Reading a guide does not complete a quiz or award XP."}
+            </Copy>
           </p>
         </>
       )}

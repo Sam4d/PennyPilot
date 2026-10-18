@@ -1,3 +1,4 @@
+import { Copy } from "../lib/ui-copy";
 import type { Progress } from "../lib/store";
 import type { Lesson } from "../content/lessons";
 import { lessons, read } from "../content/lessons";
@@ -24,33 +25,46 @@ export default function Revise({
     <div>
       <div className="page-heading">
         <div>
-          <span className="eyebrow">A LITTLE REFRESH GOES A LONG WAY</span>
+          <span className="eyebrow">
+            <Copy en="A LITTLE REFRESH GOES A LONG WAY " />
+          </span>
           <h1>
             {progress.language === "hi" ? (
               "यादें ताज़ा करें।"
             ) : (
               <>
-                Good things <span>stick with practice.</span>
+                <Copy en="Good things " />
+                <span>
+                  <Copy en="stick with practice. " />
+                </span>
               </>
             )}
           </h1>
-          <p>Not a test. Just a friendly check-in with what you’ve learned.</p>
+          <p>
+            <Copy en="Not a test. Just a friendly check-in with what you’ve learned. " />
+          </p>
         </div>
         <Icon name="RotateCcw" size={37} />
       </div>
       <div className="review-banner">
         <Mia pose="read" />
         <div>
-          <span className="eyebrow">MAKE ROOM FOR A LITTLE RECALL</span>
+          <span className="eyebrow">
+            <Copy en="MAKE ROOM FOR A LITTLE RECALL " />
+          </span>
           <h2>
-            {due.length
-              ? `${due.length} little refresh${due.length === 1 ? "" : "es"} ready for you.`
-              : "Your next refresh is growing."}
+            <Copy>
+              {due.length
+                ? `${due.length} little refresh${due.length === 1 ? "" : "es"} ready for you.`
+                : "Your next refresh is growing."}
+            </Copy>
           </h2>
           <p>
-            {Object.keys(progress.reviews).length
-              ? "We schedule each question from your answers. Correct answers come back less often; tricky ones get a little more care."
-              : "Finish your first lesson and Mia will remember which ideas to revisit."}
+            <Copy>
+              {Object.keys(progress.reviews).length
+                ? "We schedule each question from your answers. Correct answers come back less often; tricky ones get a little more care."
+                : "Finish your first lesson and Mia will remember which ideas to revisit."}
+            </Copy>
           </p>
         </div>
       </div>
@@ -73,7 +87,8 @@ export default function Revise({
               <span>
                 <strong>{read(lesson.title, progress.language)}</strong>
                 <small>
-                  {questions.length} questions due · A few thoughtful minutes
+                  <Copy>{questions.length}</Copy>
+                  <Copy en="questions due · A few thoughtful minutes " />
                 </small>
               </span>
               <Icon name="ArrowRight" />
@@ -95,18 +110,21 @@ export default function Revise({
           }
         >
           <button className="button green" onClick={() => onStart(lessons[0])}>
-            Explore a lesson
+            <Copy en="Explore a lesson " />
             <Icon name="ArrowRight" size={17} />
           </button>
         </Empty>
       )}
       {weak.length > 0 && (
         <section className="mistakes-section">
-          <span className="eyebrow">MISTAKES ARE LITTLE TEACHERS</span>
-          <h2>A little extra attention.</h2>
+          <span className="eyebrow">
+            <Copy en="MISTAKES ARE LITTLE TEACHERS " />
+          </span>
+          <h2>
+            <Copy en="A little extra attention. " />
+          </h2>
           <p>
-            These questions have been tricky before. They’re saved here, without
-            judgement.
+            <Copy en="These questions have been tricky before. They’re saved here, without judgement. " />
           </p>
           {lessons
             .filter((l) => weak.some((r) => r.lessonId === l.id))
@@ -127,7 +145,9 @@ export default function Revise({
               >
                 <Icon name="Lightbulb" />
                 <strong>{read(l.title, progress.language)}</strong>
-                <span>Practise again</span>
+                <span>
+                  <Copy en="Practise again " />
+                </span>
                 <Icon name="ArrowRight" size={17} />
               </button>
             ))}

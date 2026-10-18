@@ -20,7 +20,14 @@ export default function InsuranceReader({
         </button>
       )}
       <span className="pill">
-        {guide.level} · {hi ? "पढ़कर समझें" : "Reading guide"}
+        {hi
+          ? {
+              Beginner: "शुरुआत",
+              Intermediate: "आगे की समझ",
+              Advanced: "गहरी समझ",
+            }[guide.level]
+          : guide.level}{" "}
+        · {hi ? "पढ़कर समझें" : "Reading guide"}
       </span>
       <h2>
         <Local text={guide.title} lang={language} />

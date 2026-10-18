@@ -1,3 +1,4 @@
+import { Copy, useUICopy } from "../lib/ui-copy";
 import { useRef, useState } from "react";
 import type { ChangeEvent } from "react";
 import { exportBackup, validateBackup } from "../lib/store";
@@ -13,12 +14,17 @@ export default function Profile({
   update,
   notify,
   count,
+  onAbout,
 }: {
   progress: Progress;
   update: Update;
   notify: (s: string) => void;
   count: number;
+  onAbout: () => void;
 }) {
+  const ui = useUICopy();
+  const hi = progress.language === "hi";
+
   const file = useRef<HTMLInputElement>(null);
   const [incoming, setIncoming] = useState<Progress | null>(null);
   const [error, setError] = useState("");
@@ -36,6 +42,23 @@ export default function Profile({
     } catch (err) {
       setError(
         err instanceof Error ? err.message : "Could not read this backup.",
+      );
+    }
+  };
+  const backup = async () => {
+    try {
+      const timestamp = await exportBackup(progress);
+      update((p) => ({ ...p, lastBackupAt: timestamp }));
+      notify(
+        hi
+          ? "बैकअप का डाउनलोड या शेयर शुरू हुआ। फ़ाइल सेव हुई है, यह चेक करें।"
+          : "Backup export started. Check that you saved the file.",
+      );
+    } catch {
+      setError(
+        hi
+          ? "बैकअप नहीं निकला। दोबारा आज़माएं।"
+          : "Could not export your backup. Please try again.",
       );
     }
   };
@@ -64,12 +87,17 @@ export default function Profile({
       <div className="page-heading">
         <div>
           <span className="eyebrow">
-            YOUR PACE. YOUR PROGRESS. YOUR PENNY PILOT.
+            <Copy en="YOUR PACE. YOUR PROGRESS. YOUR PENNY PILOT. " />
           </span>
           <h1>
-            A little more <span>you.</span>
+            <Copy en="A little more " />
+            <span>
+              <Copy en="you. " />
+            </span>
           </h1>
-          <p>Build a habit that fits your life, not the other way around.</p>
+          <p>
+            <Copy en="Build a habit that fits your life, not the other way around. " />
+          </p>
         </div>
         <Icon name="Fingerprint" size={38} />
       </div>
@@ -77,28 +105,50 @@ export default function Profile({
         <Mia pose="celebrate" />
         <div>
           <span className="pill">
-            {count >= lessons.length
-              ? "FOUNDATION EXPLORER"
-              : count
-                ? "CURIOUS MONEY HUMAN"
-                : "A FRESH BEGINNING"}
+            {ui(
+              count >= lessons.length
+                ? "FOUNDATION EXPLORER"
+                : count
+                  ? "CURIOUS MONEY HUMAN"
+                  : "A FRESH BEGINNING",
+            )}
           </span>
           <h2>
             {progress.name
-              ? `${progress.name}, you’ve got this.`
-              : "Hi, curious human."}
+              ? hi
+                ? `${progress.name}, अपने कदमों पर भरोसा रखें।`
+                : `${progress.name}, you’ve got this.`
+              : ui("Hi, curious human.")}
           </h2>
-          <p>No comparison. No leaderboard. Just your own little wins.</p>
+          <p>
+            <Copy en="No comparison. No leaderboard. Just your own little wins. " />
+          </p>
           <div className="profile-stats">
             <span>
-              <Icon name="Zap" /> <strong>{progress.xp}</strong> XP earned
+              <Icon name="Zap" />{" "}
+              <strong>
+                <Copy>{progress.xp}</Copy>
+              </strong>
+              <Copy en="XP earned " />
             </span>
             <span>
-              <Icon name="Flame" />{" "}
-              <strong>{streak(Object.keys(progress.days))}</strong> day streak
+              <Icon name="Flame" />
+              <Copy> </Copy>
+              <strong>
+                {streak(
+                  Object.keys(progress.days),
+                  new Date(),
+                  progress.protection?.used,
+                )}
+              </strong>
+              <Copy en="day streak " />
             </span>
             <span>
-              <Icon name="BookOpen" /> <strong>{count}</strong> lessons learned
+              <Icon name="BookOpen" />{" "}
+              <strong>
+                <Copy>{count}</Copy>
+              </strong>
+              <Copy en="lessons learned " />
             </span>
           </div>
         </div>
@@ -106,20 +156,22 @@ export default function Profile({
       <div className="settings-grid">
         <section className="settings-card">
           <div className="card-header">
-            <h2>Make yourself at home</h2>
+            <h2>
+              <Copy en="Make yourself at home " />
+            </h2>
             <Icon name="SlidersHorizontal" />
           </div>
           <label className="setting-field">
-            What should Mia call you?
+            <Copy en="What should Mia call you? " />
             <input
               maxLength={80}
-              placeholder="Your name (optional)"
+              placeholder={ui("Your name (optional)")}
               value={progress.name}
               onChange={(e) => update((p) => ({ ...p, name: e.target.value }))}
             />
           </label>
           <div className="setting-field">
-            Your daily little goal
+            <Copy en="Your daily little goal " />
             <div className="goal-options">
               {[
                 [25, "A gentle start", "A few minutes"],
@@ -131,18 +183,24 @@ export default function Profile({
                   className={progress.goal === xp ? "active" : ""}
                   onClick={() => update((p) => ({ ...p, goal: Number(xp) }))}
                 >
-                  <strong>{xp} XP</strong>
-                  <span>{label}</span>
-                  <small>{desc}</small>
+                  <strong>
+                    <Copy>{xp}</Copy> XP
+                  </strong>
+                  <span>
+                    <Copy>{label}</Copy>
+                  </span>
+                  <small>
+                    <Copy>{desc}</Copy>
+                  </small>
                 </button>
               ))}
             </div>
             <small className="muted">
-              XP depends on correct answers. Time estimates vary by learner.
+              <Copy en="XP depends on correct answers. Time estimates vary by learner. " />
             </small>
           </div>
           <label className="setting-field">
-            Language
+            <Copy en="Language " />
             <select
               value={progress.language}
               onChange={(e) =>
@@ -159,28 +217,29 @@ export default function Profile({
             </select>
           </label>
           <div className="setting-field">
-            Your kind of light
+            <Copy en="Your kind of light " />
             <div className="theme-options">
               <button
                 className={progress.theme === "light" ? "active" : ""}
                 onClick={() => update((p) => ({ ...p, theme: "light" }))}
               >
                 <Icon name="Sun" />
-                Light & bright
+                <Copy en="Light & bright " />
               </button>
               <button
                 className={progress.theme === "dark" ? "active" : ""}
                 onClick={() => update((p) => ({ ...p, theme: "dark" }))}
               >
                 <Icon name="Moon" />
-                After hours
+                <Copy en="After hours " />
               </button>
             </div>
           </div>
           <label className="setting-field">
-            Text size <span>{Math.round(progress.scale * 100)}%</span>
+            <Copy en="Text size " />
+            <span>{Math.round(progress.scale * 100)}%</span>
             <input
-              aria-label="Text size"
+              aria-label={ui("Text size")}
               type="range"
               min={1}
               max={2}
@@ -194,121 +253,144 @@ export default function Profile({
         </section>
         <div>
           <section className="settings-card backup-card">
+            <div className="backup-history">
+              <strong>
+                {hi ? "पिछला बैकअप एक्सपोर्ट" : "Last backed up (export)"}
+              </strong>
+              <p>
+                {progress.lastBackupAt
+                  ? new Intl.DateTimeFormat(hi ? "hi-IN" : "en-IN", {
+                      timeZone: "Asia/Kolkata",
+                      dateStyle: "medium",
+                      timeStyle: "short",
+                    }).format(new Date(progress.lastBackupAt)) + " IST"
+                  : hi
+                    ? "अभी तक बैकअप नहीं निकाला"
+                    : "No backup exported yet"}
+              </p>
+              <small>
+                {hi
+                  ? "यह डाउनलोड या शेयर शुरू होने का समय है। फ़ाइल सच में सेव हुई है, यह खुद चेक करें।"
+                  : "This records an export request. Confirm the downloaded or shared file was saved."}
+              </small>
+            </div>
+
             <div className="card-header">
-              <h2>Your progress, safely tucked away</h2>
+              <h2>
+                <Copy en="Your progress, safely tucked away " />
+              </h2>
               <Icon name="ShieldCheck" />
             </div>
             <p>
-              Your learning stays on this device. Export a backup to move
-              between your phone and computer, or keep a spare copy.
+              <Copy en="Your learning stays on this device. Export a backup to move between your phone and computer, or keep a spare copy. " />
             </p>
-            <button
-              className="button green full"
-              onClick={() => {
-                void exportBackup(progress).catch(() =>
-                  setError("Could not export your backup. Please try again."),
-                );
-                notify("Your backup is ready. Keep it somewhere safe.");
-              }}
-            >
+            <button className="button green full" onClick={() => void backup()}>
               <Icon name="Download" size={18} />
-              Export my progress
+              <Copy en="Export my progress " />
             </button>
             <button
               className="button secondary full"
               onClick={() => file.current?.click()}
             >
               <Icon name="Upload" size={18} />
-              Restore a backup
+              <Copy en="Restore a backup " />
             </button>
             <input
               ref={file}
               type="file"
-              aria-label="Choose a Penny Pilot progress backup"
+              aria-label={ui("Choose a Penny Pilot progress backup")}
               accept="application/json,.json"
               className="visually-hidden"
               onChange={importFile}
             />
             {error && (
               <p className="form-error" role="alert">
-                {error}
+                <Copy>{error}</Copy>
               </p>
             )}
             <button className="text-button" onClick={persist}>
               <Icon name="HardDrive" size={16} />
-              Protect browser storage
+              <Copy en="Protect browser storage " />
             </button>
             {persisted && (
               <p className="tiny-text" role="status">
-                {persisted}
+                <Copy>{persisted}</Copy>
               </p>
             )}
           </section>
           <section className="settings-card trust-card">
+            <button className="text-button" onClick={onAbout}>
+              {hi ? "इस सामग्री के बारे में" : "About this content"}
+            </button>
             <div className="card-header">
-              <h2>A small promise</h2>
+              <h2>
+                <Copy en="A small promise " />
+              </h2>
               <Icon name="Heart" />
             </div>
             <ul>
               <li>
                 <Icon name="Check" />
-                No ads, trackers, or broker referrals.
+                <Copy en="No ads, trackers, or broker referrals. " />
               </li>
               <li>
                 <Icon name="Check" />
-                No login. Your learning stays local.
+                <Copy en="No login. Your learning stays local. " />
               </li>
               <li>
                 <Icon name="Check" />
-                No stock picks or promised returns.
+                <Copy en="No stock picks or promised returns. " />
               </li>
             </ul>
             <p>
-              This app is for education only. It is not investment, tax or legal
-              advice. The creators are not SEBI-registered advisors.
+              <Copy en="This app is for education only. It is not investment, tax or legal advice. It does not provide personal financial advice. " />
             </p>
             <details>
-              <summary>About this first release</summary>
+              <summary>
+                <Copy en="About this first release " />
+              </summary>
               <p>
-                Penny Pilot 0.7 · {lessons.length} editorial-preview lessons,{" "}
-                {lessons.reduce((n, l) => n + l.exercises.length, 0)} exercises,
-                {glossary.length} glossary entries, four calculators, and a
-                16-world topic library, eight insurance reading guides, and a
-                lump-sum investment mode. Content needs expert financial and
-                Hindi editorial review. Current tax and regulatory rules are
-                intentionally excluded until verified.
+                <Copy en="Penny Pilot 0.8 · " />
+                <Copy>{lessons.length}</Copy>
+                <Copy en="editorial-preview lessons, " />
+                <Copy> </Copy>
+                {lessons.reduce((n, l) => n + l.exercises.length, 0)}
+                <Copy en="exercises, " />
+                <Copy>{glossary.length}</Copy>
+                <Copy en="glossary entries, four calculators, and a 16-world topic library, eight insurance reading guides, and a lump-sum investment mode. Content needs expert financial and Hindi editorial review. Current tax and regulatory rules are intentionally excluded until verified. " />
               </p>
               <p>
-                Animations respect your device’s reduced-motion preference.
-                Lessons and fonts are bundled for offline use after the first
-                full load.
+                <Copy en="Animations respect your device’s reduced-motion preference. Lessons and fonts are bundled for offline use after the first full load. " />
               </p>
             </details>
           </section>
         </div>
       </div>
       {incoming && (
-        <Modal label="Restore progress" onClose={() => setIncoming(null)}>
+        <Modal label={ui("Restore progress")} onClose={() => setIncoming(null)}>
           <div className="restore-dialog">
             <span className="preview-icon">
               <Icon name="Upload" size={30} />
             </span>
-            <h2>Bring your learning along.</h2>
+            <h2>
+              <Copy en="Bring your learning along. " />
+            </h2>
             <p>
-              This backup contains {incoming.xp} XP and{" "}
-              {Object.keys(incoming.completed).length} completed lessons.
-              Restoring replaces the progress on this device.
+              <Copy en="This backup contains " />
+              <Copy>{incoming.xp}</Copy>
+              <Copy en="XP and " />
+              <Copy> </Copy>
+              <Copy>{Object.keys(incoming.completed).length}</Copy>
+              <Copy en="completed lessons. Restoring replaces the progress on this device. " />
             </p>
-            <p>Export your current progress first if you want to keep it.</p>
+            <p>
+              <Copy en="Export your current progress first if you want to keep it. " />
+            </p>
             <button
               className="button secondary full"
-              onClick={() => {
-                void exportBackup(progress).catch(() =>
-                  setError("Could not export your backup. Please try again."),
-                );
-              }}
+              onClick={() => void backup()}
             >
-              Export current progress
+              <Copy en="Export current progress " />
             </button>
             <button
               className="button green full"
@@ -318,7 +400,7 @@ export default function Profile({
                 notify("Your learning is right where you left it.");
               }}
             >
-              Restore this backup
+              <Copy en="Restore this backup " />
               <Icon name="Check" size={18} />
             </button>
           </div>

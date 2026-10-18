@@ -1,3 +1,4 @@
+import { Copy, useUICopy } from "../lib/ui-copy";
 import { useEffect, useRef } from "react";
 import type { ReactNode } from "react";
 import * as Icons from "lucide-react";
@@ -92,10 +93,10 @@ export function Icon({ name, ...props }: { name: string } & LucideProps) {
 export function Local({ text, lang }: { text: Text; lang: Language }) {
   return (
     <>
-      {text[lang === "both" ? "en" : lang]}
+      <Copy>{text[lang === "both" ? "en" : lang]}</Copy>
       {lang === "both" && (
         <span className="translation" lang="hi">
-          {text.hi}
+          <Copy>{text.hi}</Copy>
         </span>
       )}
     </>
@@ -114,6 +115,8 @@ export function Modal({
   wide?: boolean;
   topAligned?: boolean;
 }) {
+  const ui = useUICopy();
+
   const ref = useRef<HTMLDivElement>(null);
   const closeRef = useRef(onClose);
   closeRef.current = onClose;
@@ -182,11 +185,11 @@ export function Modal({
         <button
           className="icon-button modal-close"
           onClick={onClose}
-          aria-label="Close dialog"
+          aria-label={ui("Close dialog")}
         >
           <Icons.X />
         </button>
-        {children}
+        <Copy>{children}</Copy>
       </div>
     </div>
   );
@@ -207,9 +210,13 @@ export function Empty({
       <span className="empty-icon">
         <Icon name={icon} size={30} />
       </span>
-      <h2>{title}</h2>
-      <p>{description}</p>
-      {children}
+      <h2>
+        <Copy>{title}</Copy>
+      </h2>
+      <p>
+        <Copy>{description}</Copy>
+      </p>
+      <Copy>{children}</Copy>
     </div>
   );
 }

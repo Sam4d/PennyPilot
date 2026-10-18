@@ -1,3 +1,4 @@
+import { Copy, useUICopy } from "../lib/ui-copy";
 import { useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import { Icon } from "./UI";
 /** Keep the selected story stable when a phone rotates, text scales or fonts load. */
@@ -8,6 +9,8 @@ export default function ConceptScroller({
   items: ReactNode[];
   onChange: (index: number) => void;
 }) {
+  const ui = useUICopy();
+
   const viewport = useRef<HTMLDivElement>(null);
   const selected = useRef(0);
   const pending = useRef<number | null>(null);
@@ -70,11 +73,24 @@ export default function ConceptScroller({
     if (actual !== selected.current) select(actual);
   };
   return (
-    <>
+    <div
+      className="concept-scroller"
+      onKeyDown={(e) => {
+        if (
+          e.target instanceof HTMLElement &&
+          e.target.closest("input,textarea,select")
+        )
+          return;
+        if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+          e.preventDefault();
+          move(selected.current + (e.key === "ArrowRight" ? 1 : -1));
+        }
+      }}
+    >
       <div className="carousel-controls">
         <button
           className="icon-button"
-          aria-label="Previous concept"
+          aria-label={ui("Previous concept")}
           disabled={card === 0}
           onClick={() => move(selected.current - 1)}
         >
@@ -84,7 +100,7 @@ export default function ConceptScroller({
           {items.map((_, i) => (
             <button
               key={i}
-              aria-label={`Concept ${i + 1}`}
+              aria-label={ui(`Concept ${i + 1}`)}
               aria-current={card === i ? "step" : undefined}
               className={card === i ? "active" : ""}
               onClick={() => move(i)}
@@ -93,7 +109,7 @@ export default function ConceptScroller({
         </div>
         <button
           className="icon-button"
-          aria-label="Next concept"
+          aria-label={ui("Next concept")}
           disabled={card === items.length - 1}
           onClick={() => move(selected.current + 1)}
         >
@@ -118,10 +134,10 @@ export default function ConceptScroller({
             inert={card !== i}
             aria-hidden={card !== i}
           >
-            {content}
+            <Copy>{content}</Copy>
           </article>
         ))}
       </div>
-    </>
+    </div>
   );
 }

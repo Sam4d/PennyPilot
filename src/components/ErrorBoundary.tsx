@@ -10,20 +10,22 @@ export default class ErrorBoundary extends Component<
     return { failed: true };
   }
   render() {
+    const hi = document.documentElement.lang === "hi";
     if (this.state.failed)
       return (
         <main className="loading-screen">
           <Mia pose="face" />
-          <h1>A small pause.</h1>
+          <h1>{hi ? "थोड़ा रुकें।" : "A small pause."}</h1>
           <p>
-            Penny Pilot couldn’t open this screen. Your saved learning is still
-            on this device.
+            {hi
+              ? "यह पेज नहीं खुला। पहले से सेव की गई प्रगति को बदला नहीं गया है।"
+              : "This screen could not open. Previously saved progress has not been changed."}
           </p>
           <button
             className="button green"
             onClick={() => window.location.reload()}
           >
-            Try opening again
+            {hi ? "फिर खोलें" : "Try opening again"}
           </button>
         </main>
       );

@@ -1,3 +1,4 @@
+import { Copy, useUICopy } from "../lib/ui-copy";
 import { useEffect, useRef, useState } from "react";
 import curriculum from "../content/curriculum.json";
 import { lessons, type Language, type Lesson } from "../content/lessons";
@@ -22,6 +23,8 @@ export default function Curriculum({
   target?: string;
   onNavigate: (target: string) => void;
 }) {
+  const ui = useUICopy();
+
   const [selected, setSelected] = useState(() => catalogueWorld(target));
   const [query, setQuery] = useState("");
   const [global, setGlobal] = useState(false);
@@ -64,20 +67,28 @@ export default function Curriculum({
     >
       <div className="curriculum">
         <span className="eyebrow">
-          {hi
-            ? "अपनी पसंद का टॉपिक खोलें"
-            : "OPEN ANY TOPIC. LEARN IN YOUR OWN ORDER."}
+          <Copy>
+            {hi
+              ? "अपनी पसंद का टॉपिक खोलें"
+              : "OPEN ANY TOPIC. LEARN IN YOUR OWN ORDER."}
+          </Copy>
         </span>
         <h2>
-          {hi ? "सीखने का पूरा सफ़र" : "A whole world of money. Actually, 16."}
+          <Copy>
+            {hi
+              ? "सीखने का पूरा सफ़र"
+              : "A whole world of money. Actually, 16."}
+          </Copy>
         </h2>
         <p>
-          {hi
-            ? "हर वर्ल्ड, यूनिट और टॉपिक खुला है। तैयार क्विज़ सीधे शुरू करें। बाकी का ड्राफ़्ट आउटलाइन पढ़ें।"
-            : "Every world, unit and topic is open. Start an available lesson directly, read an insurance guide, or explore a planned topic’s outline."}
+          <Copy>
+            {hi
+              ? "हर वर्ल्ड, यूनिट और टॉपिक खुला है। तैयार क्विज़ सीधे शुरू करें। बाकी का ड्राफ़्ट आउटलाइन पढ़ें।"
+              : "Every world, unit and topic is open. Start an available lesson directly, read an insurance guide, or explore a planned topic’s outline."}
+          </Copy>
         </p>
         <div className="curriculum-layout">
-          <nav aria-label="Curriculum worlds">
+          <nav aria-label={ui("Curriculum worlds")}>
             {curriculum.map((world, i) => (
               <button
                 className={selected === i ? "active" : ""}
@@ -86,7 +97,9 @@ export default function Curriculum({
               >
                 <span>{String(i + 1).padStart(2, "0")}</span>
                 <Icon name={world.icon} size={18} />
-                <strong>{hi ? world.hi : world.title}</strong>
+                <strong>
+                  <Copy>{hi ? world.hi : world.title}</Copy>
+                </strong>
               </button>
             ))}
           </nav>
@@ -98,26 +111,29 @@ export default function Curriculum({
                   onClick={() => onNavigate(`world/${topic.world.id}`)}
                 >
                   <Icon name="ArrowLeft" size={16} />
-                  {hi ? "वर्ल्ड में वापस" : "Back to this world"}
+                  <Copy>{hi ? "वर्ल्ड में वापस" : "Back to this world"}</Copy>
                 </button>
                 <h3 ref={heading} tabIndex={-1} className="topic-heading">
                   {topic.skill?.title ?? topic.unit.title}
                 </h3>
                 <span className="pill">
-                  {lesson
-                    ? hi
-                      ? "इंटरैक्टिव पाठ उपलब्ध"
-                      : "Interactive lesson available"
-                    : guide
+                  <Copy>
+                    {lesson
                       ? hi
-                        ? "गाइड उपलब्ध"
-                        : "Reading guide available"
-                      : hi
-                        ? "ड्राफ़्ट आउटलाइन"
-                        : "Draft outline"}
+                        ? "इंटरैक्टिव पाठ उपलब्ध"
+                        : "Interactive lesson available"
+                      : guide
+                        ? hi
+                          ? "गाइड उपलब्ध"
+                          : "Reading guide available"
+                        : hi
+                          ? "ड्राफ़्ट आउटलाइन"
+                          : "Draft outline"}
+                  </Copy>
                 </span>
                 <p className="topic-breadcrumb">
-                  {topic.world.title} · {topic.unit.title} ·{" "}
+                  <Copy>{topic.world.title}</Copy> ·{" "}
+                  <Copy>{topic.unit.title}</Copy> ·<Copy> </Copy>
                   {topic.skill?.id ?? topic.unit.id}
                 </p>
                 {lesson && (
@@ -132,7 +148,7 @@ export default function Curriculum({
                       className="button green"
                       onClick={() => onStart(lesson)}
                     >
-                      {hi ? "यह पाठ खोलें" : "Open this lesson"}
+                      <Copy>{hi ? "यह पाठ खोलें" : "Open this lesson"}</Copy>
                       <Icon name="Play" size={17} />
                     </button>
                   </section>
@@ -141,19 +157,25 @@ export default function Curriculum({
                 {!guide && (
                   <section className="topic-outline">
                     <h4>
-                      {hi
-                        ? "इस टॉपिक में क्या सीखेंगे"
-                        : "What this topic covers"}
+                      <Copy>
+                        {hi
+                          ? "इस टॉपिक में क्या सीखेंगे"
+                          : "What this topic covers"}
+                      </Copy>
                     </h4>
                     <p>
-                      {topic.skill
-                        ? skillOutline(topic.unit, topic.skill)
-                        : topic.unit.outline.replace(/^• /gm, "")}
+                      <Copy>
+                        {topic.skill
+                          ? skillOutline(topic.unit, topic.skill)
+                          : topic.unit.outline.replace(/^• /gm, "")}
+                      </Copy>
                     </p>
                     <p className="tiny-text">
-                      {hi
-                        ? "यह दिए हुए सिलेबस का ड्राफ़्ट है। पूरा पढ़ने वाला पाठ और क्विज़ अभी तैयार नहीं है। आँकड़े और नियम जाँचे हुए नहीं हैं; ऑफ़िशियल जानकारी चेक करें।"
-                        : "This is the supplied curriculum outline, not a completed lesson. Full teaching content and a quiz are still in development. Figures and rules in this draft are unverified; check current official sources."}
+                      <Copy>
+                        {hi
+                          ? "यह दिए हुए सिलेबस का ड्राफ़्ट है। पूरा पढ़ने वाला पाठ और क्विज़ अभी तैयार नहीं है। आँकड़े और नियम जाँचे हुए नहीं हैं; ऑफ़िशियल जानकारी चेक करें।"
+                          : "This is the supplied curriculum outline, not a completed lesson. Full teaching content and a quiz are still in development. Figures and rules in this draft are unverified; check current official sources."}
+                      </Copy>
                     </p>
                   </section>
                 )}
@@ -172,7 +194,9 @@ export default function Curriculum({
                               onClick={() => onNavigate(all[i - 1].id)}
                             >
                               <Icon name="ArrowLeft" size={15} />
-                              {hi ? "पिछला टॉपिक" : "Previous topic"}
+                              <Copy>
+                                {hi ? "पिछला टॉपिक" : "Previous topic"}
+                              </Copy>
                             </button>
                           )}
                           {i < all.length - 1 && (
@@ -180,7 +204,7 @@ export default function Curriculum({
                               className="button secondary"
                               onClick={() => onNavigate(all[i + 1].id)}
                             >
-                              {hi ? "अगला टॉपिक" : "Next topic"}
+                              <Copy>{hi ? "अगला टॉपिक" : "Next topic"}</Copy>
                               <Icon name="ArrowRight" size={15} />
                             </button>
                           )}
@@ -194,9 +218,11 @@ export default function Curriculum({
               <>
                 {isUnknown && (
                   <p role="alert">
-                    {hi
-                      ? "यह टॉपिक नहीं मिला। नीचे से चुनें।"
-                      : "That topic was not found. Choose a topic below."}
+                    <Copy>
+                      {hi
+                        ? "यह टॉपिक नहीं मिला। नीचे से चुनें।"
+                        : "That topic was not found. Choose a topic below."}
+                    </Copy>
                   </p>
                 )}
                 <div className="curriculum-world-header">
@@ -204,27 +230,37 @@ export default function Curriculum({
                     <Icon name={w.icon} size={32} />
                   </span>
                   <span className="pill">
-                    {selected === 0
-                      ? `${lessons.length} PLAYABLE LESSONS`
-                      : selected === 12
-                        ? "8 READING GUIDES"
-                        : "TOPIC OUTLINES"}
+                    <Copy>
+                      {selected === 0
+                        ? `${lessons.length} PLAYABLE LESSONS`
+                        : selected === 12
+                          ? "8 READING GUIDES"
+                          : "TOPIC OUTLINES"}
+                    </Copy>
                   </span>
-                  <h3>{hi ? w.hi : w.title}</h3>
-                  <p>{w.description}</p>
+                  <h3>
+                    <Copy>{hi ? w.hi : w.title}</Copy>
+                  </h3>
+                  <p>
+                    <Copy>{w.description}</Copy>
+                  </p>
                   <span className="muted">
-                    {w.units.length} {hi ? "यूनिट" : "units"} ·{" "}
-                    {w.units.reduce((n, u) => n + u.skills.length, 0)}{" "}
-                    {hi ? "टॉपिक" : "topics"}
+                    <Copy>{w.units.length}</Copy>{" "}
+                    <Copy>{hi ? "यूनिट" : "units"}</Copy> ·<Copy> </Copy>
+                    {w.units.reduce((n, u) => n + u.skills.length, 0)}
+                    <Copy> </Copy>
+                    <Copy>{hi ? "टॉपिक" : "topics"}</Copy>
                   </span>
                 </div>
                 {selected === 11 && (
                   <div className="risk-notice">
                     <Icon name="ShieldAlert" />
                     <p>
-                      {hi
-                        ? "डेरिवेटिव में बड़ा नुकसान हो सकता है। रिस्क से शुरुआत करें।"
-                        : "Derivatives can cause substantial losses. Start with risk and how losses can exceed a small initial payment."}
+                      <Copy>
+                        {hi
+                          ? "डेरिवेटिव में बड़ा नुकसान हो सकता है। रिस्क से शुरुआत करें।"
+                          : "Derivatives can cause substantial losses. Start with risk and how losses can exceed a small initial payment."}
+                      </Copy>
                     </p>
                   </div>
                 )}
@@ -232,7 +268,7 @@ export default function Curriculum({
                   <Icon name="Search" size={18} />
                   <input
                     placeholder={hi ? "टॉपिक खोजें…" : "Find a topic…"}
-                    aria-label="Search curriculum"
+                    aria-label={ui("Search curriculum")}
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                   />
@@ -243,16 +279,22 @@ export default function Curriculum({
                     checked={global}
                     onChange={(e) => setGlobal(e.target.checked)}
                   />
-                  {hi ? "सभी 16 वर्ल्ड में खोजें" : "Search all 16 worlds"}
+                  <Copy>
+                    {hi ? "सभी 16 वर्ल्ड में खोजें" : "Search all 16 worlds"}
+                  </Copy>
                 </label>
                 {found.length ? (
                   found.map(({ world, unit: u }) => (
                     <details className="unit-accordion" key={u.id}>
                       <summary>
-                        <span>{u.id}</span>
+                        <span>
+                          <Copy>{u.id}</Copy>
+                        </span>
                         <strong>
-                          {global && query ? `${world.title} · ` : ""}
-                          {u.title}
+                          <Copy>
+                            {global && query ? `${world.title} · ` : ""}
+                          </Copy>
+                          <Copy>{u.title}</Copy>
                         </strong>
                         <Icon name="ChevronDown" size={17} />
                       </summary>
@@ -260,7 +302,9 @@ export default function Curriculum({
                         className="text-button unit-open"
                         onClick={() => onNavigate(`unit/${u.id}`)}
                       >
-                        {hi ? "यूनिट का आउटलाइन खोलें" : "Open unit outline"}
+                        <Copy>
+                          {hi ? "यूनिट का आउटलाइन खोलें" : "Open unit outline"}
+                        </Copy>
                         <Icon name="ArrowUpRight" size={14} />
                       </button>
                       {u.skills.length ? (
@@ -271,7 +315,9 @@ export default function Curriculum({
                                 className="catalogue-topic"
                                 onClick={() => onNavigate(s.id)}
                               >
-                                <span>{s.title}</span>
+                                <span>
+                                  <Copy>{s.title}</Copy>
+                                </span>
                                 <small>
                                   {lessons.some((l) => l.skill === s.id)
                                     ? hi
@@ -297,9 +343,11 @@ export default function Curriculum({
                   ))
                 ) : (
                   <p role="status">
-                    {hi
-                      ? "इस खोज में टॉपिक नहीं मिला। दूसरा शब्द आज़माएं।"
-                      : `No topics match “${query}”. Try another word.`}
+                    <Copy>
+                      {hi
+                        ? "इस खोज में टॉपिक नहीं मिला। दूसरा शब्द आज़माएं।"
+                        : `No topics match “${query}”. Try another word.`}
+                    </Copy>
                   </p>
                 )}
                 {selected === 0 && (
@@ -307,14 +355,20 @@ export default function Curriculum({
                     className="button green full"
                     onClick={() => onStart(lessons[0])}
                   >
-                    {hi ? "बुनियाद से शुरू करें" : "Start with the foundations"}
+                    <Copy>
+                      {hi
+                        ? "बुनियाद से शुरू करें"
+                        : "Start with the foundations"}
+                    </Copy>
                     <Icon name="ArrowRight" size={18} />
                   </button>
                 )}
                 <p className="tiny-text">
-                  {hi
-                    ? "खुला आउटलाइन, पूरा तैयार पाठ नहीं है। क्विज़ और गाइड की स्थिति हर टॉपिक पर दी है।"
-                    : "An open outline is not a completed lesson. Each topic shows whether an interactive lesson, a reading guide or a draft outline is available."}
+                  <Copy>
+                    {hi
+                      ? "खुला आउटलाइन, पूरा तैयार पाठ नहीं है। क्विज़ और गाइड की स्थिति हर टॉपिक पर दी है।"
+                      : "An open outline is not a completed lesson. Each topic shows whether an interactive lesson, a reading guide or a draft outline is available."}
+                  </Copy>
                 </p>
               </>
             )}

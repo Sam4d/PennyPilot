@@ -1,8 +1,9 @@
+import { Copy, useUICopy } from "../lib/ui-copy";
 import { useState } from "react";
 import type { Progress } from "../lib/store";
 import type { Lesson } from "../content/lessons";
 import { lessons, read, t } from "../content/lessons";
-import { dayKey } from "../lib/learning";
+import { addCalendarDays, dayKey } from "../lib/learning";
 import { Icon, Local, Modal } from "../components/UI";
 import Mia from "../components/Mia";
 const pathGroups = [
@@ -85,6 +86,8 @@ export default function Learn({
   onGoal: () => void;
   streak: number;
 }) {
+  const ui = useUICopy();
+
   const [selected, setSelected] = useState<Lesson | null>(null);
   const hi = progress.language === "hi";
   const completed = Object.keys(progress.completed).length;
@@ -94,26 +97,42 @@ export default function Learn({
       : lessons.find((l) => !progress.completed[l.id]) || lessons[0];
   const today = progress.days[dayKey()] || 0;
   const percent = Math.min(today / progress.goal, 1);
-  const d = new Date();
-  const weekday = (d.getDay() + 6) % 7;
+  const weekday = (new Date(`${dayKey()}T00:00:00Z`).getUTCDay() + 6) % 7;
   return (
     <div className="learn-page">
+      {Object.keys(progress.days).length > 0 && streak === 0 && (
+        <p className="welcome-back" role="status">
+          <Copy>
+            {hi
+              ? "फिर स्वागत है। आज का एक छोटा कदम ही काफ़ी है।"
+              : "Welcome back. One small step today is enough."}
+          </Copy>
+        </p>
+      )}
+
       <div className="page-heading">
         <div>
-          <span className="eyebrow">YOUR MONEY ERA STARTS HERE</span>
+          <span className="eyebrow">
+            <Copy en="YOUR MONEY ERA STARTS HERE " />
+          </span>
           <h1>
             {hi ? (
               "थोड़ा सीखें। समझदार बनें।"
             ) : (
               <>
-                A little wiser. <span>Every day.</span>
+                <Copy en="A little wiser. " />
+                <span>
+                  <Copy en="Every day. " />
+                </span>
               </>
             )}
           </h1>
           <p>
-            {hi
-              ? "छोटे कदम, बड़े सपने। मिया आपके साथ है।"
-              : "Small steps, big possibilities. Let’s make money make sense."}
+            <Copy>
+              {hi
+                ? "छोटे कदम, बड़े सपने। मिया आपके साथ है।"
+                : "Small steps, big possibilities. Let’s make money make sense."}
+            </Copy>
           </p>
         </div>
         <span className="heading-doodle" aria-hidden="true">
@@ -127,16 +146,19 @@ export default function Learn({
           </span>
           <div>
             <strong>
-              {streak}{" "}
+              <Copy>{streak}</Copy>
+              <Copy> </Copy>
               <span>
-                {hi ? "दिन" : "day"}
-                {streak !== 1 && !hi ? "s" : ""}
+                <Copy>{hi ? "दिन" : "day"}</Copy>
+                <Copy>{streak !== 1 && !hi ? "s" : ""}</Copy>
               </span>
             </strong>
-            <small>{hi ? "लगातार सीखना" : "Learning streak"}</small>
+            <small>
+              <Copy>{hi ? "लगातार सीखना" : "Learning streak"}</Copy>
+            </small>
           </div>
           <span className="stat-micro">
-            {streak ? "Keep it growing" : "A fresh beginning"}
+            <Copy>{streak ? "Keep it growing" : "A fresh beginning"}</Copy>
           </span>
         </div>
         <div className="stat">
@@ -147,7 +169,9 @@ export default function Learn({
             <strong>
               {progress.xp.toLocaleString("en-IN")} <span>XP</span>
             </strong>
-            <small>{hi ? "ज्ञान बढ़ रहा है" : "Knowledge, earned"}</small>
+            <small>
+              <Copy>{hi ? "ज्ञान बढ़ रहा है" : "Knowledge, earned"}</Copy>
+            </small>
           </div>
           <svg
             className="sparkline"
@@ -171,21 +195,35 @@ export default function Learn({
           </span>
           <div>
             <strong>
-              {completed}
-              <span> / {lessons.length}</span>
+              <Copy>{completed}</Copy>
+              <span>
+                {" "}
+                / <Copy>{lessons.length}</Copy>
+              </span>
             </strong>
-            <small>{hi ? "पाठ पूरे" : "Foundation lessons"}</small>
+            <small>
+              <Copy>{hi ? "पाठ पूरे" : "Foundation lessons"}</Copy>
+            </small>
           </div>
-          <span className="stat-pill">{hi ? "आपके लिए" : "Your own pace"}</span>
+          <span className="stat-pill">
+            <Copy>{hi ? "आपके लिए" : "Your own pace"}</Copy>
+          </span>
         </div>
       </div>
+      <p className="streak-protection">
+        <Copy>
+          {hi
+            ? `फ्री स्ट्रीक फ़्रीज़: ${progress.protection?.credits ?? 0}/2 · नया पूरा पाठ करके पाएं।`
+            : `Free streak freezes: ${progress.protection?.credits ?? 0}/2 · Earn one with a newly completed lesson.`}
+        </Copy>
+      </p>
       <div className="learning-grid">
         <div className="journey-column">
           <section className="hero-card">
             <div className="hero-text">
               <span className="hero-tag">
                 <span />
-                WORLD 01 · MONEY FOUNDATIONS
+                <Copy en="WORLD 01 · MONEY FOUNDATIONS " />
               </span>
               <h2>
                 {hi ? (
@@ -196,33 +234,39 @@ export default function Learn({
                   </>
                 ) : (
                   <>
-                    Big dreams.
+                    <Copy en="Big dreams. " />
                     <br />
-                    Meet small steps.
+                    <Copy en="Meet small steps. " />
                   </>
                 )}
               </h2>
               <p>
-                {hi
-                  ? "बिना उलझन। बिना दबाव। बस आप, मिया और पैसों की समझ।"
-                  : "No jargon. No judgement. Just you, Mia, and a little money wisdom."}
+                <Copy>
+                  {hi
+                    ? "बिना उलझन। बिना दबाव। बस आप, मिया और पैसों की समझ।"
+                    : "No jargon. No judgement. Just you, Mia, and a little money wisdom."}
+                </Copy>
               </p>
               <button className="button primary" onClick={() => onStart(next)}>
-                {progress.session && progress.session.stage !== 3
-                  ? hi
-                    ? "पाठ जारी रखें"
-                    : "Continue lesson"
-                  : completed
+                <Copy>
+                  {progress.session && progress.session.stage !== 3
                     ? hi
-                      ? "सीखते रहें"
-                      : "Keep learning"
-                    : hi
-                      ? "मिया के साथ शुरू करें"
-                      : "Let’s start with Mia"}
+                      ? "पाठ जारी रखें"
+                      : "Continue lesson"
+                    : completed
+                      ? hi
+                        ? "सीखते रहें"
+                        : "Keep learning"
+                      : hi
+                        ? "मिया के साथ शुरू करें"
+                        : "Let’s start with Mia"}
+                </Copy>
                 <Icon name="ArrowRight" size={18} />
               </button>
               <span className="hero-time">
-                <Icon name="Clock3" size={13} /> {next.minutes} min ·{" "}
+                <Icon name="Clock3" size={13} /> <Copy>{next.minutes}</Copy>
+                <Copy en="min · " />
+                <Copy> </Copy>
                 {read(next.title, progress.language)}
               </span>
             </div>
@@ -235,24 +279,28 @@ export default function Learn({
               <div className="floating-coin coin-two">₹</div>
               <Mia />
               <span className="mia-name">
-                Hi, I’m Mia! <span>↗</span>
+                <Copy en="Hi, I’m Mia! " />
+                <span>↗</span>
               </span>
             </div>
           </section>
           <div className="section-heading">
             <div>
               <h2>
-                {hi ? "आपका सफ़र" : "Your learning path"}{" "}
+                <Copy>{hi ? "आपका सफ़र" : "Your learning path"}</Copy>
+                <Copy> </Copy>
                 <span className="small-leaf">✦</span>
               </h2>
               <p>
-                {hi
-                  ? "बुनियाद मज़बूत बनाएं। भविष्य के लिए।"
-                  : "A strong foundation. For everything ahead."}
+                <Copy>
+                  {hi
+                    ? "बुनियाद मज़बूत बनाएं। भविष्य के लिए।"
+                    : "A strong foundation. For everything ahead."}
+                </Copy>
               </p>
             </div>
             <button className="text-button" onClick={onCurriculum}>
-              {hi ? "सभी वर्ल्ड" : "All worlds"}
+              <Copy>{hi ? "सभी वर्ल्ड" : "All worlds"}</Copy>
               <Icon name="Grid2X2" size={15} />
             </button>
           </div>
@@ -265,14 +313,16 @@ export default function Learn({
                     {String(groupIndex + 1).padStart(2, "0")}
                   </span>
                   <div>
-                    <span className="eyebrow">{path.eyebrow}</span>
+                    <span className="eyebrow">
+                      <Copy>{path.eyebrow}</Copy>
+                    </span>
                     <h3>
                       <Local text={path.title} lang={progress.language} />
                     </h3>
                   </div>
                   <span className="unit-progress">
                     {group.filter((l) => progress.completed[l.id]).length}/
-                    {group.length}
+                    <Copy>{group.length}</Copy>
                   </span>
                 </div>
                 <div className="path-scroll" style={{ minHeight: 0 }}>
@@ -303,7 +353,7 @@ export default function Learn({
                         <button
                           className="lesson-node"
                           onClick={() => setSelected(lesson)}
-                          aria-label={`${current ? (hi ? "शुरू करें: " : "LET’S GO: ") : ""}${read(lesson.title, progress.language)}, ${done ? "completed" : current ? "next lesson" : "available lesson"}`}
+                          aria-label={`${current ? (hi ? "शुरू करें: " : "LET’S GO: ") : ""}${read(lesson.title, progress.language)}, ${hi ? (done ? "पूरा पाठ" : current ? "अगला पाठ" : "उपलब्ध पाठ") : done ? "completed" : current ? "next lesson" : "available lesson"}`}
                         >
                           <span>
                             {done ? (
@@ -318,7 +368,7 @@ export default function Learn({
                           </span>
                           {current && (
                             <span className="start-bubble">
-                              {hi ? "शुरू करें" : "LET’S GO"}
+                              <Copy>{hi ? "शुरू करें" : "LET’S GO"}</Copy>
                               <span aria-hidden="true">✦</span>
                             </span>
                           )}
@@ -329,9 +379,11 @@ export default function Learn({
                           onClick={() => setSelected(lesson)}
                         >
                           <span className="path-step">
-                            {done
-                              ? "NICE WORK"
-                              : `LESSON ${String(lessons.indexOf(lesson) + 1).padStart(2, "0")}`}
+                            <Copy>
+                              {done
+                                ? "NICE WORK"
+                                : `LESSON ${String(lessons.indexOf(lesson) + 1).padStart(2, "0")}`}
+                            </Copy>
                           </span>
                           <strong>
                             <Local
@@ -340,12 +392,17 @@ export default function Learn({
                             />
                           </strong>
                           <small>
-                            {lesson.minutes} min <span>·</span>{" "}
-                            {done
-                              ? "Revisit anytime"
-                              : i === 0
-                                ? "Start here, go anywhere"
-                                : "Learn by doing"}
+                            <Copy>{lesson.minutes}</Copy>
+                            <Copy en="min " />
+                            <span>·</span>
+                            <Copy> </Copy>
+                            <Copy>
+                              {done
+                                ? "Revisit anytime"
+                                : i === 0
+                                  ? "Start here, go anywhere"
+                                  : "Learn by doing"}
+                            </Copy>
                           </small>
                         </button>
                         {i === 2 && (
@@ -368,14 +425,18 @@ export default function Learn({
                   </span>
                   <div>
                     <strong>
-                      {hi
-                        ? "आपकी मज़बूत शुरुआत"
-                        : "A little confidence, unlocked."}
+                      <Copy>
+                        {hi
+                          ? "आपकी मज़बूत शुरुआत"
+                          : "A little confidence, unlocked."}
+                      </Copy>
                     </strong>
                     <p>
-                      {hi
-                        ? `${group.length} पाठ। रोज़मर्रा के पैसों की समझ।`
-                        : `${group.length} lessons. Real-world money skills.`}
+                      <Copy>
+                        {hi
+                          ? `${group.length} पाठ। रोज़मर्रा के पैसों की समझ।`
+                          : `${group.length} lessons. Real-world money skills.`}
+                      </Copy>
                     </p>
                   </div>
                   <Icon name="Sparkles" size={23} />
@@ -388,21 +449,29 @@ export default function Learn({
               <Icon name="Globe" size={27} />
             </span>
             <span>
-              <small>THE BIGGER PICTURE</small>
+              <small>
+                <Copy en="THE BIGGER PICTURE " />
+              </small>
               <strong>
-                {hi
-                  ? "दुनिया की अर्थव्यवस्था समझें"
-                  : "From your wallet to the world"}
+                <Copy>
+                  {hi
+                    ? "दुनिया की अर्थव्यवस्था समझें"
+                    : "From your wallet to the world"}
+                </Copy>
               </strong>
-              <span>Explore the 16-world curriculum</span>
+              <span>
+                <Copy en="Explore the 16-world curriculum " />
+              </span>
             </span>
             <Icon name="ArrowUpRight" size={23} />
           </button>
         </div>
-        <aside className="learning-rail" aria-label="Your daily learning">
+        <aside className="learning-rail" aria-label={ui("Your daily learning")}>
           <section className="daily-card">
             <div className="card-header">
-              <h3>{hi ? "आज का छोटा लक्ष्य" : "A little, every day"}</h3>
+              <h3>
+                <Copy>{hi ? "आज का छोटा लक्ष्य" : "A little, every day"}</Copy>
+              </h3>
               <span className="square-icon">
                 <Icon name="Target" size={18} />
               </span>
@@ -410,7 +479,7 @@ export default function Learn({
             <div className="goal-ring">
               <svg
                 viewBox="0 0 150 150"
-                aria-label={`${Math.round(percent * 100)} percent of daily goal`}
+                aria-label={`${Math.round(percent * 100)} ${hi ? "प्रतिशत रोज़ का लक्ष्य" : "percent of daily goal"}`}
               >
                 <circle
                   cx="75"
@@ -435,10 +504,15 @@ export default function Learn({
               <div>
                 <Icon name={percent === 1 ? "Check" : "Zap"} size={24} />
                 <strong>
-                  {today}
-                  <span> / {progress.goal}</span>
+                  <Copy>{today}</Copy>
+                  <span>
+                    {" "}
+                    / <Copy>{progress.goal}</Copy>
+                  </span>
                 </strong>
-                <small>XP TODAY</small>
+                <small>
+                  <Copy en="XP TODAY " />
+                </small>
               </div>
             </div>
             <p className="goal-copy">
@@ -450,12 +524,13 @@ export default function Learn({
             </p>
             <div className="week-row">
               {["M", "T", "W", "T", "F", "S", "S"].map((label, i) => {
-                const date = new Date();
-                date.setDate(date.getDate() - weekday + i);
-                const earned = !!progress.days[dayKey(date)];
+                const date = addCalendarDays(dayKey(), -weekday + i);
+                const earned = Object.hasOwn(progress.days, date);
                 return (
                   <div className={i === weekday ? "today" : ""} key={i}>
-                    <span>{label}</span>
+                    <span>
+                      <Copy>{label}</Copy>
+                    </span>
                     <span className={earned ? "earned" : ""}>
                       {earned ? (
                         <Icon name="Check" size={13} />
@@ -470,7 +545,7 @@ export default function Learn({
               })}
             </div>
             <button className="goal-button" onClick={onGoal}>
-              {hi ? "लक्ष्य बदलें" : "Make it your goal"}
+              <Copy>{hi ? "लक्ष्य बदलें" : "Make it your goal"}</Copy>
               <Icon name="ChevronRight" size={15} />
             </button>
           </section>
@@ -480,31 +555,39 @@ export default function Learn({
                 <Mia pose="face" />
               </span>
               <div>
-                <strong>Mia’s little wisdom</strong>
-                <span>YOUR MONEY BUDDY</span>
+                <strong>
+                  <Copy en="Mia’s little wisdom " />
+                </strong>
+                <span>
+                  <Copy en="YOUR MONEY BUDDY " />
+                </span>
               </div>
               <Icon name="Sparkles" size={17} />
             </div>
             <blockquote>
-              “You don’t need a lot of money to start learning about it.”
+              <Copy en="“You don’t need a lot of money to start learning about it.” " />
             </blockquote>
             <div className="tip-underline" />
-            <p>Curiosity is a pretty great first investment.</p>
+            <p>
+              <Copy en="Curiosity is a pretty great first investment. " />
+            </p>
           </section>
           <button className="playground-card" onClick={onTools}>
             <div className="card-header">
-              <span className="pill">LEARN BY PLAYING</span>
+              <span className="pill">
+                <Copy en="LEARN BY PLAYING " />
+              </span>
               <Icon name="ArrowUpRight" size={20} />
             </div>
             <h3>
-              What if your money
+              <Copy en="What if your money " />
               <br />
-              could grow?
+              <Copy en="could grow? " />
             </h3>
             <p>
-              Slide, explore, and see the
+              <Copy en="Slide, explore, and see the " />
               <br />
-              magic of compounding.
+              <Copy en="magic of compounding. " />
             </p>
             <svg
               viewBox="0 0 250 100"
@@ -514,7 +597,11 @@ export default function Learn({
               <defs>
                 <linearGradient id="chartfill" x2="0" y2="1">
                   <stop stopColor="var(--color-a5d570)" stopOpacity=".5" />
-                  <stop offset="1" stopColor="var(--color-a5d570)" stopOpacity="0" />
+                  <stop
+                    offset="1"
+                    stopColor="var(--color-a5d570)"
+                    stopOpacity="0"
+                  />
                 </linearGradient>
               </defs>
               <path d="M10 90Q130 92 235 10V100H10Z" fill="url(#chartfill)" />
@@ -526,19 +613,23 @@ export default function Learn({
                 strokeLinecap="round"
               />
               <circle cx="235" cy="10" r="5" fill="var(--color-6d9f43)" />
-              <path d="M10 90H240" stroke="var(--color-d8dfcf)" strokeDasharray="3 5" />
+              <path
+                d="M10 90H240"
+                stroke="var(--color-d8dfcf)"
+                strokeDasharray="3 5"
+              />
             </svg>
             <span className="tool-link">
-              Enter the playground
+              <Copy en="Enter the playground " />
               <Icon name="ArrowRight" size={16} />
             </span>
           </button>
           <div className="promise">
             <Icon name="Heart" size={18} />
             <p>
-              No ads. No hot stock tips.
+              <Copy en="No ads. No hot stock tips. " />
               <br />
-              Just good money education.
+              <Copy en="Just good money education. " />
             </p>
           </div>
         </aside>
@@ -552,7 +643,9 @@ export default function Learn({
             <span className="preview-icon">
               <Icon name={selected.icon} size={32} />
             </span>
-            <span className="eyebrow">MONEY FOUNDATIONS · BEGINNER</span>
+            <span className="eyebrow">
+              <Copy en="MONEY FOUNDATIONS · BEGINNER " />
+            </span>
             <h2>
               <Local text={selected.title} lang={progress.language} />
             </h2>
@@ -572,7 +665,8 @@ export default function Learn({
             <div className="lesson-meta">
               <span>
                 <Icon name="Clock3" size={16} />
-                {selected.minutes} minutes
+                <Copy>{selected.minutes}</Copy>
+                <Copy en="minutes " />
               </span>
               <span>
                 <Icon name="Zap" size={16} />
@@ -586,11 +680,11 @@ export default function Learn({
                 setSelected(null);
               }}
             >
-              {hi ? "पाठ शुरू करें" : "Let’s learn this"}
+              <Copy>{hi ? "पाठ शुरू करें" : "Let’s learn this"}</Copy>
               <Icon name="ArrowRight" size={18} />
             </button>
             <p className="tiny-text">
-              Editorial preview · Sources included with every lesson
+              <Copy en="Editorial preview · Sources included with every lesson " />
             </p>
           </div>
         </Modal>
