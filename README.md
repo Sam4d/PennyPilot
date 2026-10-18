@@ -6,7 +6,7 @@ A thoughtful, playful finance-learning app for India. **Penny Pilot** is the pro
 
 - Eighteen foundation lessons: money and barter, cash flow, budgeting, UPI scam awareness, compounding, emergency savings, inflation, bank statements, credit-card bills, debt repayment, insurance basics, health cover, term life cover, EMI, purchase-credit costs, goal planning, net worth and simple interest.
 - 144 authored exercises across six engines: multiple choice / true–false, numeric answers, sequencing, document-row discovery, accessible bucket sorting, and one-to-one matching; immediate explanation and optional deeper context.
-- English, conversational Hindi, Hinglish, and paired English/Hindi **lesson content**. Much of the surrounding interface is still English.
+- English, conversational Hindi, Hinglish, and paired English/Hindi **lesson content**. Main-screen interface copy is available in English and Hindi; original planning outlines remain English and are labelled drafts.
 - Progress saved after each answer, resume after reload, XP, calendar-day streaks, daily goals, simplified SM-2 revision, and mistakes practice.
 - Automatic note cards, personal notes, search, 46 glossary entries, and print-to-PDF notebook export on the web.
 - Interactive worked-example sandboxes inside the swipeable concept cards, plus four standalone calculators: monthly SIP or one-time lump-sum growth, reducing-balance EMI, purchasing-power erosion, and an emergency buffer. Assumptions and limitations are visible.
@@ -19,15 +19,14 @@ A thoughtful, playful finance-learning app for India. **Penny Pilot** is the pro
 - A web update notice saves pending progress before activating a waiting service worker and reloading, keeping stored language choices.
 - A searchable **16-world topic library**, preserving 189 units and 946 named skills. Every topic and unit opens directly, with reloadable links and previous/next navigation. Available quizzes launch the selected lesson; unfinished topics show their draft outline.
 
-This is a working **0.7 editorial preview**, not the full multi-hundred-hour course. An outline is not a completed lesson. There are no fabricated learner statistics, leaderboards, or completed-content counts.
+This is a working **0.8 editorial preview**, not the full multi-hundred-hour course. An outline is not a completed lesson. There are no fabricated learner statistics, leaderboards, or completed-content counts.
 
 ## Run
 
 Node 24.x (tested with Node 24.19), npm, and no application secrets or backend services.
 
 ```sh
-cd /workspace/PennyPilot
-npm ci --cache /workspace/.cache/npm
+npm ci
 npm run dev
 ```
 
@@ -58,11 +57,11 @@ Fresh installs start in **simple Devanagari Hindi with familiar Hinglish element
 npm run test:browser
 ```
 
-The cloud configuration uses the installed `/usr/bin/chromium`. On another machine, change `executablePath` in `playwright.config.ts` or install Playwright Chromium and remove that override. Tests cover the full lesson loop for all fifteen lessons, answer recovery, notebook persistence, calculators, language switching, backup import/export, mistakes, text enlargement, bank-statement and sorting recovery, insurance model limits and cost sharing, matching/reassignment/revision, repayment tables and fee comparisons, version-one backup compatibility, Hindi slider models, and accessibility checks in light/dark themes.
+Install a browser with `npx playwright install chromium` and run `npm run test:browser`. To use another locally installed Chromium, set `PENNY_BROWSER_EXECUTABLE` to its executable path. For a built production preview use `PENNY_TEST_PRODUCTION=1` as well. Tests cover the full lesson loop for all eighteen lessons, answer recovery, notebook persistence, calculators, language switching, backup import/export, mistakes, text enlargement, bank-statement and sorting recovery, insurance model limits and cost sharing, matching/reassignment/revision, repayment tables and fee comparisons, version-one backup compatibility, Hindi slider models, and accessibility checks in light/dark themes.
 
 ## Build artifacts
 
-`artifacts/Penny-Pilot-preview.apk` is the debug-signed Android test build. `artifacts/Penny-Pilot-web.zip` contains the static website/PWA. These are local review artifacts, not a public deployment or production-signed release.
+`artifacts/Penny-Pilot-preview.apk` is the debug-signed Android test build. `artifacts/Penny-Pilot-web.zip` contains the static website/PWA. These ignored artifacts are generated locally and are not included in a source checkout. Build the web output with `npm run build` and the test APK using the Android guide. They are not a public deployment or production-signed release.
 
 ## Android
 
@@ -82,7 +81,7 @@ See [Android build guide](docs/ANDROID.md). The native project targets Android 7
 
 ## Content accuracy and research
 
-Each lesson is explicitly an editorial draft. Its references are links for verification, not a claim of completed human fact-checking. The active cloud egress policy denied access to Varsity, RBI, NPCI, AMFI, and SEBI pages during this build. Requested domains were saved to the cloud configuration draft; they must be applied before fresh primary-source research can be completed.
+Each lesson is explicitly an editorial draft. Its references are links for verification, not a claim of completed human fact-checking. The active cloud egress policy denied access to Varsity, RBI, NPCI, AMFI, and SEBI pages during this build. Current rule and external academic benchmarking verification remain outstanding.
 
 No changing tax slabs, product rates, contribution limits, or regulatory statistics are presented as verified current facts. Calculator rates are clearly labelled assumptions. Before publishing rule-dependent lessons, implement the reviewed `rules.json` contract and stale-rule UI described in [content process](docs/CONTENT.md).
 
@@ -95,3 +94,11 @@ Education only. No investment, tax, or legal advice. No stock recommendations, a
 ## Targeted production checks
 
 `npm run test:offline` checks the production site, insurance readers, direct topic reload, lump-sum mode and saved answers offline (with the preview server running). `npm run test:updates` starts its own temporary local test server and verifies an actual waiting service-worker replacement preserves progress and English after a user-approved refresh. These checks do not establish a public Vercel deployment or native device behaviour.
+
+## Learning design and trust
+
+First launch asks for a language and offers a one-question introduction. It does not award completion of a full lesson. Study days use IST. New completed lessons earn capped, free streak protection; no payment or shame mechanic is used. Draft status, device-local error notes, safe exit and an education-only About page make the limits visible. Backup history records an export request; saving the file itself must be confirmed by the user.
+
+See [design system](docs/DESIGN.md), [Hindi interface audit](docs/LOCALISATION-AUDIT.md), and [curriculum proposal](docs/ROADMAP-CONTENT.md). The curriculum proposal targets undergraduate finance competencies; degree equivalence and external academic approval are **Not verified**. New proposed lessons await approval. A software licence has not been selected; no LICENSE has been invented.
+
+Saved progress now uses payload version 2. Version 1 local records and backups migrate on load, preserving names, language, answers, XP and notes. The database table layout stays unchanged. Old activity-day keys are retained because the timezone in which they were originally created cannot be inferred; new activity and review days use IST.

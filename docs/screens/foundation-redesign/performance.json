@@ -1,0 +1,42 @@
+{
+  "conditions": {
+    "cpuSlowdown": 4,
+    "latencyMs": 150,
+    "downloadMbps": 1.6,
+    "uploadMbps": 0.75,
+    "viewport": "360x800",
+    "samples": 3,
+    "cache": "new browser context, browser cache disabled",
+    "scope": "local production HTTP server; not a physical phone or public deployment"
+  },
+  "results": [
+    {
+      "sample": 1,
+      "lcp": 1780,
+      "cls": 0.0225,
+      "fcp": 1640,
+      "resources": 12,
+      "firstQuestionReadyMs": 4867,
+      "clsThroughQuestion": 0.0225
+    },
+    {
+      "sample": 2,
+      "lcp": 1760,
+      "cls": 0.0225,
+      "fcp": 1656,
+      "resources": 12,
+      "firstQuestionReadyMs": 4856,
+      "clsThroughQuestion": 0.0225
+    },
+    {
+      "sample": 3,
+      "lcp": 1776,
+      "cls": 0.0225,
+      "fcp": 1644,
+      "resources": 12,
+      "firstQuestionReadyMs": 4840,
+      "clsThroughQuestion": 0.0225
+    }
+  ],
+  "lighthouseScores": "Not verified: Lighthouse is not installed; these are measured browser timings, not converted scores."
+}

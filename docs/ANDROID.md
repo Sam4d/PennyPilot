@@ -13,7 +13,7 @@ cd android
 ./gradlew --no-daemon --max-workers=4 assembleDebug
 ```
 
-The current preview is version 0.7.0 (Android version code 9), with the original package identity and progress format preserved. The debug APK is `android/app/build/outputs/apk/debug/app-debug.apk`. A debug APK is an installable test artifact, not a production release. Install on an attached test device with `adb install -r <apk>`.
+The current preview is version 0.8.0 (Android version code 10), with the original package identity preserved. Progress payload version 2 migrates version 1 backups on load; the IndexedDB/SQLite table layout is unchanged. Browser migration is tested; native migration still needs a physical-device check. The debug APK is `android/app/build/outputs/apk/debug/app-debug.apk`. A debug APK is an installable test artifact, not a production release. Install on an attached test device with `adb install -r <apk>`.
 
 ## This cloud machine
 
