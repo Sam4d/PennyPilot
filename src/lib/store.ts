@@ -1,17 +1,23 @@
 import { Capacitor } from "@capacitor/core";
 import Dexie, { type Table } from "dexie";
 import type { Language } from "../content/lessons";
-import type { ReviewItem } from "./learning";
+import { freshProtection } from "./learning";
+import type { StreakProtection, ReviewItem } from "./learning";
 export type Session = {
   lessonId: string;
   stage: number;
   question: number;
   answers: Record<string, { answer: number | number[]; correct: boolean }>;
   review?: boolean;
+  quickStart?: boolean;
   questionIds?: string[];
 };
 export type Progress = {
   version: 1;
+  onboarded?: boolean;
+  lastBackupAt?: string | null;
+  protection?: StreakProtection;
+  reports?: Record<string, string>;
   name: string;
   language: Language;
   theme: "light" | "dark";
@@ -31,6 +37,10 @@ export type Progress = {
 };
 export const freshProgress = (): Progress => ({
   version: 1,
+  onboarded: false,
+  lastBackupAt: null,
+  protection: freshProtection(),
+  reports: {},
   name: "",
   language: "hi",
   theme: "light",
@@ -42,7 +52,7 @@ export const freshProgress = (): Progress => ({
   notes: {},
   saved: [],
   session: null,
-  sound: true,
+  sound: false,
   scale: 1,
 });
 class ProgressDB extends Dexie {
@@ -200,14 +210,39 @@ export function validateBackup(value: unknown): Progress {
     )
       throw Error("The saved lesson is invalid.");
   }
+  if (
+    (p.onboarded !== undefined && typeof p.onboarded !== "boolean") ||
+    (p.lastBackupAt != null &&
+      (typeof p.lastBackupAt !== "string" ||
+        !Number.isFinite(Date.parse(p.lastBackupAt)))) ||
+    (p.reports !== undefined &&
+      (!record(p.reports) ||
+        Object.values(p.reports).some(
+          (n) => typeof n !== "string" || n.length > 10000,
+        ))) ||
+    (p.protection !== undefined &&
+      (!Number.isInteger(p.protection.credits) ||
+        p.protection.credits < 0 ||
+        p.protection.credits > 2 ||
+        !Array.isArray(p.protection.used) ||
+        !Array.isArray(p.protection.earned) ||
+        p.protection.used.some(
+          (d) => typeof d !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(d),
+        ) ||
+        p.protection.earned.some((id) => typeof id !== "string")))
+  )
+    throw Error("Invalid local preferences or streak protection.");
   return {
     ...freshProgress(),
     ...p,
+    onboarded: p.onboarded ?? true,
     scale:
       typeof p.scale === "number" && p.scale >= 1 && p.scale <= 2 ? p.scale : 1,
   };
 }
 export async function exportBackup(p: Progress) {
+  const timestamp = new Date().toISOString();
+  const snapshot = { ...p, lastBackupAt: timestamp };
   if (Capacitor.isNativePlatform()) {
     const [{ Filesystem, Directory, Encoding }, { Share }] = await Promise.all([
       import("@capacitor/filesystem"),
@@ -215,7 +250,7 @@ export async function exportBackup(p: Progress) {
     ]);
     const file = await Filesystem.writeFile({
       path: `penny-pilot-backup-${Date.now()}.json`,
-      data: JSON.stringify(p, null, 2),
+      data: JSON.stringify(snapshot, null, 2),
       directory: Directory.Cache,
       encoding: Encoding.UTF8,
     });
@@ -224,9 +259,9 @@ export async function exportBackup(p: Progress) {
       files: [file.uri],
       dialogTitle: "Keep your learning safe",
     });
-    return;
+    return timestamp;
   }
-  const blob = new Blob([JSON.stringify(p, null, 2)], {
+  const blob = new Blob([JSON.stringify(snapshot, null, 2)], {
     type: "application/json",
   });
   const url = URL.createObjectURL(blob);
@@ -235,4 +270,5 @@ export async function exportBackup(p: Progress) {
   a.download = `penny-pilot-backup-${new Date().toISOString().slice(0, 10)}.json`;
   a.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
+  return timestamp;
 }

@@ -19,18 +19,83 @@ export function emi(principal: number, rate: number, years: number) {
     ? principal / n
     : (principal * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
 }
-export const dayKey = (date = new Date()) =>
-  `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
-export function streak(days: string[], now = new Date()) {
-  const set = new Set(days),
-    d = new Date(now);
-  if (!set.has(dayKey(d))) d.setDate(d.getDate() - 1);
-  let count = 0;
-  while (set.has(dayKey(d))) {
+const ist = new Intl.DateTimeFormat("en-CA", {
+  timeZone: "Asia/Kolkata",
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+});
+/** Learning days are always IST, including while travelling. */
+export const dayKey = (date = new Date()) => ist.format(date);
+export const addCalendarDays = (day: string, count: number) =>
+  new Date(Date.parse(`${day}T00:00:00Z`) + count * 86400000)
+    .toISOString()
+    .slice(0, 10);
+export function streak(
+  days: string[],
+  now = new Date(),
+  frozenDays: string[] = [],
+) {
+  const set = new Set([...days, ...frozenDays]);
+  let day = dayKey(now),
+    count = 0;
+  if (!set.has(day)) day = addCalendarDays(day, -1);
+  while (set.has(day)) {
     count++;
-    d.setDate(d.getDate() - 1);
+    day = addCalendarDays(day, -1);
   }
   return count;
+}
+export type StreakProtection = {
+  credits: number;
+  used: string[];
+  earned: string[];
+};
+export const freshProtection = (): StreakProtection => ({
+  credits: 0,
+  used: [],
+  earned: [],
+});
+export function earnFreeze(
+  current: StreakProtection,
+  lessonId: string,
+): StreakProtection {
+  return current.earned.includes(lessonId)
+    ? current
+    : {
+        ...current,
+        credits: Math.min(2, current.credits + 1),
+        earned: [...current.earned, lessonId],
+      };
+}
+/** Protect only an affordable complete gap through yesterday; never invent study or XP. */
+export function reconcileFreezes(
+  days: string[],
+  current: StreakProtection,
+  now = new Date(),
+): StreakProtection {
+  const today = dayKey(now);
+  const latest = [...days, ...current.used]
+    .filter(
+      (d) =>
+        /^\d{4}-\d{2}-\d{2}$/.test(d) &&
+        d <= today &&
+        Number.isFinite(Date.parse(d)),
+    )
+    .sort()
+    .at(-1);
+  if (!latest) return current;
+  const gap =
+    Math.round((Date.parse(today) - Date.parse(latest)) / 86400000) - 1;
+  if (gap <= 0 || gap > current.credits) return current;
+  return {
+    ...current,
+    credits: current.credits - gap,
+    used: [
+      ...current.used,
+      ...Array.from({ length: gap }, (_, i) => addCalendarDays(latest, i + 1)),
+    ],
+  };
 }
 export type ReviewItem = {
   questionId: string;
@@ -57,12 +122,11 @@ export function scheduleReview(
       : repetitions === 2
         ? 6
         : Math.round((previous?.interval ?? 6) * ease);
-  const due = new Date(now);
-  due.setDate(due.getDate() + interval);
+  const due = addCalendarDays(dayKey(now), interval);
   return {
     questionId,
     lessonId,
-    due: dayKey(due),
+    due,
     interval,
     ease,
     repetitions,
