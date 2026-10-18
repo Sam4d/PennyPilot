@@ -24,3 +24,13 @@ See README, docs/CONTENT.md, docs/RELEASE-PLAN.md and docs/ANDROID.md for curren
 - Insurance readings are in src/content/insurance-guides.ts; their guide IDs, language coverage and mappings to all 39 World 12 topics are tested.
 
 - For scroller/modal changes, run the phone and desktop cases in tests/browser/responsive.spec.ts. Keep concept selection on resize, respect reduced motion, and exclude hidden/disabled/inert controls from focus wrapping. Source links and summary Enter must not trigger lesson shortcuts. Distinguish emulated touch checks from real-device validation.
+
+## Standing rules
+
+1. Never invent facts. Rule-dependent rates, limits, slabs and regulations need verified sources or a dated `unverified` / `assumption` label.
+2. Work in small commits with clear messages, one concern per commit.
+3. After UI changes, run `validate:content`, `test`, `build`, and `test:browser`. Capture and inspect before/after screenshots at 360x800 and 1440x900, light/dark, Hindi/English, under `docs/screens/<task-name>/`. Include an honest visual critique.
+4. Local-first privacy is absolute: no analytics, ads, affiliate links, tracking, accounts, backend or new application network calls. Bundled assets and the existing service-worker update mechanism remain local/offline infrastructure.
+5. Say **Not verified** when a source, device or deployment cannot be verified.
+6. End tasks with **Summary**, **Files changed**, **Verification**, **Not verified / risks**, **Next step**, and the estimated overall project percentage. End with prioritised next actions.
+7. Follow docs/DESIGN.md and the UX/quality-gate sequence. New lesson proposals belong in docs/ROADMAP-CONTENT.md; do not author new lessons until the user approves them. Develop the syllabus toward rigorous undergraduate finance competencies without claiming accreditation or degree equivalence. Use short explanatory passages, interactive worked boards, spaced retrieval, transfer questions and capstone assessments; avoid padding with trading tricks.
