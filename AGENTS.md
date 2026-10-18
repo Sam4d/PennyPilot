@@ -22,3 +22,5 @@ See README, docs/CONTENT.md, docs/RELEASE-PLAN.md and docs/ANDROID.md for curren
 - English mode hides Hindi translations in the glossary; `both` deliberately pairs the languages. Validate authored English fields and preserve user-written notes.
 - All curriculum topics/units must remain directly openable. Link to the matching lesson/insurance guide when authored; otherwise show an honestly labelled draft outline. Never turn an outline into fake lesson completion.
 - Insurance readings are in src/content/insurance-guides.ts; their guide IDs, language coverage and mappings to all 39 World 12 topics are tested.
+
+- For scroller/modal changes, run the phone and desktop cases in tests/browser/responsive.spec.ts. Keep concept selection on resize, respect reduced motion, and exclude hidden/disabled/inert controls from focus wrapping. Source links and summary Enter must not trigger lesson shortcuts. Distinguish emulated touch checks from real-device validation.

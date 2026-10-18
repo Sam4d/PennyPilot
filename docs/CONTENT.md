@@ -10,7 +10,7 @@ At four 3–5 minute levels per explicit skill, the eventual outline implies rou
 
 ## What is shipped
 
-Seventeen lesson drafts with eight questions each. Each has a relatable hook, concept, worked example, mistake, three note points, and a practical action. Full English, Devanagari Hindi, and Roman-script Hinglish are included. Questions use Indian settings and explicit illustrative amounts. Six exercise engines are implemented: choice, numeric entry, sequencing, document-row discovery, bucket sorting, and one-to-one matching. Document discovery uses fictional bank statements, bills, grocery labels and loan summaries. Sorting uses native radio controls so it works with touch, keyboard and assistive technology without dragging. The remaining 10 exercise forms must be built and tested before claiming the full specification.
+Eighteen lesson drafts with eight questions each. Each has a relatable hook, concept, worked example, mistake, three note points, and a practical action. Full English, Devanagari Hindi, and Roman-script Hinglish are included. Questions use Indian settings and explicit illustrative amounts. Six exercise engines are implemented: choice, numeric entry, sequencing, document-row discovery, bucket sorting, and one-to-one matching. Document discovery uses fictional bank statements, bills, grocery labels and loan summaries. Sorting uses native radio controls so it works with touch, keyboard and assistive technology without dragging. The remaining 10 exercise forms must be built and tested before claiming the full specification.
 
 The five-section path is a foundation sampler across World 0, not a claim that all World 0 units are finished. The catalogue keeps the larger syllabus visible while labelling unimplemented material.
 
@@ -45,7 +45,7 @@ Live fetches to the first five destinations returned proxy `403 Forbidden`. The 
 
 Use a separate versioned `rules.json` with `{value, unit, source, effective_from, last_verified, review_status}` per key. The date must reflect a real source check. Resolve `{{rule:key}}` through one loader; never duplicate rates in prose. Show source and verification date beside a displayed rate. Flag a rule older than six months and never silently apply a rule to a different assessment year. Cache a reviewed bundled version; online updates require schema/version validation and a trusted HTTPS source. Offline learning must remain available without inventing newer values.
 
-No rule-dependent lesson is shipped in 0.6, so there is no fake “last verified” date or placeholder rate feed.
+No rule-dependent lesson is shipped in 0.7, so there is no fake “last verified” date or placeholder rate feed.
 
 ## Validation boundaries
 
@@ -80,3 +80,9 @@ The goal example fixes the course price at ₹24,000 and existing reserved savin
 The net-worth example uses current asset estimates and outstanding debts on a single date. Bank savings, a deposit and a vehicle are counted separately; salary is a flow and is not added again. Both positive and negative results are displayed. A borrowing toggle adds the same ₹10,000 to cash and debt to demonstrate that borrowing alone creates no net worth before costs. Sale costs, taxes and future income are excluded. This snapshot is neither immediately spendable cash nor a personal-worth score.
 
 The SEBI financial-planning page was attempted on 18 October 2026 (India), but the proxy returned a tunnel 403. The official investor-site source link remains a review queue. No primary-source verification, financial expert approval or native-language editorial approval is claimed for these drafts. Neither lesson embeds current tax or regulatory figures.
+
+## Simple interest (0.7)
+
+Added S0.5.1 as a multilingual editorial draft with eight exercises, taking the preview to 18 lessons and 144 questions. It covers principal, simple versus annually compounded interest, yearly rate/time units, half years, interest versus total, and why the unchanged-principal worksheet does not model a reducing-balance loan. All prior IDs and progress data remain stable.
+
+The interactive example uses a fictional ₹10,000 principal and fixed 8% annual simple-interest rate. The learner selects 0.5–10 years. Interest is ₹800 per full year and ₹400 per half year; tax, fees, payments, withdrawals and real product day-count methods are excluded. The annual-compounding comparison in the prose assumes one annual credit and reinvestment of interest. The reference link remains the existing primary-source review queue; no current offer, rule or new source verification is claimed.

@@ -6,6 +6,7 @@ import type { Update } from "../App";
 import { isCorrect } from "../lib/learning";
 import Mia from "../components/Mia";
 import MatchingExercise from "../components/MatchingExercise";
+import ConceptScroller from "../components/ConceptScroller";
 import LearningVisual from "../components/LearningVisual";
 import {
   DocumentExercise,
@@ -44,7 +45,6 @@ export default function LessonPlayer({
     [classified, setClassified] = useState<number[]>([]),
     [card, setCard] = useState(0),
     [deep, setDeep] = useState(false);
-  const carousel = useRef<HTMLDivElement>(null);
   const answerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     setSelection(null);
@@ -115,7 +115,12 @@ export default function LessonPlayer({
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement;
-      if (["INPUT", "TEXTAREA", "SELECT", "BUTTON"].includes(target.tagName))
+      if (
+        e.defaultPrevented ||
+        target.closest(
+          "input,textarea,select,button,a,summary,[contenteditable]:not([contenteditable=false])",
+        )
+      )
         return;
       if (e.key === "Enter") {
         e.preventDefault();
@@ -189,6 +194,7 @@ export default function LessonPlayer({
   ).length;
   return (
     <Modal
+      topAligned
       wide
       onClose={onClose}
       label={`${read(lesson.title, language)} lesson`}
@@ -250,21 +256,10 @@ export default function LessonPlayer({
                 <Local text={lesson.title} lang={language} />
               </h2>
             </div>
-            <div
-              className="concept-carousel"
-              ref={carousel}
-              onScroll={() => {
-                if (carousel.current)
-                  setCard(
-                    Math.round(
-                      carousel.current.scrollLeft /
-                        carousel.current.clientWidth,
-                    ),
-                  );
-              }}
-            >
-              {cards.map((c, i) => (
-                <article className="concept-card" key={i}>
+            <ConceptScroller
+              onChange={setCard}
+              items={cards.map((c, i) => (
+                <>
                   <span className={`concept-icon concept-${i}`}>
                     <Icon name={c.icon} size={27} />
                   </span>
@@ -275,53 +270,9 @@ export default function LessonPlayer({
                   {i === 2 && (
                     <LearningVisual lessonId={lesson.id} language={language} />
                   )}
-                </article>
+                </>
               ))}
-            </div>
-            <div className="carousel-controls">
-              <button
-                className="icon-button"
-                aria-label="Previous concept"
-                disabled={card === 0}
-                onClick={() =>
-                  carousel.current?.scrollTo({
-                    left: (card - 1) * carousel.current.clientWidth,
-                    behavior: "smooth",
-                  })
-                }
-              >
-                <Icon name="ArrowLeft" size={18} />
-              </button>
-              <div>
-                {cards.map((_, i) => (
-                  <button
-                    key={i}
-                    aria-label={`Concept ${i + 1}`}
-                    aria-current={card === i ? "step" : undefined}
-                    className={card === i ? "active" : ""}
-                    onClick={() =>
-                      carousel.current?.scrollTo({
-                        left: i * carousel.current.clientWidth,
-                        behavior: "smooth",
-                      })
-                    }
-                  />
-                ))}
-              </div>
-              <button
-                className="icon-button"
-                aria-label="Next concept"
-                disabled={card === 3}
-                onClick={() =>
-                  carousel.current?.scrollTo({
-                    left: (card + 1) * carousel.current.clientWidth,
-                    behavior: "smooth",
-                  })
-                }
-              >
-                <Icon name="ArrowRight" size={18} />
-              </button>
-            </div>
+            />
             <div className="player-footer">
               <span>
                 <Icon name="Clock3" size={16} />

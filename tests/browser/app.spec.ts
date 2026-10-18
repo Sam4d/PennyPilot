@@ -329,6 +329,8 @@ test("the swipeable worked example is an interactive money model", async ({
   const slider = page.getByRole("slider", {
     name: "What if the haircut costs…",
   });
+  // Navigation now stays above the cards; scroll through the worked example.
+  await slider.scrollIntoViewIfNeeded();
   await expect(slider).toBeInViewport();
   await slider.fill("140");
   await expect(
@@ -561,7 +563,7 @@ for (const theme of ["light", "dark"]) {
         .click();
     }
     await expect(page.locator(".path-card")).toHaveCount(5);
-    await expect(page.locator(".lesson-node")).toHaveCount(17);
+    await expect(page.locator(".lesson-node")).toHaveCount(18);
     for (const id of ["insurance", "health-cover", "term-cover"]) {
       const lesson = lessons.find((l) => l.id === id)!;
       await page
@@ -1358,3 +1360,74 @@ test("Hindi signed net-worth answer resumes after opening its curriculum topic",
   await expect(page.getByRole("spinbutton")).toBeDisabled();
   await expect(page.getByText("बिल्कुल सही!", { exact: true })).toBeVisible();
 });
+
+for (const language of ["en", "hi"] as const) {
+  test(`simple interest distinguishes half-year interest and total in ${language}`, async ({
+    page,
+  }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.setViewportSize({ width: 320, height: 800 });
+    await page
+      .getByRole("combobox", { name: "Language", exact: true })
+      .selectOption(language);
+    await page.goto("/#curriculum/S0.5.1");
+    await page
+      .getByRole("button", {
+        name: language === "hi" ? "यह पाठ खोलें" : "Open this lesson",
+        exact: true,
+      })
+      .click();
+    await page.getByRole("button", { name: "Concept 3", exact: true }).click();
+    const visual = page.locator(".visual-simple-interest");
+    const time = visual.getByRole("slider", {
+      name: language === "hi" ? "समय (साल)" : "Time in years",
+      exact: true,
+    });
+    await time.fill("0.5");
+    await expect(visual.locator(".planning-summary dd").first()).toHaveText(
+      "₹400",
+    );
+    await expect(visual.locator(".planning-summary dd").last()).toHaveText(
+      "₹10,400",
+    );
+    await time.press("ArrowRight");
+    await expect(time).toHaveValue("1");
+    await expect(visual.locator(".planning-summary dd").first()).toHaveText(
+      "₹800",
+    );
+    await time.fill("10");
+    await expect(visual.locator(".planning-summary dd").first()).toHaveText(
+      "₹8,000",
+    );
+    await expect(visual.locator(".planning-summary dd").last()).toHaveText(
+      "₹18,000",
+    );
+    if (language === "en")
+      expect(await visual.innerText()).not.toMatch(/[\u0900-\u097f]/);
+    for (const theme of ["light", "dark"]) {
+      await page.evaluate((theme) => {
+        document.documentElement.dataset.theme = theme;
+      }, theme);
+      expect(
+        (
+          await new AxeBuilder({ page })
+            .include(".visual-simple-interest")
+            .analyze()
+        ).violations,
+      ).toEqual([]);
+    }
+    await page.evaluate(() => {
+      document.documentElement.style.fontSize = "32px";
+      document.documentElement.dataset.largeText = "true";
+    });
+    await expect(time).toBeVisible();
+    expect(
+      await visual.evaluate((el) => el.scrollWidth <= el.clientWidth + 1),
+    ).toBe(true);
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+    ).toBe(true);
+  });
+}

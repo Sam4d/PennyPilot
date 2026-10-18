@@ -4,13 +4,14 @@ A thoughtful, playful finance-learning app for India. **Penny Pilot** is the pro
 
 ## What works in this preview
 
-- Seventeen foundation lessons: money and barter, cash flow, budgeting, UPI scam awareness, compounding, emergency savings, inflation, bank statements, credit-card bills, debt repayment, insurance basics, health cover, term life cover, EMI, purchase-credit costs, goal planning and net worth.
-- 136 authored exercises across six engines: multiple choice / true–false, numeric answers, sequencing, document-row discovery, accessible bucket sorting, and one-to-one matching; immediate explanation and optional deeper context.
+- Eighteen foundation lessons: money and barter, cash flow, budgeting, UPI scam awareness, compounding, emergency savings, inflation, bank statements, credit-card bills, debt repayment, insurance basics, health cover, term life cover, EMI, purchase-credit costs, goal planning, net worth and simple interest.
+- 144 authored exercises across six engines: multiple choice / true–false, numeric answers, sequencing, document-row discovery, accessible bucket sorting, and one-to-one matching; immediate explanation and optional deeper context.
 - English, conversational Hindi, Hinglish, and paired English/Hindi **lesson content**. Much of the surrounding interface is still English.
 - Progress saved after each answer, resume after reload, XP, calendar-day streaks, daily goals, simplified SM-2 revision, and mistakes practice.
 - Automatic note cards, personal notes, search, 46 glossary entries, and print-to-PDF notebook export on the web.
 - Interactive worked-example sandboxes inside the swipeable concept cards, plus four standalone calculators: monthly SIP or one-time lump-sum growth, reducing-balance EMI, purchasing-power erosion, and an emergency buffer. Assumptions and limitations are visible.
 - IndexedDB on web and a native SQLite adapter on Android. JSON backup/restore; native backup uses the system share sheet.
+- Adaptive-height concept cards keep the selected story during resizing, with stable controls, touch swiping, reduced-motion scrolling and keyboard-safe source expansion.
 - Light/dark themes, reduced-motion support, text scaling with a reflow layout up to 200%, keyboard interaction, and focus-managed dialogs.
 - Installable PWA, precached content and local fonts, plus a generated Capacitor Android project with Mia launcher assets and Android Auto Backup enabled.
 - A dedicated **Insurance** section: eight multilingual reading guides from beginner to advanced, mapped to all 39 World 12 topics, plus the three existing interactive insurance lessons. Topics include importance, benefits, health/term cover, deductibles and top-ups, savings-linked products, other covers, claims and advanced comparison.
@@ -18,7 +19,7 @@ A thoughtful, playful finance-learning app for India. **Penny Pilot** is the pro
 - A web update notice saves pending progress before activating a waiting service worker and reloading, keeping stored language choices.
 - A searchable **16-world topic library**, preserving 189 units and 946 named skills. Every topic and unit opens directly, with reloadable links and previous/next navigation. Available quizzes launch the selected lesson; unfinished topics show their draft outline.
 
-This is a working **0.6 editorial preview**, not the full multi-hundred-hour course. An outline is not a completed lesson. There are no fabricated learner statistics, leaderboards, or completed-content counts.
+This is a working **0.7 editorial preview**, not the full multi-hundred-hour course. An outline is not a completed lesson. There are no fabricated learner statistics, leaderboards, or completed-content counts.
 
 ## Run
 

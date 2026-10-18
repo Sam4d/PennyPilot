@@ -195,7 +195,26 @@ await snapshot
   .getByRole("slider", { name: "Outstanding vehicle loan", exact: true })
   .fill("200000");
 await expect(snapshot.locator(".net-worth-result dd")).toHaveText("-₹60,000");
+await p.getByRole("button", { name: "Close dialog", exact: true }).click();
+await p.goto("http://127.0.0.1:4173/#curriculum/S0.5.1");
+await p.getByRole("button", { name: "Open this lesson", exact: true }).click();
+await p.getByRole("button", { name: "Concept 3", exact: true }).click();
+const interest = p.locator(".visual-simple-interest");
+await interest
+  .getByRole("slider", { name: "Time in years", exact: true })
+  .fill("0.5");
+await expect(interest.locator(".planning-summary dd").first()).toHaveText(
+  "₹400",
+);
+await expect(interest.locator(".planning-summary dd").last()).toHaveText(
+  "₹10,400",
+);
+const summary = p.locator(".lesson-sources summary");
+await summary.focus();
+await summary.press("Enter");
+await expect(p.locator(".concept-carousel")).toBeVisible();
+await expect(p.locator(".lesson-sources")).toHaveAttribute("open", "");
 console.log(
-  "PASS: production offline reload, lazy lessons and curriculum, bank answer recovery, insurance/repayment models, matching answer recovery, insurance guides, direct topic reload, lump-sum mode, goal-answer recovery and negative net-worth exploration.",
+  "PASS: production offline reload, lazy lessons and curriculum, bank answer recovery, insurance/repayment models, matching answer recovery, insurance guides, direct topic reload, lump-sum mode, goal-answer recovery and negative net-worth exploration, simple interest and keyboard source expansion.",
 );
 await b.close();

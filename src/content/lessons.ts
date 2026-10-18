@@ -2,6 +2,7 @@ import { choice, numeric, order, t } from "./schema";
 import type { Lesson } from "./schema";
 import { everydayLessons } from "./everyday";
 import { protectionLessons } from "./protection";
+import { interestLessons } from "./interest";
 import { planningLessons } from "./planning";
 import { borrowingLessons } from "./borrowing";
 export { read, t } from "./schema";
@@ -1351,4 +1352,5 @@ export const lessons: Lesson[] = [
   ...protectionLessons,
   ...borrowingLessons,
   ...planningLessons,
+  ...interestLessons,
 ];

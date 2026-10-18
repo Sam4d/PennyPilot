@@ -106,11 +106,13 @@ export function Modal({
   onClose,
   label,
   wide = false,
+  topAligned = false,
 }: {
   children: ReactNode;
   onClose: () => void;
   label: string;
   wide?: boolean;
+  topAligned?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const closeRef = useRef(onClose);
@@ -123,8 +125,21 @@ export function Modal({
     const handler = (e: KeyboardEvent) => {
       if (e.key === "Escape") closeRef.current();
       if (e.key === "Tab") {
-        const els = ref.current?.querySelectorAll<HTMLElement>(
-          'button:not(:disabled),a[href],input,select,textarea,[tabindex="0"]',
+        const els = Array.from(
+          ref.current?.querySelectorAll<HTMLElement>(
+            "button,a[href],input,select,textarea,summary,[tabindex]",
+          ) ?? [],
+        ).filter(
+          (el) =>
+            el.tabIndex >= 0 &&
+            !el.matches(":disabled") &&
+            !el.closest("[inert]") &&
+            (!el.closest("details:not([open])") ||
+              el
+                .closest("details:not([open])")
+                ?.querySelector(":scope > summary") === el) &&
+            el.getClientRects().length > 0 &&
+            getComputedStyle(el).visibility !== "hidden",
         );
         if (!els?.length) return;
         const first = els[0],
@@ -151,7 +166,7 @@ export function Modal({
   }, []);
   return (
     <div
-      className="modal-backdrop"
+      className={`modal-backdrop${topAligned ? " modal-top-aligned" : ""}`}
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}

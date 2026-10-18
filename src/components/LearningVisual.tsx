@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { Language } from "../content/lessons";
 import { compound, rupees } from "../lib/learning";
 import { Icon } from "./UI";
+import InterestVisual from "./InterestVisual";
 import BorrowingVisual from "./BorrowingVisual";
 import PlanningVisual from "./PlanningVisual";
 import ProtectionVisual from "./ProtectionVisual";
@@ -63,6 +64,7 @@ export default function LearningVisual({
       {["goal-plan", "net-worth"].includes(lessonId) && (
         <PlanningVisual lessonId={lessonId} language={language} />
       )}
+      {lessonId === "simple-interest" && <InterestVisual language={language} />}
       {lessonId === "inflation" && (
         <>
           <div className="visual-equation">

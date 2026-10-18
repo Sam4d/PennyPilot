@@ -1,6 +1,6 @@
 # Seven-day first-release plan
 
-A week can produce a tested beginner release. It cannot honestly produce thousands of expert-reviewed multilingual levels. The current 0.6 app is the usable foundation for that release; the complete curriculum remains the product roadmap.
+A week can produce a tested beginner release. It cannot honestly produce thousands of expert-reviewed multilingual levels. The current 0.7 app is the usable foundation for that release; the complete curriculum remains the product roadmap.
 
 | Day | Deliverable | Release gate |
 | --- | --- | --- |
@@ -47,3 +47,7 @@ Added lump-sum investing, a separate insurance section with eight multilingual r
 ## Goals and net-worth expansion (0.6)
 
 Added SMART goal planning and a dated net-worth snapshot: two multilingual lessons, 16 exercises and a fifth path chapter. Interactive saving timelines expose deadline/contribution trade-offs. Current-value asset/debt controls preserve negative net worth and illustrate borrowing cash on both sides of the balance sheet. The preview now has 17 lessons and 136 questions. Primary-source and financial/native-language review, remaining World 0 coverage and production device/deployment gates remain open.
+
+## Responsive debugging and simple interest (0.7)
+
+Added a dedicated phone/desktop regression suite covering dialog keyboard boundaries, source expansion, adaptive concept height, orientation/window resizing, reduced motion, rapid navigation, main-screen transitions and emulated touch swipes/slider dragging. Added one multilingual simple-interest lesson: 18 drafts and 144 exercises are available. Physical-device and production-release gates remain open; browser emulation is not a device certification.

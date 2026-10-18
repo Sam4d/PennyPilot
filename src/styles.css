@@ -1493,6 +1493,9 @@ select {
   padding: 32px;
   animation: fade-in 0.2s ease-out;
 }
+.modal-backdrop.modal-top-aligned {
+  align-items: flex-start;
+}
 .modal {
   position: relative;
   background: var(--surface);
@@ -1653,6 +1656,7 @@ select {
 }
 .concept-carousel {
   display: flex;
+  align-items: flex-start;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;

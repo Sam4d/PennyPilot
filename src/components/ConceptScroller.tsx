@@ -1,0 +1,127 @@
+import { useLayoutEffect, useRef, useState, type ReactNode } from "react";
+import { Icon } from "./UI";
+/** Keep the selected story stable when a phone rotates, text scales or fonts load. */
+export default function ConceptScroller({
+  items,
+  onChange,
+}: {
+  items: ReactNode[];
+  onChange: (index: number) => void;
+}) {
+  const viewport = useRef<HTMLDivElement>(null);
+  const selected = useRef(0);
+  const pending = useRef<number | null>(null);
+  const measuredWidth = useRef(0);
+  const [card, setCard] = useState(0);
+  const fitHeight = () => {
+    const el = viewport.current;
+    const slide = el?.children[selected.current] as HTMLElement | undefined;
+    if (el && slide)
+      el.style.height = `${slide.offsetHeight + 2 * el.clientTop}px`;
+  };
+  const select = (index: number) => {
+    selected.current = index;
+    setCard(index);
+    onChange(index);
+    fitHeight();
+  };
+  const move = (index: number) => {
+    const el = viewport.current;
+    if (!el) return;
+    const next = Math.max(0, Math.min(items.length - 1, index));
+    pending.current = next;
+    select(next);
+    el.scrollTo({
+      left: next * el.clientWidth,
+      behavior: matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "instant"
+        : "smooth",
+    });
+  };
+  useLayoutEffect(() => {
+    const el = viewport.current;
+    if (!el) return;
+    const resize = () => {
+      const width = el.clientWidth;
+      if (width !== measuredWidth.current) {
+        measuredWidth.current = width;
+        pending.current = selected.current;
+        el.scrollTo({ left: selected.current * width, behavior: "instant" });
+      }
+      fitHeight();
+    };
+    const observer = new ResizeObserver(resize);
+    for (const slide of el.children) observer.observe(slide);
+    resize();
+    return () => observer.disconnect();
+  }, []);
+  const settle = () => {
+    const el = viewport.current;
+    if (!el || el.clientWidth !== measuredWidth.current) return;
+    const actual = Math.max(
+      0,
+      Math.min(items.length - 1, Math.round(el.scrollLeft / el.clientWidth)),
+    );
+    if (pending.current !== null) {
+      if (Math.abs(el.scrollLeft - pending.current * el.clientWidth) > 2)
+        return;
+      pending.current = null;
+    }
+    if (actual !== selected.current) select(actual);
+  };
+  return (
+    <>
+      <div className="carousel-controls">
+        <button
+          className="icon-button"
+          aria-label="Previous concept"
+          disabled={card === 0}
+          onClick={() => move(selected.current - 1)}
+        >
+          <Icon name="ArrowLeft" size={18} />
+        </button>
+        <div>
+          {items.map((_, i) => (
+            <button
+              key={i}
+              aria-label={`Concept ${i + 1}`}
+              aria-current={card === i ? "step" : undefined}
+              className={card === i ? "active" : ""}
+              onClick={() => move(i)}
+            />
+          ))}
+        </div>
+        <button
+          className="icon-button"
+          aria-label="Next concept"
+          disabled={card === items.length - 1}
+          onClick={() => move(selected.current + 1)}
+        >
+          <Icon name="ArrowRight" size={18} />
+        </button>
+      </div>
+      <div
+        className="concept-carousel"
+        ref={viewport}
+        onScroll={settle}
+        onPointerDown={() => {
+          pending.current = null;
+        }}
+        onWheel={() => {
+          pending.current = null;
+        }}
+      >
+        {items.map((content, i) => (
+          <article
+            className="concept-card"
+            key={i}
+            inert={card !== i}
+            aria-hidden={card !== i}
+          >
+            {content}
+          </article>
+        ))}
+      </div>
+    </>
+  );
+}
