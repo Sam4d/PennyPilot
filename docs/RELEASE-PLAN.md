@@ -51,3 +51,7 @@ Added SMART goal planning and a dated net-worth snapshot: two multilingual lesso
 ## Responsive debugging and simple interest (0.7)
 
 Added a dedicated phone/desktop regression suite covering dialog keyboard boundaries, source expansion, adaptive concept height, orientation/window resizing, reduced motion, rapid navigation, main-screen transitions and emulated touch swipes/slider dragging. Added one multilingual simple-interest lesson: 18 drafts and 144 exercises are available. Physical-device and production-release gates remain open; browser emulation is not a device certification.
+
+## Detailed learning architecture proposal — 18 October 2026
+
+See [ROADMAP-CONTENT.md](ROADMAP-CONTENT.md) for the expanded 16-world sequence, accounting/quantitative bridges, repeated core concepts, teaching-board contracts, mastery assessments and ranked next-ten proposals. This is a planning deliverable. Do not count its estimated hours as available teaching, claim degree equivalence, or author the proposed lessons before user approval. Full four-pass units require sourced financial review and natural English/Hindi editorial checks.
