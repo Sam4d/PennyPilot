@@ -270,7 +270,7 @@ export default function Profile({
             <details>
               <summary>About this first release</summary>
               <p>
-                Penny Pilot 0.5 · {lessons.length} editorial-preview lessons,{" "}
+                Penny Pilot 0.6 · {lessons.length} editorial-preview lessons,{" "}
                 {lessons.reduce((n, l) => n + l.exercises.length, 0)} exercises,
                 {glossary.length} glossary entries, four calculators, and a
                 16-world topic library, eight insurance reading guides, and a

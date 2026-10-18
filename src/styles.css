@@ -6426,3 +6426,224 @@ select {
   max-width: 100%;
   overflow-wrap: anywhere;
 }
+
+/* Goal timelines stay local to the card; every value also has a text equivalent. */
+.planning-model {
+  min-width: 0;
+}
+.planning-summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 18px 0;
+}
+.planning-summary > div {
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  min-width: 0;
+}
+.planning-summary dt {
+  font-size: 0.75rem;
+  color: var(--sub);
+  line-height: 1.6;
+}
+.planning-summary dd {
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin: 5px 0 0;
+  overflow-wrap: anywhere;
+}
+.planning-summary .net-worth-result {
+  grid-column: 1 / -1;
+  background: var(--lime);
+}
+.planning-slider {
+  display: block;
+  margin: 20px 0;
+}
+.planning-slider > span {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: baseline;
+  font-size: 0.8rem;
+  line-height: 1.8;
+}
+.planning-slider output {
+  font-weight: 800;
+  white-space: nowrap;
+}
+.planning-slider input {
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  accent-color: var(--green-dark);
+  cursor: pointer;
+}
+.planning-outcome {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: var(--lime);
+  padding: 16px;
+  border-radius: 14px;
+  font-size: 0.82rem;
+  line-height: 1.8;
+  margin-top: 16px;
+}
+.planning-outcome > svg {
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+.planning-outcome small {
+  display: block;
+  margin-top: 4px;
+}
+.planning-outcome.has-gap {
+  background: var(--soft);
+}
+.goal-progress {
+  height: 9px;
+  border-radius: 10px;
+  background: var(--line);
+  overflow: hidden;
+  margin: 16px 0;
+}
+.goal-progress > span {
+  display: block;
+  height: 100%;
+  background: var(--green-dark);
+  transition: width 180ms ease;
+}
+.planning-model .planning-instruction {
+  font-size: 0.75rem;
+  margin: 18px 0 8px;
+}
+.goal-timeline {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  padding: 5px 5px 14px;
+  scrollbar-width: thin;
+}
+.goal-timeline button {
+  flex: 0 0 110px;
+  display: grid;
+  gap: 8px;
+  text-align: left;
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  background: var(--surface);
+  color: var(--ink);
+  padding: 14px 12px;
+  scroll-snap-align: start;
+  cursor: pointer;
+}
+.goal-timeline button small {
+  color: var(--sub);
+}
+.goal-timeline button strong {
+  font-size: 0.9rem;
+}
+.goal-timeline button > span {
+  font-size: 1.15rem;
+  color: var(--green-dark);
+}
+.goal-timeline button[aria-pressed="true"] {
+  background: var(--lime);
+  border-color: var(--green-dark);
+  box-shadow: inset 0 0 0 1px var(--green-dark);
+}
+.planning-model .timeline-detail {
+  font-size: 0.8rem;
+  overflow-wrap: anywhere;
+  margin: 10px 0;
+}
+.snapshot-bars {
+  display: grid;
+  gap: 7px;
+  margin: 16px 0;
+}
+.snapshot-bars > div {
+  height: 10px;
+  background: var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.snapshot-bars span {
+  display: block;
+  height: 100%;
+  background: var(--green-dark);
+  transition: width 180ms ease;
+}
+.snapshot-bars > div:nth-child(2) span {
+  background: var(--sub);
+}
+.snapshot-items {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0;
+}
+.snapshot-items li {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.8rem;
+  line-height: 1.7;
+}
+.snapshot-items strong {
+  flex-shrink: 0;
+}
+.planning-borrow {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  min-height: 48px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px;
+  background: var(--surface);
+  color: var(--ink);
+  text-align: left;
+  line-height: 1.8;
+  cursor: pointer;
+}
+.planning-borrow > svg {
+  flex-shrink: 0;
+}
+.planning-borrow[aria-pressed="true"] {
+  border-color: var(--green-dark);
+  background: var(--lime);
+}
+:root[data-large-text="true"] .planning-summary {
+  grid-template-columns: 1fr;
+}
+:root[data-large-text="true"] .planning-slider > span {
+  flex-wrap: wrap;
+}
+@media (max-width: 400px) {
+  .planning-summary {
+    grid-template-columns: 1fr;
+  }
+  .planning-slider > span {
+    flex-wrap: wrap;
+    gap: 4px 10px;
+  }
+  .snapshot-items li {
+    flex-wrap: wrap;
+    gap: 3px 10px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .goal-progress > span,
+  .snapshot-bars span {
+    transition: none;
+  }
+}

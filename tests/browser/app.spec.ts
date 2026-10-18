@@ -560,8 +560,8 @@ for (const theme of ["light", "dark"]) {
         .getByRole("button", { name: "Learn", exact: true })
         .click();
     }
-    await expect(page.locator(".path-card")).toHaveCount(4);
-    await expect(page.locator(".lesson-node")).toHaveCount(15);
+    await expect(page.locator(".path-card")).toHaveCount(5);
+    await expect(page.locator(".lesson-node")).toHaveCount(17);
     for (const id of ["insurance", "health-cover", "term-cover"]) {
       const lesson = lessons.find((l) => l.id === id)!;
       await page
@@ -1165,4 +1165,196 @@ test("all-world search reaches a topic outside the selected world", async ({
     page.getByRole("heading", { name: "Unit Economics", exact: true }),
   ).toBeVisible();
   await expect(page).toHaveURL(/#curriculum\/S5\.1\.3$/);
+});
+
+for (const language of ["en", "hi"] as const) {
+  for (const theme of ["light", "dark"] as const) {
+    test(`planning models show gaps and signed snapshots in ${language} ${theme}`, async ({
+      page,
+    }) => {
+      await page.emulateMedia({ reducedMotion: "reduce" });
+      await page.setViewportSize({ width: 360, height: 800 });
+      await page
+        .getByRole("combobox", { name: "Language", exact: true })
+        .selectOption(language);
+      await page.evaluate((theme) => {
+        document.documentElement.dataset.theme = theme;
+      }, theme);
+      for (const id of ["goal-plan", "net-worth"]) {
+        const lesson = lessons.find((l) => l.id === id)!;
+        await page
+          .getByRole("button", {
+            name: `${lesson.title[language]}, available lesson`,
+            exact: true,
+          })
+          .click();
+        await page
+          .getByRole("button", {
+            name: language === "hi" ? "पाठ शुरू करें" : "Let’s learn this",
+            exact: true,
+          })
+          .click();
+        await page
+          .getByRole("button", { name: "Concept 3", exact: true })
+          .click();
+        const visual = page.locator(`.visual-${id}`);
+        const s = (en: string, hi: string) => (language === "hi" ? hi : en);
+        if (id === "goal-plan") {
+          const saving = visual.getByRole("slider", {
+            name: s("Your monthly saving", "आपकी महीने की बचत"),
+            exact: true,
+          });
+          await saving.fill("2000");
+          await expect(saving.locator("..").locator("output")).toHaveText(
+            "₹2,000",
+          );
+          await expect(visual.locator(".planning-outcome")).toContainText(
+            "₹6,000",
+          );
+          await visual
+            .getByRole("slider", {
+              name: s("Months until the goal", "लक्ष्य तक महीने"),
+              exact: true,
+            })
+            .fill("9");
+          await expect(
+            visual.locator(".planning-summary dd").first(),
+          ).toHaveText("₹2,000");
+          await expect(
+            visual.locator(".planning-summary dd").last(),
+          ).toHaveText("₹24,000");
+          const last = visual.locator(".goal-timeline button").last();
+          await last.focus();
+          await last.press("Enter");
+          await expect(last).toHaveAttribute("aria-pressed", "true");
+          await expect(visual.locator(".timeline-detail")).toContainText(
+            "₹24,000",
+          );
+          expect(
+            await visual
+              .locator(".goal-timeline")
+              .evaluate((el) => el.scrollLeft),
+          ).toBeGreaterThan(0);
+          await saving.fill("0");
+          await expect(visual.locator(".planning-outcome")).toContainText(
+            s("With no new saving", "नई बचत नहीं होगी"),
+          );
+          await expect(
+            visual.locator(".planning-summary dd").last(),
+          ).toHaveText("₹6,000");
+          await visual
+            .getByRole("slider", {
+              name: s("Months until the goal", "लक्ष्य तक महीने"),
+              exact: true,
+            })
+            .fill("1");
+          await expect(visual.locator(".goal-timeline button")).toHaveCount(2);
+          await expect(
+            visual.locator(".goal-timeline button").last(),
+          ).toHaveAttribute("aria-pressed", "true");
+        } else {
+          const result = visual.locator(".net-worth-result dd");
+          await expect(result).toHaveText("₹70,000");
+          const borrow = visual.getByRole("button", {
+            name: s(
+              "Try borrowing ₹10,000 and keeping it in the bank",
+              "₹10,000 उधार लेकर बैंक में रखने का असर देखें",
+            ),
+            exact: true,
+          });
+          await borrow.click();
+          await expect(
+            visual.locator(".planning-summary dd").first(),
+          ).toHaveText("₹1,60,000");
+          await expect(
+            visual.locator(".planning-summary dd").nth(1),
+          ).toHaveText("₹90,000");
+          await expect(result).toHaveText("₹70,000");
+          await borrow.click();
+          await visual
+            .getByRole("slider", {
+              name: s("Outstanding vehicle loan", "गाड़ी का बाकी लोन"),
+              exact: true,
+            })
+            .fill("200000");
+          await expect(result).toHaveText("-₹60,000");
+          await visual
+            .getByRole("slider", {
+              name: s("Current vehicle value", "गाड़ी की आज की कीमत"),
+              exact: true,
+            })
+            .fill("0");
+          await expect(result).toHaveText("-₹1,10,000");
+        }
+        if (language === "en")
+          expect(await visual.innerText()).not.toMatch(/[\u0900-\u097f]/);
+        expect(
+          (await new AxeBuilder({ page }).include(`.visual-${id}`).analyze())
+            .violations,
+        ).toEqual([]);
+        expect(
+          await page.evaluate(
+            () => document.documentElement.scrollWidth <= innerWidth,
+          ),
+        ).toBe(true);
+        await page
+          .getByRole("button", { name: "Close dialog", exact: true })
+          .click();
+      }
+    });
+  }
+}
+
+test("Hindi signed net-worth answer resumes after opening its curriculum topic", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 360, height: 800 });
+  await page
+    .getByRole("combobox", { name: "Language", exact: true })
+    .selectOption("hi");
+  await page.goto("/#curriculum/S0.10.3");
+  await page.reload();
+  await page.getByRole("button", { name: "यह पाठ खोलें", exact: true }).click();
+  await page.getByRole("button", { name: "आज़माएं", exact: true }).click();
+  const lesson = lessons.find((l) => l.id === "net-worth")!;
+  for (const q of lesson.exercises.slice(0, 5)) {
+    const dialog = page.getByRole("dialog");
+    if (q.type === "bucket") {
+      for (const [i, category] of (q.answer as number[]).entries())
+        await dialog
+          .getByRole("group", { name: q.options![i].hi, exact: true })
+          .getByRole("radio", { name: q.categories![category].hi, exact: true })
+          .check();
+    } else if (q.type === "numeric") {
+      const input = dialog.getByRole("spinbutton");
+      if (Number(q.answer) < 0)
+        await expect(input).toHaveAttribute("inputmode", "text");
+      await input.fill(String(q.answer));
+    } else {
+      await dialog
+        .getByRole("button", {
+          name: q.options![q.answer as number].hi,
+          exact: false,
+        })
+        .click();
+    }
+    await dialog
+      .getByRole("button", { name: "जवाब देखें", exact: true })
+      .click();
+    await expect(
+      dialog.getByText("बिल्कुल सही!", { exact: true }),
+    ).toBeVisible();
+    if (q.id !== "net-worth-5")
+      await dialog
+        .getByRole("button", { name: "आगे बढ़ें", exact: true })
+        .click();
+  }
+  await page.getByRole("button", { name: "Close dialog", exact: true }).click();
+  await page.reload();
+  await page
+    .getByRole("button", { name: "पाठ जारी रखें", exact: true })
+    .click();
+  await expect(page.getByRole("spinbutton")).toHaveValue("-30000");
+  await expect(page.getByRole("spinbutton")).toBeDisabled();
+  await expect(page.getByText("बिल्कुल सही!", { exact: true })).toBeVisible();
 });

@@ -22,7 +22,7 @@ export type Exercise = {
   };
 };
 export type Lesson = {
-  chapter?: "foundation" | "everyday" | "protection" | "borrowing";
+  chapter?: "foundation" | "everyday" | "protection" | "borrowing" | "planning";
   id: string;
   skill: string;
   title: Text;

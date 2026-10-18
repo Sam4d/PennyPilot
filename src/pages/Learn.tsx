@@ -42,6 +42,15 @@ const pathGroups = [
       "Udhaar ka poora hisaab",
     ),
   },
+  {
+    id: "planning",
+    eyebrow: "A PLAN FOR YOUR NEXT STEP",
+    title: t(
+      "Turn a wish into a money plan",
+      "सपने को पैसों का प्लान दें",
+      "Sapne ko paison ka plan dein",
+    ),
+  },
 ].flatMap((chapter) => {
   const items = lessons.filter(
     (l) => (l.chapter ?? "foundation") === chapter.id,

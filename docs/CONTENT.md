@@ -10,9 +10,9 @@ At four 3–5 minute levels per explicit skill, the eventual outline implies rou
 
 ## What is shipped
 
-Fifteen lesson drafts with eight questions each. Each has a relatable hook, concept, worked example, mistake, three note points, and a practical action. Full English, Devanagari Hindi, and Roman-script Hinglish are included. Questions use Indian settings and explicit illustrative amounts. Six exercise engines are implemented: choice, numeric entry, sequencing, document-row discovery, bucket sorting, and one-to-one matching. Document discovery uses fictional bank statements, bills, grocery labels and loan summaries. Sorting uses native radio controls so it works with touch, keyboard and assistive technology without dragging. The remaining 10 exercise forms must be built and tested before claiming the full specification.
+Seventeen lesson drafts with eight questions each. Each has a relatable hook, concept, worked example, mistake, three note points, and a practical action. Full English, Devanagari Hindi, and Roman-script Hinglish are included. Questions use Indian settings and explicit illustrative amounts. Six exercise engines are implemented: choice, numeric entry, sequencing, document-row discovery, bucket sorting, and one-to-one matching. Document discovery uses fictional bank statements, bills, grocery labels and loan summaries. Sorting uses native radio controls so it works with touch, keyboard and assistive technology without dragging. The remaining 10 exercise forms must be built and tested before claiming the full specification.
 
-The four-section path is a foundation sampler across World 0, not a claim that all World 0 units are finished. The catalogue keeps the larger syllabus visible while labelling unimplemented material.
+The five-section path is a foundation sampler across World 0, not a claim that all World 0 units are finished. The catalogue keeps the larger syllabus visible while labelling unimplemented material.
 
 ## Primary-source review queue
 
@@ -45,7 +45,7 @@ Live fetches to the first five destinations returned proxy `403 Forbidden`. The 
 
 Use a separate versioned `rules.json` with `{value, unit, source, effective_from, last_verified, review_status}` per key. The date must reflect a real source check. Resolve `{{rule:key}}` through one loader; never duplicate rates in prose. Show source and verification date beside a displayed rate. Flag a rule older than six months and never silently apply a rule to a different assessment year. Cache a reviewed bundled version; online updates require schema/version validation and a trusted HTTPS source. Offline learning must remain available without inventing newer values.
 
-No rule-dependent lesson is shipped in 0.5, so there is no fake “last verified” date or placeholder rate feed.
+No rule-dependent lesson is shipped in 0.6, so there is no fake “last verified” date or placeholder rate feed.
 
 ## Validation boundaries
 
@@ -70,3 +70,13 @@ Eight authored reading guides cover beginner, intermediate and advanced insuranc
 All 946 named skills and all units are directly accessible in the catalogue. A shipped quiz opens that exact lesson; an insurance topic opens its mapped reading guide; other topics open the supplied outline with an explicit unverified-draft label. An accessible outline is not a completed hundreds-of-hours course. URLs use `#curriculum/S12.3.3`, `#curriculum/unit/12.7` or `#curriculum/world/12`; unknown topic IDs show a recovery message.
 
 English-mode glossary headings no longer render Hindi translations. English examples replace informal Hindi words such as tea-shop terms with standard English. Hindi-specific legal vocabulary that is necessary to recognise a real document is explained in English brackets. The content validator checks authored English fields for Devanagari and selected Hindi words. It does not certify natural writing or replace an editor.
+
+## Goals and net-worth expansion (0.6)
+
+Added two multilingual World 0 drafts, mapped to S0.10.1 (SMART Goals) and S0.10.3 (Net Worth Tracker). The path now has 17 lessons, 136 exercises and five chapter groups. All previous lesson/question IDs and version-one saved progress remain unchanged. Other World 0 topics still show their uncompleted outlines.
+
+The goal example fixes the course price at ₹24,000 and existing reserved savings at ₹6,000. Adjustable monthly deposits arrive at each month end; there is no interest, tax, fee or price inflation. The required monthly whole-rupee amount rounds up. A zero contribution with an open gap is explicitly unreachable under these assumptions. A timeline explores cumulative savings; changing the deadline clamps the selected month. The model does not save personal financial data.
+
+The net-worth example uses current asset estimates and outstanding debts on a single date. Bank savings, a deposit and a vehicle are counted separately; salary is a flow and is not added again. Both positive and negative results are displayed. A borrowing toggle adds the same ₹10,000 to cash and debt to demonstrate that borrowing alone creates no net worth before costs. Sale costs, taxes and future income are excluded. This snapshot is neither immediately spendable cash nor a personal-worth score.
+
+The SEBI financial-planning page was attempted on 18 October 2026 (India), but the proxy returned a tunnel 403. The official investor-site source link remains a review queue. No primary-source verification, financial expert approval or native-language editorial approval is claimed for these drafts. Neither lesson embeds current tax or regulatory figures.

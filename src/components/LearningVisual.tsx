@@ -3,6 +3,7 @@ import type { Language } from "../content/lessons";
 import { compound, rupees } from "../lib/learning";
 import { Icon } from "./UI";
 import BorrowingVisual from "./BorrowingVisual";
+import PlanningVisual from "./PlanningVisual";
 import ProtectionVisual from "./ProtectionVisual";
 export default function LearningVisual({
   lessonId,
@@ -58,6 +59,9 @@ export default function LearningVisual({
       )}
       {["emi", "loan-cost"].includes(lessonId) && (
         <BorrowingVisual lessonId={lessonId} language={language} />
+      )}
+      {["goal-plan", "net-worth"].includes(lessonId) && (
+        <PlanningVisual lessonId={lessonId} language={language} />
       )}
       {lessonId === "inflation" && (
         <>

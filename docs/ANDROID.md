@@ -13,7 +13,7 @@ cd android
 ./gradlew --no-daemon --max-workers=4 assembleDebug
 ```
 
-The current preview is version 0.5.1 (Android version code 7), with the original package identity and progress format preserved. The debug APK is `android/app/build/outputs/apk/debug/app-debug.apk`. A debug APK is an installable test artifact, not a production release. Install on an attached test device with `adb install -r <apk>`.
+The current preview is version 0.6.0 (Android version code 8), with the original package identity and progress format preserved. The debug APK is `android/app/build/outputs/apk/debug/app-debug.apk`. A debug APK is an installable test artifact, not a production release. Install on an attached test device with `adb install -r <apk>`.
 
 ## This cloud machine
 

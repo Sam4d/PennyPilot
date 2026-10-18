@@ -63,6 +63,7 @@ const iconSet = {
   Route: Icons.Route,
   ScanSearch: Icons.ScanSearch,
   Search: Icons.Search,
+  Scale: Icons.Scale,
   Settings: Icons.Settings,
   ShieldAlert: Icons.ShieldAlert,
   ShieldCheck: Icons.ShieldCheck,

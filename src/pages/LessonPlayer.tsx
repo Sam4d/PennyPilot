@@ -414,7 +414,7 @@ export default function LessonPlayer({
                     <input
                       id="numeric-answer"
                       type="number"
-                      inputMode="decimal"
+                      inputMode={Number(q.answer) < 0 ? "text" : "decimal"}
                       value={result ? String(result.answer) : number}
                       onChange={(e) => setNumber(e.target.value)}
                       onKeyDown={(e) => {

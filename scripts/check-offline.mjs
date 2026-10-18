@@ -161,7 +161,41 @@ await p
   .locator(".big-result")
   .getByText("₹5,00,000", { exact: true })
   .waitFor();
+await p.goto("http://127.0.0.1:4173/#curriculum/S0.10.1");
+await p.getByRole("button", { name: "Open this lesson", exact: true }).click();
+await p.getByRole("button", { name: "Concept 3", exact: true }).click();
+const goal = p.locator(".visual-goal-plan");
+await goal
+  .getByRole("slider", { name: "Your monthly saving", exact: true })
+  .fill("2000");
+await expect(goal.locator(".planning-outcome")).toContainText("₹6,000 short");
+await p.getByRole("button", { name: "Let’s try it", exact: true }).click();
+await p
+  .getByRole("button", {
+    name: "Save ₹24,000 for a course in six months",
+    exact: false,
+  })
+  .click();
+await p.getByRole("button", { name: "Check answer", exact: true }).click();
+await p.getByText("That’s it. Nicely done!", { exact: true }).waitFor();
+await p.getByRole("button", { name: "Close dialog", exact: true }).click();
+await p.reload();
+await p
+  .getByRole("navigation", { name: "Main navigation", exact: true })
+  .getByRole("button", { name: "Learn", exact: true })
+  .click();
+await p.getByRole("button", { name: "Continue lesson", exact: true }).click();
+await p.getByText("That’s it. Nicely done!", { exact: true }).waitFor();
+await p.getByRole("button", { name: "Close dialog", exact: true }).click();
+await p.goto("http://127.0.0.1:4173/#curriculum/S0.10.3");
+await p.getByRole("button", { name: "Open this lesson", exact: true }).click();
+await p.getByRole("button", { name: "Concept 3", exact: true }).click();
+const snapshot = p.locator(".visual-net-worth");
+await snapshot
+  .getByRole("slider", { name: "Outstanding vehicle loan", exact: true })
+  .fill("200000");
+await expect(snapshot.locator(".net-worth-result dd")).toHaveText("-₹60,000");
 console.log(
-  "PASS: production offline reload, lazy lessons and curriculum, bank answer recovery, insurance/repayment models, matching answer recovery, insurance guides, direct topic reload, and lump-sum mode.",
+  "PASS: production offline reload, lazy lessons and curriculum, bank answer recovery, insurance/repayment models, matching answer recovery, insurance guides, direct topic reload, lump-sum mode, goal-answer recovery and negative net-worth exploration.",
 );
 await b.close();

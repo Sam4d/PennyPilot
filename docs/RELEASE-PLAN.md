@@ -1,6 +1,6 @@
 # Seven-day first-release plan
 
-A week can produce a tested beginner release. It cannot honestly produce thousands of expert-reviewed multilingual levels. The current 0.5 app is the usable foundation for that release; the complete curriculum remains the product roadmap.
+A week can produce a tested beginner release. It cannot honestly produce thousands of expert-reviewed multilingual levels. The current 0.6 app is the usable foundation for that release; the complete curriculum remains the product roadmap.
 
 | Day | Deliverable | Release gate |
 | --- | --- | --- |
@@ -43,3 +43,7 @@ Added EMI and same-purchase cost comparison, taking the preview to 15 lessons an
 ## Insurance and library access (0.5)
 
 Added lump-sum investing, a separate insurance section with eight multilingual reading guides, open access to every catalogue topic/unit, direct links, and a safe web update notice. Fixed English-mode dictionary leakage. Full interactive content for outlined topics, expert review, complete localisation and physical-device/production release validation remain open. Overall full-project progress is estimated at 13% using PROGRESS.md.
+
+## Goals and net-worth expansion (0.6)
+
+Added SMART goal planning and a dated net-worth snapshot: two multilingual lessons, 16 exercises and a fifth path chapter. Interactive saving timelines expose deadline/contribution trade-offs. Current-value asset/debt controls preserve negative net worth and illustrate borrowing cash on both sides of the balance sheet. The preview now has 17 lessons and 136 questions. Primary-source and financial/native-language review, remaining World 0 coverage and production device/deployment gates remain open.

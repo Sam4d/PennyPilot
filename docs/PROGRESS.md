@@ -7,7 +7,7 @@ Current estimate: **about 13% of the full agreed project**. This is a coarse pla
 | Work area | Weight in the full project | Estimated completion within this area | Evidence |
 | --- | --- | --- | --- |
 | App engineering, interaction and design | 30% | About 40% | Responsive shell, Mia, PWA, Android build, local state, notes, revision, four calculators (including lump-sum investing), six exercise engines, a dedicated insurance reader and unrestricted catalogue access work. Ten exercise forms, depth levels, placement, learning tracks, exams, advanced simulators and other specified features remain. |
-| Complete multilingual curriculum and editorial approval | 60% | Less than 1% | Fifteen authored draft lessons and 120 exercises; plus eight multilingual insurance reading guides; none has expert financial and native-language approval. There are 946 outlined skills with four planned depth levels. Fifteen short drafts are not fifteen fully completed skills or hundreds of learning hours. |
+| Complete multilingual curriculum and editorial approval | 60% | Less than 1% | Seventeen authored draft lessons and 136 exercises; plus eight multilingual insurance reading guides; none has expert financial and native-language approval. There are 946 outlined skills with four planned depth levels. Seventeen short drafts are not seventeen fully completed skills or hundreds of learning hours. |
 | Production validation and release | 10% | About 5% | Cloud browser tests and a debug Android build pass. Physical-device performance, native restore flows, human accessibility review, production signing and a verified hosted deployment remain. |
 
 The weighted estimate rounds to about 13%. These weights are explicit planning judgements and can be revised if the user changes scope. Source availability and review capacity affect completion; a source link alone does not count as review.
@@ -23,3 +23,7 @@ Engineering completion is now estimated at roughly 40% of its weighted area; the
 ### Maintenance patch 0.5.1
 
 Fixed the lump-sum amount label reading monthly SIP state. English/Hindi live-drag and keyboard regressions, affected calculator checks, production offline/update checks, and the rebuilt Android preview pass. This routine fix does not change the overall estimate: approximately 13%.
+
+### Goals and net-worth expansion 0.6
+
+Added two World 0 lessons with 16 exercises and interactive goal timelines/net-worth snapshots in English, Hindi and Roman Hinglish. Learners can explore an unaffordable saving step, a longer deadline, zero contributions, negative net worth and borrowing cash without creating wealth. These remain editorial drafts. The coarse full-project estimate stays about 13%: two introductory lessons do not materially complete the planned four-level curriculum, advanced tools or production release gates.

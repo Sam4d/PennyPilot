@@ -4,8 +4,8 @@ A thoughtful, playful finance-learning app for India. **Penny Pilot** is the pro
 
 ## What works in this preview
 
-- Fifteen foundation lessons: money and barter, cash flow, budgeting, UPI scam awareness, compounding, emergency savings, inflation, bank statements, credit-card bills, debt repayment, insurance basics, health cover, term life cover, EMI and purchase-credit costs.
-- 120 authored exercises across six engines: multiple choice / true–false, numeric answers, sequencing, document-row discovery, accessible bucket sorting, and one-to-one matching; immediate explanation and optional deeper context.
+- Seventeen foundation lessons: money and barter, cash flow, budgeting, UPI scam awareness, compounding, emergency savings, inflation, bank statements, credit-card bills, debt repayment, insurance basics, health cover, term life cover, EMI, purchase-credit costs, goal planning and net worth.
+- 136 authored exercises across six engines: multiple choice / true–false, numeric answers, sequencing, document-row discovery, accessible bucket sorting, and one-to-one matching; immediate explanation and optional deeper context.
 - English, conversational Hindi, Hinglish, and paired English/Hindi **lesson content**. Much of the surrounding interface is still English.
 - Progress saved after each answer, resume after reload, XP, calendar-day streaks, daily goals, simplified SM-2 revision, and mistakes practice.
 - Automatic note cards, personal notes, search, 46 glossary entries, and print-to-PDF notebook export on the web.
@@ -18,7 +18,7 @@ A thoughtful, playful finance-learning app for India. **Penny Pilot** is the pro
 - A web update notice saves pending progress before activating a waiting service worker and reloading, keeping stored language choices.
 - A searchable **16-world topic library**, preserving 189 units and 946 named skills. Every topic and unit opens directly, with reloadable links and previous/next navigation. Available quizzes launch the selected lesson; unfinished topics show their draft outline.
 
-This is a working **0.5 editorial preview**, not the full multi-hundred-hour course. An outline is not a completed lesson. There are no fabricated learner statistics, leaderboards, or completed-content counts.
+This is a working **0.6 editorial preview**, not the full multi-hundred-hour course. An outline is not a completed lesson. There are no fabricated learner statistics, leaderboards, or completed-content counts.
 
 ## Run
 
