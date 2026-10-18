@@ -1,3 +1,4 @@
+import { closeDialog } from "./helpers";
 import { test, expect } from "@playwright/test";
 for (const device of ["phone", "desktop"] as const) {
   test.describe(device, () => {
@@ -14,8 +15,10 @@ for (const device of ["phone", "desktop"] as const) {
       await page.emulateMedia({ reducedMotion: "reduce" });
       await page.goto("/");
       await page
-        .getByRole("combobox", { name: "Language", exact: true })
+        .getByRole("combobox", { name: /^(?:Language|भाषा)$/, exact: true })
         .selectOption("en");
+      if (await page.getByTestId("onboarding-explore").isVisible())
+        await page.getByTestId("onboarding-explore").click();
       await page.goto("/#curriculum/S0.10.1");
       await page
         .getByRole("button", { name: "Open this lesson", exact: true })
@@ -30,7 +33,7 @@ for (const device of ["phone", "desktop"] as const) {
         name: "Close dialog",
         exact: true,
       });
-      const summary = dialog.locator("summary");
+      const summary = dialog.locator(".lesson-sources summary");
       await summary.focus();
       await page.keyboard.press("Tab");
       await expect(close).toBeFocused();
@@ -66,10 +69,13 @@ for (const device of ["phone", "desktop"] as const) {
         });
       await expect.poll(heightGap).toBeLessThan(4);
       await page
-        .getByRole("button", { name: "Concept 3", exact: true })
+        .getByRole("button", { name: /^(?:Concept 3|बात 3)$/, exact: true })
         .click();
       await expect(
-        page.getByRole("button", { name: "Concept 3", exact: true }),
+        page.getByRole("button", {
+          name: /^(?:Concept 3|बात 3)$/,
+          exact: true,
+        }),
       ).toHaveAttribute("aria-current", "step");
       await expect.poll(heightGap).toBeLessThan(4);
       await page.setViewportSize(
@@ -90,14 +96,12 @@ for (const device of ["phone", "desktop"] as const) {
         .click();
       await expect.poll(heightGap).toBeLessThan(4);
       await page
-        .getByRole("button", { name: "Concept 3", exact: true })
+        .getByRole("button", { name: /^(?:Concept 3|बात 3)$/, exact: true })
         .click();
       await page
         .getByRole("button", { name: "Let’s try it", exact: true })
         .click();
-      await page
-        .getByRole("button", { name: "Close dialog", exact: true })
-        .click();
+      await closeDialog(page);
       await page
         .getByRole("button", { name: "Continue lesson", exact: true })
         .click();
@@ -110,10 +114,16 @@ for (const device of ["phone", "desktop"] as const) {
       page.on("pageerror", (e) => errors.push(e.message));
       await page.emulateMedia({ reducedMotion: "no-preference" });
       await page
-        .getByRole("button", { name: "Next concept", exact: true })
+        .getByRole("button", {
+          name: /^(?:Next concept|अगली बात)$/,
+          exact: true,
+        })
         .dblclick({ delay: 30 });
       await expect(
-        page.getByRole("button", { name: "Concept 3", exact: true }),
+        page.getByRole("button", {
+          name: /^(?:Concept 3|बात 3)$/,
+          exact: true,
+        }),
       ).toHaveAttribute("aria-current", "step");
       const carousel = page.locator(".concept-carousel");
       await expect
@@ -129,9 +139,7 @@ for (const device of ["phone", "desktop"] as const) {
       await expect(page.locator(".planning-outcome")).toContainText(
         "₹12,000 short",
       );
-      await page
-        .getByRole("button", { name: "Close dialog", exact: true })
-        .click();
+      await closeDialog(page);
       const navigation = page.getByRole("navigation", {
         name: device === "phone" ? "Mobile navigation" : "Main navigation",
         exact: true,
@@ -193,10 +201,13 @@ for (const device of ["phone", "desktop"] as const) {
           Math.max(20, box.y) + 70,
         );
         await expect(
-          page.getByRole("button", { name: "Concept 2", exact: true }),
+          page.getByRole("button", {
+            name: /^(?:Concept 2|बात 2)$/,
+            exact: true,
+          }),
         ).toHaveAttribute("aria-current", "step");
         await page
-          .getByRole("button", { name: "Concept 3", exact: true })
+          .getByRole("button", { name: /^(?:Concept 3|बात 3)$/, exact: true })
           .tap();
         const slider = page.getByRole("slider", {
           name: "Your monthly saving",
@@ -232,7 +243,7 @@ for (const device of ["phone", "desktop"] as const) {
         }) as typeof el.scrollTo;
       });
       await page
-        .getByRole("button", { name: "Concept 3", exact: true })
+        .getByRole("button", { name: /^(?:Concept 3|बात 3)$/, exact: true })
         .click();
       await expect(page.locator(".concept-carousel")).toHaveAttribute(
         "data-scroll-behavior",

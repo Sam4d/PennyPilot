@@ -1,24 +1,32 @@
+import { closeDialog } from "./helpers";
 import { test, expect } from "@playwright/test";
+test.beforeEach(async ({ page }) => {
+  await page.goto("/");
+  await page.getByTestId("onboarding-explore").click();
+  await expect(page.getByTestId("onboarding")).toHaveCount(0);
+});
 test("new learners start in simple Hindi with familiar Hinglish terms", async ({
   page,
 }) => {
   await page.goto("/");
   await expect(
-    page.getByRole("combobox", { name: "Language", exact: true }),
+    page.getByRole("combobox", { name: /^(?:Language|भाषा)$/, exact: true }),
   ).toHaveValue("hi");
   await expect(
     page.getByRole("heading", { name: "थोड़ा सीखें। समझदार बनें।" }),
   ).toBeVisible();
   await page
     .getByRole("button", {
-      name: "पैसों का बढ़ता गोला, available lesson",
+      name: "पैसों का बढ़ता गोला, उपलब्ध पाठ",
       exact: true,
     })
     .click();
   await page
     .getByRole("button", { name: "पाठ शुरू करें", exact: true })
     .click();
-  await page.getByRole("button", { name: "Concept 2", exact: true }).click();
+  await page
+    .getByRole("button", { name: /^(?:Concept 2|बात 2)$/, exact: true })
+    .click();
   await expect(
     page.getByText(
       "सिंपल इंटरेस्ट सिर्फ़ शुरुआत के पैसों पर मिलता है। कंपाउंडिंग में पहले मिले ब्याज पर भी ब्याज मिलता है। याद रखें: इन्वेस्टमेंट का रिटर्न माइनस भी हो सकता है।",
@@ -36,10 +44,10 @@ test("new learners start in simple Hindi with familiar Hinglish terms", async ({
     .click();
   await page.getByRole("button", { name: "जवाब देखें", exact: true }).click();
   await expect(page.getByText("बिल्कुल सही!", { exact: true })).toBeVisible();
-  await page.getByRole("button", { name: "Close dialog" }).click();
+  await closeDialog(page);
   await page.reload();
   await expect(
-    page.getByRole("combobox", { name: "Language", exact: true }),
+    page.getByRole("combobox", { name: /^(?:Language|भाषा)$/, exact: true }),
   ).toHaveValue("hi");
 });
 
@@ -49,20 +57,24 @@ test("Hindi explains insurance terms in brackets and scores a health-cost answer
   await page.goto("/");
   await page
     .getByRole("button", {
-      name: "बिल का कौन सा हिस्सा आपका?, available lesson",
+      name: "बिल का कौन सा हिस्सा आपका?, उपलब्ध पाठ",
       exact: true,
     })
     .click();
   await page
     .getByRole("button", { name: "पाठ शुरू करें", exact: true })
     .click();
-  await page.getByRole("button", { name: "Concept 2", exact: true }).click();
+  await page
+    .getByRole("button", { name: /^(?:Concept 2|बात 2)$/, exact: true })
+    .click();
   await expect(
     page
       .getByRole("dialog")
       .getByText(/पहले खुद देनी पड़ सकती है \(डिडक्टिबल\)/),
   ).toBeVisible();
-  await page.getByRole("button", { name: "Concept 3", exact: true }).click();
+  await page
+    .getByRole("button", { name: /^(?:Concept 3|बात 3)$/, exact: true })
+    .click();
   const visual = page.locator(".visual-health-cover");
   await visual
     .getByRole("slider", {
@@ -81,10 +93,12 @@ test("Hindi explains insurance terms in brackets and scores a health-cost answer
   await page.getByRole("button", { name: "जवाब देखें", exact: true }).click();
   await expect(page.getByText("बिल्कुल सही!", { exact: true })).toBeVisible();
   await page.getByRole("button", { name: "आगे बढ़ें", exact: true }).click();
-  await page.getByRole("spinbutton").fill("8000");
+  await page
+    .getByLabel(/^(?:Your answer \(number only\)|आपका जवाब \(सिर्फ़ संख्या\))$/)
+    .fill("8000");
   await page.getByRole("button", { name: "जवाब देखें", exact: true }).click();
   await expect(page.getByText("बिल्कुल सही!", { exact: true })).toBeVisible();
-  await page.getByRole("button", { name: "Close dialog" }).click();
+  await closeDialog(page);
   await page.reload();
   await page
     .getByRole("button", { name: "पाठ जारी रखें", exact: true })
@@ -96,14 +110,16 @@ test("Hindi loan terms match with bracketed explanations", async ({ page }) => {
   await page.goto("/");
   await page
     .getByRole("button", {
-      name: "आपकी EMI के अंदर क्या है?, available lesson",
+      name: "आपकी EMI के अंदर क्या है?, उपलब्ध पाठ",
       exact: true,
     })
     .click();
   await page
     .getByRole("button", { name: "पाठ शुरू करें", exact: true })
     .click();
-  await page.getByRole("button", { name: "Concept 2", exact: true }).click();
+  await page
+    .getByRole("button", { name: /^(?:Concept 2|बात 2)$/, exact: true })
+    .click();
   await expect(
     page.getByRole("dialog").getByText(/उधार की रकम \(प्रिंसिपल\)/),
   ).toBeVisible();
@@ -150,7 +166,7 @@ test("Hindi insurance guides remain in Hindi and support the reading path", asyn
   await expect(page.locator(".reader-checklist li")).toHaveCount(3);
   await page.getByRole("button", { name: "सभी गाइड", exact: true }).click();
   await page
-    .getByRole("combobox", { name: "Language", exact: true })
+    .getByRole("combobox", { name: /^(?:Language|भाषा)$/, exact: true })
     .selectOption("en");
   await page
     .getByRole("button", {

@@ -18,7 +18,5 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: npm run test:browser
         env:
-          PENNY_USE_PLAYWRIGHT_BROWSER: '1'
+          PENNY_TEST_PRODUCTION: '1'
       - run: npm run test:updates
-        env:
-          PENNY_USE_PLAYWRIGHT_BROWSER: '1'

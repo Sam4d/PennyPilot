@@ -1,3 +1,4 @@
+import { closeDialog } from "./helpers";
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { lessons } from "../../src/content/lessons";
@@ -6,8 +7,10 @@ import { lessons } from "../../src/content/lessons";
 test.beforeEach(async ({ page }) => {
   await page.goto("/");
   await page
-    .getByRole("combobox", { name: "Language", exact: true })
+    .getByRole("combobox", { name: /^(?:Language|भाषा)$/, exact: true })
     .selectOption("en");
+  if (await page.getByTestId("onboarding-explore").isVisible())
+    await page.getByTestId("onboarding-explore").click();
   await page.waitForFunction(
     () =>
       new Promise<boolean>((resolve) => {
@@ -46,7 +49,11 @@ test("complete a real lesson, resume after reload, and keep personal notes", asy
         })
         .click();
     else if (q.type === "numeric")
-      await page.getByRole("spinbutton").fill(String(q.answer));
+      await page
+        .getByLabel(
+          /^(?:Your answer \(number only\)|आपका जवाब \(सिर्फ़ संख्या\))$/,
+        )
+        .fill(String(q.answer));
     else
       for (const index of q.answer as number[])
         await page
@@ -75,7 +82,10 @@ test("complete a real lesson, resume after reload, and keep personal notes", asy
   await expect(page.getByText("+100", { exact: true })).toBeVisible();
   await page.getByRole("button", { name: "Back to my learning path" }).click();
   await page
-    .getByRole("navigation", { name: "Main navigation", exact: true })
+    .getByRole("navigation", {
+      name: /^(?:Main navigation|मुख्य मेन्यू)$/,
+      exact: true,
+    })
     .getByRole("button", { name: "Notebook" })
     .click();
   await page
@@ -91,7 +101,10 @@ test("complete a real lesson, resume after reload, and keep personal notes", asy
   await expect(page.getByRole("dialog")).toHaveCount(0);
   await page.reload();
   await page
-    .getByRole("navigation", { name: "Main navigation", exact: true })
+    .getByRole("navigation", {
+      name: /^(?:Main navigation|मुख्य मेन्यू)$/,
+      exact: true,
+    })
     .getByRole("button", { name: "Notebook" })
     .click();
   await expect(
@@ -104,7 +117,10 @@ test("calculators update with sliders and handle zero return", async ({
 }) => {
   await page.goto("/");
   await page
-    .getByRole("navigation", { name: "Main navigation", exact: true })
+    .getByRole("navigation", {
+      name: /^(?:Main navigation|मुख्य मेन्यू)$/,
+      exact: true,
+    })
     .getByRole("button", { name: "Playground" })
     .click();
   const slider = page.getByRole("slider", { name: "Assumed annual return" });
@@ -140,13 +156,13 @@ test("Hindi lesson text, mobile layouts and reduced motion work", async ({
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
   await page
-    .getByRole("combobox", { name: "Language", exact: true })
+    .getByRole("combobox", { name: /^(?:Language|भाषा)$/, exact: true })
     .selectOption("hi");
   await page.getByRole("button", { name: "मिया के साथ शुरू करें" }).click();
   await expect(
     page.getByRole("heading", { name: "पैसों से दोस्ती" }),
   ).toBeVisible();
-  await page.getByRole("button", { name: "आज़माएं" }).click();
+  await page.getByRole("button", { name: "आज़माएं", exact: true }).click();
   await expect(
     page.getByRole("heading", { name: "राजू की अदला-बदली मुश्किल क्यों थी?" }),
   ).toBeVisible();
@@ -161,7 +177,10 @@ test("valid backups restore and malformed backups leave progress intact", async 
 }) => {
   await page.goto("/");
   await page
-    .getByRole("navigation", { name: "Main navigation", exact: true })
+    .getByRole("navigation", {
+      name: /^(?:Main navigation|मुख्य मेन्यू)$/,
+      exact: true,
+    })
     .getByRole("button", { name: "Me", exact: true })
     .click();
   await page
@@ -228,7 +247,11 @@ for (const lesson of lessons.slice(1)) {
           })
           .click();
       else if (q.type === "numeric")
-        await dialog.getByRole("spinbutton").fill(String(q.answer));
+        await dialog
+          .getByLabel(
+            /^(?:Your answer \(number only\)|आपका जवाब \(सिर्फ़ संख्या\))$/,
+          )
+          .fill(String(q.answer));
       else if (q.type === "match") {
         for (const [i, right] of (q.answer as number[]).entries()) {
           await dialog
@@ -278,9 +301,12 @@ test("a mistaken answer is explained and saved for revision", async ({
   await expect(
     page.getByText("Correct answer: The barber did not want wheat"),
   ).toBeVisible();
-  await page.getByRole("button", { name: "Close dialog" }).click();
+  await closeDialog(page);
   await page
-    .getByRole("navigation", { name: "Main navigation", exact: true })
+    .getByRole("navigation", {
+      name: /^(?:Main navigation|मुख्य मेन्यू)$/,
+      exact: true,
+    })
     .getByRole("button", { name: "Revise" })
     .click();
   await expect(
@@ -299,12 +325,12 @@ test("200 percent text size reflows without horizontal scrolling", async ({
   await page.setViewportSize({ width: 360, height: 800 });
   await page.goto("/");
   await page
-    .getByRole("navigation", { name: "Mobile navigation" })
+    .getByRole("navigation", { name: /^(?:Mobile navigation|फ़ोन का मेन्यू)$/ })
     .getByRole("button", { name: "Me", exact: true })
     .click();
   await page.getByRole("slider", { name: "Text size" }).fill("2");
   await page
-    .getByRole("navigation", { name: "Mobile navigation" })
+    .getByRole("navigation", { name: /^(?:Mobile navigation|फ़ोन का मेन्यू)$/ })
     .getByRole("button", { name: "Learn", exact: true })
     .click();
   expect(
@@ -321,11 +347,15 @@ test("the swipeable worked example is an interactive money model", async ({
 }) => {
   await page.goto("/");
   await page.getByRole("button", { name: "Let’s start with Mia" }).click();
-  await page.getByRole("button", { name: "Next concept", exact: true }).click();
+  await page
+    .getByRole("button", { name: /^(?:Next concept|अगली बात)$/, exact: true })
+    .click();
   await expect(
-    page.getByRole("button", { name: "Concept 2", exact: true }),
+    page.getByRole("button", { name: /^(?:Concept 2|बात 2)$/, exact: true }),
   ).toHaveAttribute("aria-current", "step");
-  await page.getByRole("button", { name: "Concept 3", exact: true }).click();
+  await page
+    .getByRole("button", { name: /^(?:Concept 3|बात 3)$/, exact: true })
+    .click();
   const slider = page.getByRole("slider", {
     name: "What if the haircut costs…",
   });
@@ -340,12 +370,18 @@ test("the swipeable worked example is an interactive money model", async ({
 test("browser back restores the previous screen", async ({ page }) => {
   await page.goto("/");
   await page
-    .getByRole("navigation", { name: "Main navigation", exact: true })
+    .getByRole("navigation", {
+      name: /^(?:Main navigation|मुख्य मेन्यू)$/,
+      exact: true,
+    })
     .getByRole("button", { name: "Playground" })
     .click();
   await expect(page).toHaveURL(/#tools$/);
   await page
-    .getByRole("navigation", { name: "Main navigation", exact: true })
+    .getByRole("navigation", {
+      name: /^(?:Main navigation|मुख्य मेन्यू)$/,
+      exact: true,
+    })
     .getByRole("button", { name: "Notebook" })
     .click();
   await page.goBack();
@@ -362,14 +398,18 @@ for (const theme of ["light", "dark"]) {
     await page.setViewportSize({ width: 360, height: 800 });
     if (theme === "dark") {
       await page
-        .getByRole("navigation", { name: "Mobile navigation" })
+        .getByRole("navigation", {
+          name: /^(?:Mobile navigation|फ़ोन का मेन्यू)$/,
+        })
         .getByRole("button", { name: "Me", exact: true })
         .click();
       await page
         .getByRole("button", { name: "After hours", exact: true })
         .click();
       await page
-        .getByRole("navigation", { name: "Mobile navigation" })
+        .getByRole("navigation", {
+          name: /^(?:Mobile navigation|फ़ोन का मेन्यू)$/,
+        })
         .getByRole("button", { name: "Learn", exact: true })
         .click();
     }
@@ -399,7 +439,11 @@ for (const theme of ["light", "dark"]) {
     ).toBeVisible();
     expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
     await dialog.getByRole("button", { name: "Continue", exact: true }).click();
-    await dialog.getByRole("spinbutton").fill("28000");
+    await dialog
+      .getByLabel(
+        /^(?:Your answer \(number only\)|आपका जवाब \(सिर्फ़ संख्या\))$/,
+      )
+      .fill("28000");
     await dialog
       .getByRole("button", { name: "Check answer", exact: true })
       .click();
@@ -436,7 +480,7 @@ for (const theme of ["light", "dark"]) {
     await expect(
       group(0).getByText("Correct bucket: Money in", { exact: true }),
     ).toBeVisible();
-    await dialog.getByRole("button", { name: "Close dialog" }).click();
+    await closeDialog(page);
     await page.reload();
     await page
       .getByRole("button", { name: "Continue lesson", exact: true })
@@ -460,7 +504,7 @@ for (const theme of ["light", "dark"]) {
 
 test("new Hindi money models respond to the sliders", async ({ page }) => {
   await page
-    .getByRole("combobox", { name: "Language", exact: true })
+    .getByRole("combobox", { name: /^(?:Language|भाषा)$/, exact: true })
     .selectOption("hi");
   for (const [id, value, result] of [
     ["inflation", "50", "2"],
@@ -471,20 +515,22 @@ test("new Hindi money models respond to the sliders", async ({ page }) => {
     const lesson = lessons.find((l) => l.id === id)!;
     await page
       .getByRole("button", {
-        name: `${lesson.title.hi}, available lesson`,
+        name: `${lesson.title.hi}, उपलब्ध पाठ`,
         exact: true,
       })
       .click();
     await page
       .getByRole("button", { name: "पाठ शुरू करें", exact: true })
       .click();
-    await page.getByRole("button", { name: "Concept 3", exact: true }).click();
+    await page
+      .getByRole("button", { name: /^(?:Concept 3|बात 3)$/, exact: true })
+      .click();
     const visual = page.locator(`.visual-${id}`);
     await visual.getByRole("slider").fill(value);
     await expect(
       visual.getByText(result, { exact: false }).first(),
     ).toBeVisible();
-    await page.getByRole("button", { name: "Close dialog" }).click();
+    await closeDialog(page);
   }
 });
 
@@ -512,7 +558,10 @@ test("a version-one backup keeps six completed lessons and opens the new batch",
     scale: 1,
   };
   await page
-    .getByRole("navigation", { name: "Main navigation", exact: true })
+    .getByRole("navigation", {
+      name: /^(?:Main navigation|मुख्य मेन्यू)$/,
+      exact: true,
+    })
     .getByRole("button", { name: "Me", exact: true })
     .click();
   await page.locator("input[type=file]").setInputFiles({
@@ -522,7 +571,10 @@ test("a version-one backup keeps six completed lessons and opens the new batch",
   });
   await page.getByRole("button", { name: "Restore this backup" }).click();
   await page
-    .getByRole("navigation", { name: "Main navigation", exact: true })
+    .getByRole("navigation", {
+      name: /^(?:Main navigation|मुख्य मेन्यू)$/,
+      exact: true,
+    })
     .getByRole("button", { name: "Learn", exact: true })
     .click();
   await expect(
@@ -551,14 +603,18 @@ for (const theme of ["light", "dark"]) {
     await page.setViewportSize({ width: 360, height: 800 });
     if (theme === "dark") {
       await page
-        .getByRole("navigation", { name: "Mobile navigation" })
+        .getByRole("navigation", {
+          name: /^(?:Mobile navigation|फ़ोन का मेन्यू)$/,
+        })
         .getByRole("button", { name: "Me", exact: true })
         .click();
       await page
         .getByRole("button", { name: "After hours", exact: true })
         .click();
       await page
-        .getByRole("navigation", { name: "Mobile navigation" })
+        .getByRole("navigation", {
+          name: /^(?:Mobile navigation|फ़ोन का मेन्यू)$/,
+        })
         .getByRole("button", { name: "Learn", exact: true })
         .click();
     }
@@ -576,7 +632,7 @@ for (const theme of ["light", "dark"]) {
         .getByRole("button", { name: "Let’s learn this", exact: true })
         .click();
       await page
-        .getByRole("button", { name: "Concept 3", exact: true })
+        .getByRole("button", { name: /^(?:Concept 3|बात 3)$/, exact: true })
         .click();
       const visual = page.locator(`.visual-${id}`);
       if (id === "insurance") {
@@ -670,7 +726,7 @@ for (const theme of ["light", "dark"]) {
           () => document.documentElement.scrollWidth <= innerWidth,
         ),
       ).toBe(true);
-      await page.getByRole("button", { name: "Close dialog" }).click();
+      await closeDialog(page);
     }
   });
 }
@@ -683,14 +739,18 @@ for (const theme of ["light", "dark"]) {
     await page.setViewportSize({ width: 360, height: 800 });
     if (theme === "dark") {
       await page
-        .getByRole("navigation", { name: "Mobile navigation" })
+        .getByRole("navigation", {
+          name: /^(?:Mobile navigation|फ़ोन का मेन्यू)$/,
+        })
         .getByRole("button", { name: "Me", exact: true })
         .click();
       await page
         .getByRole("button", { name: "After hours", exact: true })
         .click();
       await page
-        .getByRole("navigation", { name: "Mobile navigation" })
+        .getByRole("navigation", {
+          name: /^(?:Mobile navigation|फ़ोन का मेन्यू)$/,
+        })
         .getByRole("button", { name: "Learn", exact: true })
         .click();
     }
@@ -750,7 +810,7 @@ for (const theme of ["light", "dark"]) {
         exact: true,
       }),
     ).toBeVisible();
-    await dialog.getByRole("button", { name: "Close dialog" }).click();
+    await closeDialog(page);
     await page.reload();
     await page
       .getByRole("button", { name: "Continue lesson", exact: true })
@@ -773,9 +833,11 @@ for (const theme of ["light", "dark"]) {
         () => document.documentElement.scrollWidth <= innerWidth,
       ),
     ).toBe(true);
-    await dialog.getByRole("button", { name: "Close dialog" }).click();
+    await closeDialog(page);
     await page
-      .getByRole("navigation", { name: "Mobile navigation" })
+      .getByRole("navigation", {
+        name: /^(?:Mobile navigation|फ़ोन का मेन्यू)$/,
+      })
       .getByRole("button", { name: "Revise", exact: true })
       .click();
     await page
@@ -804,14 +866,18 @@ for (const theme of ["light", "dark"]) {
     await page.setViewportSize({ width: 360, height: 800 });
     if (theme === "dark") {
       await page
-        .getByRole("navigation", { name: "Mobile navigation" })
+        .getByRole("navigation", {
+          name: /^(?:Mobile navigation|फ़ोन का मेन्यू)$/,
+        })
         .getByRole("button", { name: "Me", exact: true })
         .click();
       await page
         .getByRole("button", { name: "After hours", exact: true })
         .click();
       await page
-        .getByRole("navigation", { name: "Mobile navigation" })
+        .getByRole("navigation", {
+          name: /^(?:Mobile navigation|फ़ोन का मेन्यू)$/,
+        })
         .getByRole("button", { name: "Learn", exact: true })
         .click();
     }
@@ -827,7 +893,7 @@ for (const theme of ["light", "dark"]) {
         .getByRole("button", { name: "Let’s learn this", exact: true })
         .click();
       await page
-        .getByRole("button", { name: "Concept 3", exact: true })
+        .getByRole("button", { name: /^(?:Concept 3|बात 3)$/, exact: true })
         .click();
       const visual = page.locator(`.visual-${id}`);
       if (id === "emi") {
@@ -898,7 +964,7 @@ for (const theme of ["light", "dark"]) {
           () => document.documentElement.scrollWidth <= innerWidth,
         ),
       ).toBe(true);
-      await page.getByRole("button", { name: "Close dialog" }).click();
+      await closeDialog(page);
     }
   });
 }
@@ -907,7 +973,10 @@ test("lump sum invests once and preserves separate SIP amounts", async ({
   page,
 }) => {
   await page
-    .getByRole("navigation", { name: "Main navigation", exact: true })
+    .getByRole("navigation", {
+      name: /^(?:Main navigation|मुख्य मेन्यू)$/,
+      exact: true,
+    })
     .getByRole("button", { name: "Playground", exact: true })
     .click();
   await page.getByRole("button", { name: "Lump sum", exact: true }).click();
@@ -944,11 +1013,14 @@ for (const language of ["en", "hi"] as const) {
   }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page
-      .getByRole("navigation", { name: "Mobile navigation", exact: true })
+      .getByRole("navigation", {
+        name: /^(?:Mobile navigation|फ़ोन का मेन्यू)$/,
+        exact: true,
+      })
       .getByRole("button", { name: "Playground", exact: true })
       .click();
     await page
-      .getByRole("combobox", { name: "Language", exact: true })
+      .getByRole("combobox", { name: /^(?:Language|भाषा)$/, exact: true })
       .selectOption(language);
     await page
       .getByRole("button", {
@@ -997,7 +1069,10 @@ test("English dictionary and examples do not display Hindi translations", async 
   page,
 }) => {
   await page
-    .getByRole("navigation", { name: "Main navigation", exact: true })
+    .getByRole("navigation", {
+      name: /^(?:Main navigation|मुख्य मेन्यू)$/,
+      exact: true,
+    })
     .getByRole("button", { name: "Notebook", exact: true })
     .click();
   await page.getByRole("button", { name: /Money dictionary/ }).click();
@@ -1006,18 +1081,18 @@ test("English dictionary and examples do not display Hindi translations", async 
     /[\u0900-\u097f]|\b(chai|paisa|paise|kirana|bachat)\b/i,
   );
   await page
-    .getByRole("combobox", { name: "Language", exact: true })
+    .getByRole("combobox", { name: /^(?:Language|भाषा)$/, exact: true })
     .selectOption("both");
   await expect(
     page.locator('.glossary-card [lang="hi"]').first(),
   ).toBeVisible();
   await page
-    .getByRole("combobox", { name: "Language", exact: true })
+    .getByRole("combobox", { name: /^(?:Language|भाषा)$/, exact: true })
     .selectOption("en");
   await expect(page.locator('.glossary-card [lang="hi"]')).toHaveCount(0);
   await page.reload();
   await expect(
-    page.getByRole("combobox", { name: "Language", exact: true }),
+    page.getByRole("combobox", { name: /^(?:Language|भाषा)$/, exact: true }),
   ).toHaveValue("en");
   expect(await page.locator("#main").innerText()).not.toMatch(
     /[\u0900-\u097f]/,
@@ -1043,7 +1118,7 @@ test("catalogue opens the chosen lesson and reloadable advanced topic directly",
       .getByRole("dialog")
       .getByRole("heading", { name: "Meet your money", exact: true }),
   ).toBeVisible();
-  await page.getByRole("button", { name: "Close dialog" }).click();
+  await closeDialog(page);
   await page.goto("/#curriculum/S5.1.3");
   await expect(
     page.getByRole("heading", { name: "Unit Economics", exact: true }),
@@ -1077,7 +1152,9 @@ for (const theme of ["light", "dark"]) {
     await page.setViewportSize({ width: 390, height: 844 });
     if (theme === "dark") {
       await page
-        .getByRole("navigation", { name: "Mobile navigation" })
+        .getByRole("navigation", {
+          name: /^(?:Mobile navigation|फ़ोन का मेन्यू)$/,
+        })
         .getByRole("button", { name: "Me", exact: true })
         .click();
       await page
@@ -1085,7 +1162,9 @@ for (const theme of ["light", "dark"]) {
         .click();
     }
     await page
-      .getByRole("navigation", { name: "Mobile navigation" })
+      .getByRole("navigation", {
+        name: /^(?:Mobile navigation|फ़ोन का मेन्यू)$/,
+      })
       .getByRole("button", { name: "Insurance", exact: true })
       .click();
     await expect(
@@ -1177,7 +1256,7 @@ for (const language of ["en", "hi"] as const) {
       await page.emulateMedia({ reducedMotion: "reduce" });
       await page.setViewportSize({ width: 360, height: 800 });
       await page
-        .getByRole("combobox", { name: "Language", exact: true })
+        .getByRole("combobox", { name: /^(?:Language|भाषा)$/, exact: true })
         .selectOption(language);
       await page.evaluate((theme) => {
         document.documentElement.dataset.theme = theme;
@@ -1186,7 +1265,7 @@ for (const language of ["en", "hi"] as const) {
         const lesson = lessons.find((l) => l.id === id)!;
         await page
           .getByRole("button", {
-            name: `${lesson.title[language]}, available lesson`,
+            name: `${lesson.title[language]}, ${language === "hi" ? "उपलब्ध पाठ" : "available lesson"}`,
             exact: true,
           })
           .click();
@@ -1197,7 +1276,7 @@ for (const language of ["en", "hi"] as const) {
           })
           .click();
         await page
-          .getByRole("button", { name: "Concept 3", exact: true })
+          .getByRole("button", { name: /^(?:Concept 3|बात 3)$/, exact: true })
           .click();
         const visual = page.locator(`.visual-${id}`);
         const s = (en: string, hi: string) => (language === "hi" ? hi : en);
@@ -1299,9 +1378,7 @@ for (const language of ["en", "hi"] as const) {
             () => document.documentElement.scrollWidth <= innerWidth,
           ),
         ).toBe(true);
-        await page
-          .getByRole("button", { name: "Close dialog", exact: true })
-          .click();
+        await closeDialog(page);
       }
     });
   }
@@ -1312,7 +1389,7 @@ test("Hindi signed net-worth answer resumes after opening its curriculum topic",
 }) => {
   await page.setViewportSize({ width: 360, height: 800 });
   await page
-    .getByRole("combobox", { name: "Language", exact: true })
+    .getByRole("combobox", { name: /^(?:Language|भाषा)$/, exact: true })
     .selectOption("hi");
   await page.goto("/#curriculum/S0.10.3");
   await page.reload();
@@ -1328,7 +1405,9 @@ test("Hindi signed net-worth answer resumes after opening its curriculum topic",
           .getByRole("radio", { name: q.categories![category].hi, exact: true })
           .check();
     } else if (q.type === "numeric") {
-      const input = dialog.getByRole("spinbutton");
+      const input = dialog.getByLabel(
+        /^(?:Your answer \(number only\)|आपका जवाब \(सिर्फ़ संख्या\))$/,
+      );
       if (Number(q.answer) < 0)
         await expect(input).toHaveAttribute("inputmode", "text");
       await input.fill(String(q.answer));
@@ -1351,13 +1430,21 @@ test("Hindi signed net-worth answer resumes after opening its curriculum topic",
         .getByRole("button", { name: "आगे बढ़ें", exact: true })
         .click();
   }
-  await page.getByRole("button", { name: "Close dialog", exact: true }).click();
+  await closeDialog(page);
   await page.reload();
   await page
     .getByRole("button", { name: "पाठ जारी रखें", exact: true })
     .click();
-  await expect(page.getByRole("spinbutton")).toHaveValue("-30000");
-  await expect(page.getByRole("spinbutton")).toBeDisabled();
+  await expect(
+    page.getByLabel(
+      /^(?:Your answer \(number only\)|आपका जवाब \(सिर्फ़ संख्या\))$/,
+    ),
+  ).toHaveValue("-30000");
+  await expect(
+    page.getByLabel(
+      /^(?:Your answer \(number only\)|आपका जवाब \(सिर्फ़ संख्या\))$/,
+    ),
+  ).toBeDisabled();
   await expect(page.getByText("बिल्कुल सही!", { exact: true })).toBeVisible();
 });
 
@@ -1368,7 +1455,7 @@ for (const language of ["en", "hi"] as const) {
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.setViewportSize({ width: 320, height: 800 });
     await page
-      .getByRole("combobox", { name: "Language", exact: true })
+      .getByRole("combobox", { name: /^(?:Language|भाषा)$/, exact: true })
       .selectOption(language);
     await page.goto("/#curriculum/S0.5.1");
     await page
@@ -1377,7 +1464,9 @@ for (const language of ["en", "hi"] as const) {
         exact: true,
       })
       .click();
-    await page.getByRole("button", { name: "Concept 3", exact: true }).click();
+    await page
+      .getByRole("button", { name: /^(?:Concept 3|बात 3)$/, exact: true })
+      .click();
     const visual = page.locator(".visual-simple-interest");
     const time = visual.getByRole("slider", {
       name: language === "hi" ? "समय (साल)" : "Time in years",

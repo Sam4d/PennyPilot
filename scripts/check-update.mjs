@@ -44,17 +44,17 @@ const server = createServer(async (req, res) => {
 });
 await new Promise((resolve) => server.listen(0, "127.0.0.1", resolve));
 const browser = await chromium.launch({
-  executablePath: process.env.PENNY_USE_PLAYWRIGHT_BROWSER
-    ? undefined
-    : "/usr/bin/chromium",
+  executablePath: process.env.PENNY_BROWSER_EXECUTABLE || undefined,
   args: ["--no-sandbox"],
 });
 try {
   const page = await browser.newPage();
   await page.goto(`http://127.0.0.1:${server.address().port}`);
   await page
-    .getByRole("combobox", { name: "Language", exact: true })
+    .getByRole("combobox", { name: /^(?:Language|भाषा)$/, exact: true })
     .selectOption("en");
+  if (await page.getByTestId("onboarding-explore").isVisible())
+    await page.getByTestId("onboarding-explore").click();
   await page.evaluate(async () => {
     await navigator.serviceWorker.ready;
   });
@@ -92,7 +92,7 @@ try {
   assert.equal(
     await page
       .getByRole("banner")
-      .getByRole("combobox", { name: "Language", exact: true })
+      .getByRole("combobox", { name: /^(?:Language|भाषा)$/, exact: true })
       .inputValue(),
     "en",
   );

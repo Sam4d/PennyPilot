@@ -1,14 +1,23 @@
+const closeDialog = async (p) => {
+  await p
+    .getByRole("button", { name: /^(Close dialog|संवाद बंद करें)$/ })
+    .click();
+  if (await p.getByTestId("confirm-exit").isVisible())
+    await p.getByTestId("confirm-exit").click();
+};
 import { chromium, expect } from "@playwright/test";
 const b = await chromium.launch({
-  executablePath: "/usr/bin/chromium",
+  executablePath: process.env.PENNY_BROWSER_EXECUTABLE || undefined,
   args: ["--no-sandbox"],
 });
 const c = await b.newContext();
 const p = await c.newPage();
 await p.goto("http://127.0.0.1:4173");
 await p
-  .getByRole("combobox", { name: "Language", exact: true })
+  .getByRole("combobox", { name: /^(?:Language|भाषा)$/, exact: true })
   .selectOption("en");
+if (await p.getByTestId("onboarding-explore").isVisible())
+  await p.getByTestId("onboarding-explore").click();
 await p.getByRole("heading", { name: "A little wiser. Every day." }).waitFor();
 await p.evaluate(async () => {
   await navigator.serviceWorker.ready;
@@ -22,12 +31,12 @@ await p.getByRole("button", { name: "Let’s try it" }).click();
 await p.getByRole("button", { name: "The barber did not want wheat" }).click();
 await p.getByRole("button", { name: "Check answer", exact: true }).click();
 await p.getByText("That’s it. Nicely done!").waitFor();
-await p.getByRole("button", { name: "Close dialog" }).click();
+await closeDialog(p);
 await p.getByRole("button", { name: "All worlds" }).click();
 await p
   .getByRole("heading", { name: "A whole world of money. Actually, 16." })
   .waitFor();
-await p.getByRole("button", { name: "Close dialog" }).click();
+await closeDialog(p);
 await p
   .getByRole("button", {
     name: "Read your bank’s money story, available lesson",
@@ -39,11 +48,11 @@ await p.getByRole("button", { name: "Let’s try it" }).click();
 await p.getByRole("button", { name: /Rent · DEBIT −₹12,000/ }).click();
 await p.getByRole("button", { name: "Check answer", exact: true }).click();
 await p.getByText("That’s it. Nicely done!").waitFor();
-await p.getByRole("button", { name: "Close dialog" }).click();
+await closeDialog(p);
 await p.reload();
 await p.getByRole("button", { name: "Continue lesson", exact: true }).click();
 await p.getByText("That’s it. Nicely done!").waitFor();
-await p.getByRole("button", { name: "Close dialog" }).click();
+await closeDialog(p);
 await p
   .getByRole("button", {
     name: "Who pays which part?, available lesson",
@@ -51,7 +60,9 @@ await p
   })
   .click();
 await p.getByRole("button", { name: "Let’s learn this" }).click();
-await p.getByRole("button", { name: "Concept 3", exact: true }).click();
+await p
+  .getByRole("button", { name: /^(?:Concept 3|बात 3)$/, exact: true })
+  .click();
 const health = p.locator(".visual-health-cover");
 await health
   .getByRole("slider", {
@@ -67,7 +78,7 @@ await health
   .nth(1)
   .getByText("₹50,000", { exact: true })
   .waitFor();
-await p.getByRole("button", { name: "Close dialog" }).click();
+await closeDialog(p);
 await p
   .getByRole("button", {
     name: "Inside your monthly payment, available lesson",
@@ -75,7 +86,9 @@ await p
   })
   .click();
 await p.getByRole("button", { name: "Let’s learn this", exact: true }).click();
-await p.getByRole("button", { name: "Concept 3", exact: true }).click();
+await p
+  .getByRole("button", { name: /^(?:Concept 3|बात 3)$/, exact: true })
+  .click();
 const loan = p.locator(".visual-emi");
 await loan
   .getByRole("slider", { name: "Repayment period in months", exact: true })
@@ -102,15 +115,18 @@ for (const [term, meaning] of [
 }
 await p.getByRole("button", { name: "Check answer", exact: true }).click();
 await p.getByText("That’s it. Nicely done!", { exact: true }).waitFor();
-await p.getByRole("button", { name: "Close dialog" }).click();
+await closeDialog(p);
 await p.reload();
 await p.getByRole("button", { name: "Continue lesson", exact: true }).click();
 await p.getByText("That’s it. Nicely done!", { exact: true }).waitFor();
 if ((await p.locator(".match-review li").count()) !== 3)
   throw Error("Matching feedback did not recover offline.");
-await p.getByRole("button", { name: "Close dialog" }).click();
+await closeDialog(p);
 await p
-  .getByRole("navigation", { name: "Main navigation", exact: true })
+  .getByRole("navigation", {
+    name: /^(?:Main navigation|मुख्य मेन्यू)$/,
+    exact: true,
+  })
   .getByRole("button", { name: "Insurance", exact: true })
   .click();
 await p
@@ -136,9 +152,12 @@ await p
     exact: true,
   })
   .waitFor();
-await p.getByRole("button", { name: "Close dialog" }).click();
+await closeDialog(p);
 await p
-  .getByRole("navigation", { name: "Main navigation", exact: true })
+  .getByRole("navigation", {
+    name: /^(?:Main navigation|मुख्य मेन्यू)$/,
+    exact: true,
+  })
   .getByRole("button", { name: "Playground", exact: true })
   .click();
 await p.getByRole("button", { name: "Lump sum", exact: true }).click();
@@ -163,7 +182,9 @@ await p
   .waitFor();
 await p.goto("http://127.0.0.1:4173/#curriculum/S0.10.1");
 await p.getByRole("button", { name: "Open this lesson", exact: true }).click();
-await p.getByRole("button", { name: "Concept 3", exact: true }).click();
+await p
+  .getByRole("button", { name: /^(?:Concept 3|बात 3)$/, exact: true })
+  .click();
 const goal = p.locator(".visual-goal-plan");
 await goal
   .getByRole("slider", { name: "Your monthly saving", exact: true })
@@ -178,27 +199,34 @@ await p
   .click();
 await p.getByRole("button", { name: "Check answer", exact: true }).click();
 await p.getByText("That’s it. Nicely done!", { exact: true }).waitFor();
-await p.getByRole("button", { name: "Close dialog", exact: true }).click();
+await closeDialog(p);
 await p.reload();
 await p
-  .getByRole("navigation", { name: "Main navigation", exact: true })
+  .getByRole("navigation", {
+    name: /^(?:Main navigation|मुख्य मेन्यू)$/,
+    exact: true,
+  })
   .getByRole("button", { name: "Learn", exact: true })
   .click();
 await p.getByRole("button", { name: "Continue lesson", exact: true }).click();
 await p.getByText("That’s it. Nicely done!", { exact: true }).waitFor();
-await p.getByRole("button", { name: "Close dialog", exact: true }).click();
+await closeDialog(p);
 await p.goto("http://127.0.0.1:4173/#curriculum/S0.10.3");
 await p.getByRole("button", { name: "Open this lesson", exact: true }).click();
-await p.getByRole("button", { name: "Concept 3", exact: true }).click();
+await p
+  .getByRole("button", { name: /^(?:Concept 3|बात 3)$/, exact: true })
+  .click();
 const snapshot = p.locator(".visual-net-worth");
 await snapshot
   .getByRole("slider", { name: "Outstanding vehicle loan", exact: true })
   .fill("200000");
 await expect(snapshot.locator(".net-worth-result dd")).toHaveText("-₹60,000");
-await p.getByRole("button", { name: "Close dialog", exact: true }).click();
+await closeDialog(p);
 await p.goto("http://127.0.0.1:4173/#curriculum/S0.5.1");
 await p.getByRole("button", { name: "Open this lesson", exact: true }).click();
-await p.getByRole("button", { name: "Concept 3", exact: true }).click();
+await p
+  .getByRole("button", { name: /^(?:Concept 3|बात 3)$/, exact: true })
+  .click();
 const interest = p.locator(".visual-simple-interest");
 await interest
   .getByRole("slider", { name: "Time in years", exact: true })

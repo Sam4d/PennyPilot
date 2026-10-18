@@ -3,14 +3,14 @@ const production = process.env.PENNY_TEST_PRODUCTION === "1";
 export default defineConfig({
   testDir: "tests/browser",
   fullyParallel: true,
+  snapshotPathTemplate:
+    "{testDir}/../../docs/screens/foundation-redesign/visual-baselines/{arg}{ext}",
   workers: 2,
   use: {
     baseURL: production ? "http://127.0.0.1:4173" : "http://127.0.0.1:5173",
     headless: true,
     launchOptions: {
-      executablePath: process.env.PENNY_USE_PLAYWRIGHT_BROWSER
-        ? undefined
-        : "/usr/bin/chromium",
+      executablePath: process.env.PENNY_BROWSER_EXECUTABLE || undefined,
       args: ["--no-sandbox"],
     },
     ...devices["Desktop Chrome"],
