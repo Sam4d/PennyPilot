@@ -145,3 +145,19 @@ export function isCorrect(
         Number.isFinite(answer) &&
         Math.abs(answer - expected) <= 0.01;
 }
+
+/** Accept Indian/standard grouping and Devanagari digits without guessing malformed groups. */
+export function parseAmount(raw: string): number {
+  const text = raw
+    .trim()
+    .replace(/[०-९]/g, (c) => String(c.charCodeAt(0) - 0x0966))
+    .replaceAll("−", "-");
+  if (
+    text.includes(",") &&
+    !/^-?\d{1,3}(?:,\d{2})*,\d{3}(?:\.\d+)?$/.test(text) &&
+    !/^-?\d{1,3}(?:,\d{3})+(?:\.\d+)?$/.test(text)
+  )
+    return NaN;
+  const plain = text.replaceAll(",", "");
+  return /^-?(?:\d+(?:\.\d*)?|\.\d+)$/.test(plain) ? Number(plain) : NaN;
+}

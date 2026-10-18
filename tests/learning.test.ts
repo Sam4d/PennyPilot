@@ -78,7 +78,7 @@ describe("backup validation", () => {
     expect(validateBackup(JSON.parse(JSON.stringify(p)))).toEqual(p);
   });
   it("rejects unsupported versions and malformed history", () => {
-    expect(() => validateBackup({ ...freshProgress(), version: 2 })).toThrow();
+    expect(() => validateBackup({ ...freshProgress(), version: 3 })).toThrow();
     expect(() =>
       validateBackup({
         ...freshProgress(),

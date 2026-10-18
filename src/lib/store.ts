@@ -13,7 +13,7 @@ export type Session = {
   questionIds?: string[];
 };
 export type Progress = {
-  version: 1;
+  version: 2;
   onboarded?: boolean;
   lastBackupAt?: string | null;
   protection?: StreakProtection;
@@ -36,7 +36,7 @@ export type Progress = {
   scale: number;
 };
 export const freshProgress = (): Progress => ({
-  version: 1,
+  version: 2,
   onboarded: false,
   lastBackupAt: null,
   protection: freshProtection(),
@@ -132,9 +132,9 @@ export function flushProgress() {
 export function validateBackup(value: unknown): Progress {
   if (!value || typeof value !== "object")
     throw Error("This is not a Penny Pilot backup.");
-  const p = value as Progress;
+  const p = value as Omit<Progress, "version"> & { version: number };
   if (
-    p.version !== 1 ||
+    (p.version !== 1 && p.version !== 2) ||
     !["en", "hi", "hinglish", "both"].includes(p.language) ||
     !["light", "dark"].includes(p.theme) ||
     !Number.isFinite(p.xp) ||
@@ -196,6 +196,7 @@ export function validateBackup(value: unknown): Progress {
       !Number.isInteger(s.question) ||
       s.question < 0 ||
       s.question > 100 ||
+      (s.quickStart !== undefined && typeof s.quickStart !== "boolean") ||
       !record(s.answers) ||
       Object.values(s.answers).some(
         (a) =>
@@ -235,6 +236,7 @@ export function validateBackup(value: unknown): Progress {
   return {
     ...freshProgress(),
     ...p,
+    version: 2,
     onboarded: p.onboarded ?? true,
     scale:
       typeof p.scale === "number" && p.scale >= 1 && p.scale <= 2 ? p.scale : 1,

@@ -61,8 +61,8 @@ it("migrates old version-one backups and validates new optional fields", () => {
   delete p.protection;
   delete p.reports;
   delete p.lastBackupAt;
-  expect(validateBackup(p).onboarded).toBe(true);
-  expect(validateBackup(p).protection?.credits).toBe(0);
+  expect(validateBackup({ ...p, version: 1 }).onboarded).toBe(true);
+  expect(validateBackup({ ...p, version: 1 }).protection?.credits).toBe(0);
   expect(() =>
     validateBackup({
       ...freshProgress(),
@@ -73,4 +73,20 @@ it("migrates old version-one backups and validates new optional fields", () => {
     validateBackup({ ...freshProgress(), lastBackupAt: "nonsense" }),
   ).toThrow();
   expect(freshProgress().sound).toBe(false);
+});
+it("preserves legacy values when migrating a version-one backup to version two", () => {
+  const legacy = {
+    ...freshProgress(),
+    version: 1,
+    xp: 37,
+    name: "Existing learner",
+    language: "en",
+    notes: { money: "Original note" },
+  };
+  const migrated = validateBackup(legacy);
+  expect(migrated.version).toBe(2);
+  expect(migrated.xp).toBe(37);
+  expect(migrated.language).toBe("en");
+  expect(migrated.notes.money).toBe("Original note");
+  expect(migrated.name).toBe("Existing learner");
 });
