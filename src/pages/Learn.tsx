@@ -159,7 +159,7 @@ export default function Learn({
             <path
               d="m1 26 10-5 9 2 10-11 10 5 10-10 13-5"
               fill="none"
-              stroke="#70aa48"
+              stroke="var(--color-70aa48)"
               strokeWidth="2.5"
               strokeLinecap="round"
             />
@@ -425,7 +425,7 @@ export default function Learn({
                   cy="75"
                   r="63"
                   fill="none"
-                  stroke="#78bb46"
+                  stroke="var(--color-78bb46)"
                   strokeWidth="9"
                   strokeLinecap="round"
                   strokeDasharray={`${percent * 396} 396`}
@@ -513,20 +513,20 @@ export default function Learn({
             >
               <defs>
                 <linearGradient id="chartfill" x2="0" y2="1">
-                  <stop stopColor="#a5d570" stopOpacity=".5" />
-                  <stop offset="1" stopColor="#a5d570" stopOpacity="0" />
+                  <stop stopColor="var(--color-a5d570)" stopOpacity=".5" />
+                  <stop offset="1" stopColor="var(--color-a5d570)" stopOpacity="0" />
                 </linearGradient>
               </defs>
               <path d="M10 90Q130 92 235 10V100H10Z" fill="url(#chartfill)" />
               <path
                 d="M10 90Q130 92 235 10"
                 fill="none"
-                stroke="#6d9f43"
+                stroke="var(--color-6d9f43)"
                 strokeWidth="3"
                 strokeLinecap="round"
               />
-              <circle cx="235" cy="10" r="5" fill="#6d9f43" />
-              <path d="M10 90H240" stroke="#d8dfcf" strokeDasharray="3 5" />
+              <circle cx="235" cy="10" r="5" fill="var(--color-6d9f43)" />
+              <path d="M10 90H240" stroke="var(--color-d8dfcf)" strokeDasharray="3 5" />
             </svg>
             <span className="tool-link">
               Enter the playground

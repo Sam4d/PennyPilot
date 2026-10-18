@@ -305,8 +305,8 @@ export default function Tools({ language }: { language: Language }) {
             >
               <defs>
                 <linearGradient id="tool-area" x2="0" y2="1">
-                  <stop stopColor="#98ce61" stopOpacity=".45" />
-                  <stop offset="1" stopColor="#98ce61" stopOpacity="0" />
+                  <stop stopColor="var(--color-98ce61)" stopOpacity=".45" />
+                  <stop offset="1" stopColor="var(--color-98ce61)" stopOpacity="0" />
                 </linearGradient>
               </defs>
               {[50, 100, 150, 210].map((y) => (
@@ -321,7 +321,7 @@ export default function Tools({ language }: { language: Language }) {
               <path
                 d={path}
                 fill="none"
-                stroke="#6aa43f"
+                stroke="var(--color-6aa43f)"
                 strokeWidth="3.5"
                 strokeLinecap="round"
               />
@@ -329,7 +329,7 @@ export default function Tools({ language }: { language: Language }) {
                 cx={485}
                 cy={210 - (Math.max(chartPoints[40], 0) / max) * 170}
                 r="5"
-                fill="#5f973b"
+                fill="var(--color-5f973b)"
               />
               <text x="35" y="238">
                 Today
@@ -439,7 +439,7 @@ function Slider({
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
         style={{
-          background: `linear-gradient(to right, #79b84a ${((value - min) / (max - min)) * 100}%, var(--line) 0%)`,
+          background: `linear-gradient(to right, var(--color-79b84a) ${((value - min) / (max - min)) * 100}%, var(--line) 0%)`,
         }}
       />
       <span className="range-labels">
