@@ -6938,3 +6938,8 @@ summary:focus-visible {
   display: inline-block;
   vertical-align: -0.125em;
 }
+
+/* Let a range handle horizontal dragging without panning its lesson card. */
+.concept-carousel input[type="range"] {
+  touch-action: pan-y;
+}

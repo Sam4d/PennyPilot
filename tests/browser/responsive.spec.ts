@@ -206,9 +206,21 @@ for (const device of ["phone", "desktop"] as const) {
             exact: true,
           }),
         ).toHaveAttribute("aria-current", "step");
+        await expect
+          .poll(() =>
+            carousel.evaluate((el) => Math.abs(el.scrollLeft - el.clientWidth)),
+          )
+          .toBeLessThan(2);
         await page
           .getByRole("button", { name: /^(?:Concept 3|बात 3)$/, exact: true })
           .tap();
+        await expect
+          .poll(() =>
+            carousel.evaluate((el) =>
+              Math.abs(el.scrollLeft - 2 * el.clientWidth),
+            ),
+          )
+          .toBeLessThan(2);
         const slider = page.getByRole("slider", {
           name: "Your monthly saving",
           exact: true,
@@ -220,6 +232,12 @@ for (const device of ["phone", "desktop"] as const) {
           range.x + 8 + (range.width - 16) * 0.7,
           range.y + range.height / 2,
         );
+        await expect(
+          page.getByRole("button", {
+            name: /^(?:Concept 3|बात 3)$/,
+            exact: true,
+          }),
+        ).toHaveAttribute("aria-current", "step");
         const value = Number(await slider.inputValue());
         expect(value).toBeGreaterThanOrEqual(6500);
         await expect(slider.locator("..").locator("output")).toHaveText(
