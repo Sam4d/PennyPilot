@@ -1,5 +1,11 @@
 import { Copy, useUICopy } from "../lib/ui-copy";
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import type { Language, Lesson } from "../content/lessons";
 import { read } from "../content/lessons";
 import type { Session } from "../lib/store";
@@ -79,7 +85,7 @@ export default function LessonPlayer({
     [card, setCard] = useState(0),
     [deep, setDeep] = useState(false);
   const answerRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
+  useLayoutEffect(() => {
     setSelection(null);
     setNumber("");
     setOrdered([]);
@@ -88,7 +94,7 @@ export default function LessonPlayer({
     setPractising(false);
     setPracticeResult(undefined);
     answerRef.current?.focus();
-  }, [session.question]);
+  }, [session.question, q?.id]);
   useEffect(
     () => () => {
       window.speechSynthesis?.cancel();
