@@ -1,4 +1,6 @@
-# Penny Pilot
+# Penny Pilot · Financial Literacy App for India
+
+An offline-capable, multilingual financial education app with interactive lessons, budgeting exercises, financial calculators, and spaced repetition. Built as a progressive web app (PWA) with a Capacitor Android project.
 
 A thoughtful, playful finance-learning app for India. **Penny Pilot** is the product name; **Mia**, an original chibi cat, is the guide. White, charcoal, and green, with a responsive learning path, animated SVG illustration, and touch-friendly concept scrollers.
 
