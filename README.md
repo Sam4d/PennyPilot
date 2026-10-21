@@ -107,6 +107,6 @@ Saved progress now uses payload version 2. Version 1 local records and backups m
 
 ### Reproducing CI visual checks
 
-CI uses Ubuntu 24.04 and the Chromium revision supplied by the lockfile's Playwright version. UI fonts are bundled, Devanagari fallbacks are explicit, and the home decorations use SVGs so their appearance does not depend on installed system fonts. The same references are also checked in a minimal Debian 13 container during renderer investigations.
+CI runs on Ubuntu 24.04 inside a digest-pinned Debian 13 / Node 24 container. Its Chromium and fallback-font package versions are explicit in `.github/workflows/checks.yml`. UI fonts are bundled, Devanagari fallbacks are explicit, and the home decorations use SVGs so their appearance does not depend on installed system fonts. The checked-in visual references use that minimal Debian renderer. Browser/package upgrades require a reviewed reference comparison; do not silently switch renderers or accept new images.
 
 Run `PENNY_TEST_PRODUCTION=1 npm run test:browser` after building. To use a system Chromium locally, set `PENNY_BROWSER_EXECUTABLE` to its resolved executable. Keep screenshot tolerances unchanged; inspect differences before updating references. CI retains failure screenshots, traces, diffs and context in the `browser-failure-evidence` artifact.

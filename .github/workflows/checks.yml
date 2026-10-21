@@ -7,20 +7,28 @@ permissions:
 jobs:
   web:
     runs-on: ubuntu-24.04
+    container: node:24-trixie-slim@sha256:7f486cabe892bff8fef04c0f7da8dba84a560be3e4e2740b7a86afc57ebec315
+    env:
+      CHROMIUM_DEBIAN_VERSION: 155.0.8059.79-1~deb13u1
+      PENNY_TEST_PRODUCTION: '1'
     steps:
+      - name: Install the reference browser and fonts
+        shell: bash
+        run: |
+          set -euo pipefail
+          apt-get update
+          apt-get install -y --no-install-recommends \
+            "chromium=${CHROMIUM_DEBIAN_VERSION}" \
+            fonts-dejavu-core=2.37-8 fonts-liberation=1:2.1.5-3 git ca-certificates
+          echo "PENNY_BROWSER_EXECUTABLE=$(command -v chromium)" >> "$GITHUB_ENV"
+          node --version
+          chromium --version
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 24
-          cache: npm
       - run: npm ci
       - run: npm run validate:content
       - run: npm test
       - run: npm run build
-      - run: npx playwright install --with-deps chromium
       - run: npm run test:browser
-        env:
-          PENNY_TEST_PRODUCTION: '1'
       - run: npm run test:updates
       - name: Keep browser failure evidence
         if: failure()
