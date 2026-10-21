@@ -6,6 +6,7 @@ import { lessons, read, t } from "../content/lessons";
 import { addCalendarDays, dayKey } from "../lib/learning";
 import { Icon, Local, Modal } from "../components/UI";
 import Mia from "../components/Mia";
+import DecorativeMark from "../components/DecorativeMark";
 const pathGroups = [
   {
     id: "foundation",
@@ -136,7 +137,7 @@ export default function Learn({
           </p>
         </div>
         <span className="heading-doodle" aria-hidden="true">
-          ✳
+          <DecorativeMark kind="burst" />
         </span>
       </div>
       <div className="stats-strip">
@@ -273,14 +274,20 @@ export default function Learn({
             <div className="hero-art">
               <span className="orbit orbit-one" />
               <span className="orbit orbit-two" />
-              <span className="hero-spark spark-one">✦</span>
-              <span className="hero-spark spark-two">✧</span>
+              <span className="hero-spark spark-one">
+                <DecorativeMark />
+              </span>
+              <span className="hero-spark spark-two">
+                <DecorativeMark kind="outline" />
+              </span>
               <div className="floating-coin coin-one">₹</div>
               <div className="floating-coin coin-two">₹</div>
               <Mia />
               <span className="mia-name">
                 <Copy en="Hi, I’m Mia! " />
-                <span>↗</span>
+                <span>
+                  <DecorativeMark kind="arrow" />
+                </span>
               </span>
             </div>
           </section>
@@ -289,7 +296,9 @@ export default function Learn({
               <h2>
                 <Copy>{hi ? "आपका सफ़र" : "Your learning path"}</Copy>
                 <Copy> </Copy>
-                <span className="small-leaf">✦</span>
+                <span className="small-leaf">
+                  <DecorativeMark />
+                </span>
               </h2>
               <p>
                 <Copy>
@@ -369,7 +378,9 @@ export default function Learn({
                           {current && (
                             <span className="start-bubble">
                               <Copy>{hi ? "शुरू करें" : "LET’S GO"}</Copy>
-                              <span aria-hidden="true">✦</span>
+                              <span aria-hidden="true">
+                                <DecorativeMark />
+                              </span>
                             </span>
                           )}
                           {done && <span className="node-star">★</span>}
@@ -412,7 +423,7 @@ export default function Learn({
                         )}
                         {i === 4 && (
                           <span className="path-star" aria-hidden="true">
-                            ✧
+                            <DecorativeMark kind="outline" />
                           </span>
                         )}
                       </div>

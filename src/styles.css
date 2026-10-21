@@ -319,7 +319,7 @@ select {
   gap: 12px;
   text-align: left;
   padding: 0 6px;
-  font-family: "Manrope Variable", sans-serif;
+  font-family: "Manrope Variable", "Noto Sans Devanagari", sans-serif;
   font-weight: 850;
   font-size: var(--type-1_39);
   line-height: 1.15;
@@ -608,7 +608,7 @@ select {
   color: var(--color-9c8abc);
 }
 .stat strong {
-  font-family: "Manrope Variable", sans-serif;
+  font-family: "Manrope Variable", "Noto Sans Devanagari", sans-serif;
   font-size: var(--type-1_06);
   font-weight: 800;
   white-space: nowrap;
@@ -760,7 +760,7 @@ select {
 .floating-coin {
   position: absolute;
   border-radius: 50%;
-  font-family: "Manrope Variable";
+  font-family: "Manrope Variable", "Noto Sans Devanagari", sans-serif;
   font-weight: 800;
   display: grid;
   place-items: center;
@@ -980,7 +980,7 @@ select {
 }
 .path-label strong {
   display: block;
-  font-family: "Manrope Variable", sans-serif;
+  font-family: "Manrope Variable", "Noto Sans Devanagari", sans-serif;
   font-size: var(--type-0_79);
   font-weight: 750;
   letter-spacing: -0.25px;
@@ -1190,7 +1190,7 @@ select {
   fill: var(--color-edf4d9);
 }
 .goal-ring strong {
-  font-family: "Manrope Variable";
+  font-family: "Manrope Variable", "Noto Sans Devanagari", sans-serif;
   font-size: var(--type-1_5);
   line-height: 1.25;
 }
@@ -1310,7 +1310,7 @@ select {
   margin-left: auto;
 }
 .mia-tip blockquote {
-  font-family: "Manrope Variable";
+  font-family: "Manrope Variable", "Noto Sans Devanagari", sans-serif;
   font-weight: 650;
   font-size: var(--type-0_96);
   letter-spacing: -0.25px;
@@ -2442,7 +2442,7 @@ select {
   font-weight: 700;
 }
 .big-result {
-  font-family: "Manrope Variable";
+  font-family: "Manrope Variable", "Noto Sans Devanagari", sans-serif;
   font-size: var(--type-2_6);
   font-weight: 800;
   letter-spacing: -1.5px;
@@ -2463,7 +2463,7 @@ select {
   display: block;
 }
 .growth-chart text {
-  font-family: "DM Sans Variable";
+  font-family: "DM Sans Variable", "Noto Sans Devanagari", sans-serif;
   font-size: 10px;
   fill: var(--muted);
 }
@@ -3436,7 +3436,7 @@ select {
     display: flex;
     gap: 8px;
     align-items: center;
-    font-family: "Manrope Variable";
+    font-family: "Manrope Variable", "Noto Sans Devanagari", sans-serif;
     font-size: var(--type-1);
     font-weight: 850;
     letter-spacing: -0.6px;
@@ -4985,7 +4985,7 @@ select {
   line-height: 1.7;
 }
 .money-demo strong {
-  font-family: "Manrope Variable";
+  font-family: "Manrope Variable", "Noto Sans Devanagari", sans-serif;
   font-size: var(--type-1);
 }
 .money-demo > svg {
@@ -5011,7 +5011,7 @@ select {
   align-items: center;
   justify-content: center;
   gap: 17px;
-  font-family: "Manrope Variable";
+  font-family: "Manrope Variable", "Noto Sans Devanagari", sans-serif;
   font-size: var(--type-1_05);
 }
 .visual-equation > span:first-child,
@@ -5025,7 +5025,7 @@ select {
   font-size: var(--type-0_58);
   color: var(--sub);
   font-weight: 450;
-  font-family: "DM Sans Variable";
+  font-family: "DM Sans Variable", "Noto Sans Devanagari", sans-serif;
 }
 .visual-equation > span:nth-child(2) {
   font-size: var(--type-0_85);
@@ -5089,7 +5089,7 @@ select {
   font-size: var(--type-0_75);
   margin-top: 7px;
   color: var(--ink);
-  font-family: "Manrope Variable";
+  font-family: "Manrope Variable", "Noto Sans Devanagari", sans-serif;
 }
 .mock-message > span {
   display: flex;
@@ -6932,4 +6932,9 @@ summary:focus-visible {
 .about-content .settings-card {
   margin: var(--space-6) 0;
   padding: var(--space-6);
+}
+
+.decorative-mark {
+  display: inline-block;
+  vertical-align: -0.125em;
 }
