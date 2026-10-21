@@ -102,3 +102,9 @@ First launch asks for a language and offers a one-question introduction. It does
 See [design system](docs/DESIGN.md), [Hindi interface audit](docs/LOCALISATION-AUDIT.md), and [curriculum proposal](docs/ROADMAP-CONTENT.md). The curriculum proposal targets undergraduate finance competencies; degree equivalence and external academic approval are **Not verified**. New proposed lessons await approval. A software licence has not been selected; no LICENSE has been invented.
 
 Saved progress now uses payload version 2. Version 1 local records and backups migrate on load, preserving names, language, answers, XP and notes. The database table layout stays unchanged. Old activity-day keys are retained because the timezone in which they were originally created cannot be inferred; new activity and review days use IST.
+
+### Reproducing CI visual checks
+
+CI uses Ubuntu 24.04 and the Chromium revision supplied by the lockfile's Playwright version. UI fonts are bundled, Devanagari fallbacks are explicit, and the home decorations use SVGs so their appearance does not depend on installed system fonts. The same references are also checked in a minimal Debian 13 container during renderer investigations.
+
+Run `PENNY_TEST_PRODUCTION=1 npm run test:browser` after building. To use a system Chromium locally, set `PENNY_BROWSER_EXECUTABLE` to its resolved executable. Keep screenshot tolerances unchanged; inspect differences before updating references. CI retains failure screenshots, traces, diffs and context in the `browser-failure-evidence` artifact.

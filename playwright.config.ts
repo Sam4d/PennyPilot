@@ -9,6 +9,8 @@ export default defineConfig({
   use: {
     baseURL: production ? "http://127.0.0.1:4173" : "http://127.0.0.1:5173",
     headless: true,
+    screenshot: "only-on-failure",
+    trace: "retain-on-failure",
     launchOptions: {
       executablePath: process.env.PENNY_BROWSER_EXECUTABLE || undefined,
       args: ["--no-sandbox"],
