@@ -59,3 +59,9 @@ See [ROADMAP-CONTENT.md](ROADMAP-CONTENT.md) for the expanded 16-world sequence,
 ## Personal revision plans — 23 October 2026
 
 Implemented cumulative practice across previously attempted topics, with a seven-day IST schedule, question caps and persistent remaining-topic plans. Learners can resume after answers or topic summaries, practise ahead of schedule, and recover mistakes while retaining original lesson records. Version 1/2 progress migrates to payload 3. This is guided repetition, not a cumulative exam or placement assessment. See [REVISION.md](REVISION.md). Curriculum approval, remaining exercise engines, physical-device release gates and live Vercel verification remain open; the cloud proxy block is isolated from independent product engineering.
+
+## Approved foundation teaching batch (0.9) — 23 October 2026
+
+The owner approved the ranked next-ten sequence for authoring. Added payslip reconciliation and irregular-income/known-bill planning: 20 draft lessons / 160 exercises / 50 glossary entries. Each new lesson includes longer multilingual readings, repeated links to foundational ideas, a worked board and eight questions. Topics now show all authored lessons, preserving the original cash-flow introduction alongside its deeper follow-up. Path cards remain capped at six nodes. Version 0.9.0 / Android code 11 identifies this build; progress payload remains 3 with no data migration change.
+
+These are editorial drafts with fictional assumptions, not current payroll/tax rules or a completed four-level skill ladder. The approved sequence can continue without another per-lesson authoring permission request. Current-rule/source verification, human financial/native-language review, real-device validation and hosted deployment remain separate gates.

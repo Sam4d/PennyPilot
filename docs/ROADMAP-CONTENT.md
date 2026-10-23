@@ -1,6 +1,6 @@
 # Penny Pilot: foundations to finance mastery
 
-Planning draft — 18 October 2026 (India). **This document proposes a curriculum; it does not add playable lessons.** New lesson writing awaits user approval. The app currently contains 18 editorial-preview lessons, 144 exercises and eight insurance guides. The 16-world catalogue contains 189 units and 946 named skills; their outlines are not finished teaching content.
+Planning draft — 18 October 2026 (India). **This document proposes a curriculum; it does not add playable lessons.** The owner approved the next-ten foundation sequence for authoring on 23 October 2026. The app now contains 20 editorial-preview lessons, 160 exercises and eight insurance guides. Authoring approval is not financial or native-language sign-off. The 16-world catalogue contains 189 units and 946 named skills; their outlines are not finished teaching content.
 
 ## The standard we are aiming for
 
@@ -300,7 +300,7 @@ Financial and language reviewers must moderate advanced work. Automated quizzes 
 
 ## Next ten lessons, ranked by immediate learner value
 
-Proposals only. Existing draft IDs are not silently repurposed. “Sources to verify” below are a review queue, **not verified reading**. Risk describes the cost of incorrect teaching, not the learner's investing risk.
+The proposed sequence was approved for authoring in chat on 23 October 2026 ("continue, approved"). Continue within that approved sequence without asking again for each lesson. The first two drafts are now authored: payslip reconciliation and irregular-income/known-bill planning. Existing draft IDs are not silently repurposed. “Sources to verify” below are a review queue, **not verified reading**. Risk describes the cost of incorrect teaching, not the learner's investing risk.
 
 | Rank / proposed topic | Learning goal | Three interaction ideas | Sources to verify | Editorial risk |
 | --- | --- | --- | --- | --- |
@@ -315,7 +315,7 @@ Proposals only. Existing draft IDs are not silently repurposed. “Sources to ve
 | 9. FD, PPF and NPS: compare structures before returns | Compare access, risks, contribution patterns, costs and purpose without naming a universal winner | Liquidity timeline; product-structure matrix; goal-fit case with dated rule placeholders hidden until verified | RBI, official National Savings/PPF material, PFRDA/NPS official sources | High; no current rate, limit or tax rule without effective/verification dates |
 | 10. Tax basics and a dated old/new comparison | Distinguish marginal/average tax, withholding/final liability and the relevant financial/assessment year | Fictional bracket board; withholding reconciliation; verified-year comparison with assumption switches | Income Tax Department and legislation/circulars for the chosen year | Very high; publication blocked until exact year/rules are reviewed |
 
-Approval should cover learning goals, risk boundaries and the sequence. It does not by itself mark a regulatory claim as verified. Write rank 1 only after approval, then review its English, Hindi, Roman Hinglish, arithmetic, board and small-screen experience before expanding the batch.
+Approval should cover learning goals, risk boundaries and the sequence. It does not by itself mark a regulatory claim as verified. Rank 1 passed its English/Hindi completion, Roman-Hinglish structural review, arithmetic, board and small-screen checks before rank 2 was authored. Continue those gates for later approved lessons. Independent native-language/financial approval is still outstanding.
 
 ## Source and editorial release contract
 

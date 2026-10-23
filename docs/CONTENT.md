@@ -10,7 +10,7 @@ At four 3–5 minute levels per explicit skill, the eventual outline implies rou
 
 ## What is shipped
 
-Eighteen lesson drafts with eight questions each. Each has a relatable hook, concept, worked example, mistake, three note points, and a practical action. Full English, Devanagari Hindi, and Roman-script Hinglish are included. Questions use Indian settings and explicit illustrative amounts. Six exercise engines are implemented: choice, numeric entry, sequencing, document-row discovery, bucket sorting, and one-to-one matching. Document discovery uses fictional bank statements, bills, grocery labels and loan summaries. Sorting uses native radio controls so it works with touch, keyboard and assistive technology without dragging. The remaining 10 exercise forms must be built and tested before claiming the full specification.
+Twenty lesson drafts with eight questions each. Each has a relatable hook, concept, worked example, mistake, three note points, and a practical action. Full English, Devanagari Hindi, and Roman-script Hinglish are included. Questions use Indian settings and explicit illustrative amounts. Six exercise engines are implemented: choice, numeric entry, sequencing, document-row discovery, bucket sorting, and one-to-one matching. Document discovery uses fictional bank statements, bills, grocery labels and loan summaries. Sorting uses native radio controls so it works with touch, keyboard and assistive technology without dragging. The remaining 10 exercise forms must be built and tested before claiming the full specification.
 
 The five-section path is a foundation sampler across World 0, not a claim that all World 0 units are finished. The catalogue keeps the larger syllabus visible while labelling unimplemented material.
 
@@ -90,3 +90,17 @@ The interactive example uses a fictional ₹10,000 principal and fixed 8% annual
 ## Expanded curriculum architecture — 18 October 2026
 
 [ROADMAP-CONTENT.md](ROADMAP-CONTENT.md) proposes deeper coverage across all 16 worlds, including accounting, quantitative reasoning, corporate finance, empirical methods, insurance and assessed projects. It specifies short explanatory passages, interactive mock boards, purposeful repetition and four levels of increasingly independent work. This task changes the teaching plan, not the 18-lesson/144-exercise authored inventory. The next ten proposals await approval. Source verification and external university benchmarking remain **Not verified**; the plan cannot substantiate degree equivalence or hundreds of available study hours.
+
+## Approved foundation batch 0.9 — 23 October 2026
+
+The owner approved the ranked sequence in ROADMAP-CONTENT.md. Added `payslip` (S0.2.2) and `irregular-income` (S0.2.5): two multilingual drafts with three extra explanatory readings each, worked boards and eight questions each. The cash-flow topic retains its original `income` lesson as well; topic details now show all matching lessons rather than only the first. All existing lesson/question IDs remain unchanged.
+
+Both new lessons repeat and connect income, spending, saving, debt, net-worth and goal concepts. They use fictional assumptions dated 23 October 2026. Payslip amounts are not current tax/PF/contribution rates or legal entitlements. The cash-flow model puts receipts before payments within each month and may miss a funding gap inside a month; it labels negative projections as unfunded plans, not credit. Separate planned pots are not counted twice as available cash.
+
+### Needs verification
+
+- `https://www.epfindia.gov.in/site_en/For_Employees.php`: attempted 23 October 2026; HTTP 403, not read. Current contribution/eligibility and payroll-rule verification is outstanding.
+- `https://www.rbi.org.in/FinancialEducation/`: retried 23 October 2026; HTTP 403, not read. No fresh source verification is claimed.
+- `https://www.incometax.gov.in/iec/foportal/`: review-queue link only; not fetched for this batch. No current tax slabs, withholding calculation, deduction rates or assessment-year comparison was authored.
+
+The new lessons explicitly have `sourceStatus: "unverified"` and a multilingual source note. Source links are a review queue; independent financial/native-language review and measured novice timing remain outstanding. The 15-minute lesson values are authoring estimates, not verified learning hours.

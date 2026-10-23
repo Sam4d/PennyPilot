@@ -6,11 +6,12 @@ A thoughtful, playful finance-learning app for India. **Penny Pilot** is the pro
 
 ## What works in this preview
 
-- Eighteen foundation lessons: money and barter, cash flow, budgeting, UPI scam awareness, compounding, emergency savings, inflation, bank statements, credit-card bills, debt repayment, insurance basics, health cover, term life cover, EMI, purchase-credit costs, goal planning, net worth and simple interest.
-- 144 authored exercises across six engines: multiple choice / true–false, numeric answers, sequencing, document-row discovery, accessible bucket sorting, and one-to-one matching; immediate explanation and optional deeper context.
+- Twenty draft lessons: money and barter, cash flow, budgeting, UPI scam awareness, compounding, emergency savings, inflation, bank statements, credit-card bills, debt repayment, insurance basics, health cover, term life cover, EMI, purchase-credit costs, goal planning, net worth, simple interest, payslip reconciliation and irregular-income planning.
+- 160 authored exercises across six engines: multiple choice / true–false, numeric answers, sequencing, document-row discovery, accessible bucket sorting, and one-to-one matching; immediate explanation and optional deeper context.
 - English, conversational Hindi, Hinglish, and paired English/Hindi **lesson content**. Main-screen interface copy is available in English and Hindi; original planning outlines remain English and are labelled drafts.
 - Progress saved after each answer, resume after reload, XP, calendar-day streaks, daily goals, simplified SM-2 revision, and mistakes practice. Revision plans combine previously attempted questions across topics, with a seven-day IST schedule, question limits and saved multi-topic resume.
-- Automatic note cards, personal notes, search, 46 glossary entries, and print-to-PDF notebook export on the web.
+- Automatic note cards, personal notes, search, 50 glossary entries, and print-to-PDF notebook export on the web.
+- Longer reading sequences connect short explanations, worked examples and repeated ideas. The two new lessons have seven concept cards each, row-by-row salary and month-by-month cash-flow boards, and transfer questions. Topics can offer more than one lesson without hiding the original.
 - Interactive worked-example sandboxes inside the swipeable concept cards, plus four standalone calculators: monthly SIP or one-time lump-sum growth, reducing-balance EMI, purchasing-power erosion, and an emergency buffer. Assumptions and limitations are visible.
 - IndexedDB on web and a native SQLite adapter on Android. JSON backup/restore; native backup uses the system share sheet.
 - Adaptive-height concept cards keep the selected story during resizing, with stable controls, touch swiping, reduced-motion scrolling and keyboard-safe source expansion.
@@ -21,7 +22,7 @@ A thoughtful, playful finance-learning app for India. **Penny Pilot** is the pro
 - A web update notice saves pending progress before activating a waiting service worker and reloading, keeping stored language choices.
 - A searchable **16-world topic library**, preserving 189 units and 946 named skills. Every topic and unit opens directly, with reloadable links and previous/next navigation. Available quizzes launch the selected lesson; unfinished topics show their draft outline.
 
-This is a working **0.8 editorial preview**, not the full multi-hundred-hour course. An outline is not a completed lesson. There are no fabricated learner statistics, leaderboards, or completed-content counts.
+This is a working **0.9 editorial preview**, not the full multi-hundred-hour course. An outline is not a completed lesson. There are no fabricated learner statistics, leaderboards, or completed-content counts.
 
 ## Run
 
@@ -101,7 +102,7 @@ Education only. No investment, tax, or legal advice. No stock recommendations, a
 
 First launch asks for a language and offers a one-question introduction. It does not award completion of a full lesson. Study days use IST. New completed lessons earn capped, free streak protection; no payment or shame mechanic is used. Draft status, device-local error notes, safe exit and an education-only About page make the limits visible. Backup history records an export request; saving the file itself must be confirmed by the user.
 
-See [design system](docs/DESIGN.md), [Hindi interface audit](docs/LOCALISATION-AUDIT.md), and [curriculum proposal](docs/ROADMAP-CONTENT.md). The curriculum proposal targets undergraduate finance competencies; degree equivalence and external academic approval are **Not verified**. New proposed lessons await approval. A software licence has not been selected; no LICENSE has been invented.
+See [design system](docs/DESIGN.md), [Hindi interface audit](docs/LOCALISATION-AUDIT.md), and [curriculum proposal](docs/ROADMAP-CONTENT.md). The curriculum proposal targets undergraduate finance competencies; degree equivalence and external academic approval are **Not verified**. The owner approved the next-ten foundation sequence for authoring on 23 October 2026. Financial and native-language review remain separate gates. A software licence has not been selected; no LICENSE has been invented.
 
 Saved progress now uses payload version 3. Version 1 and 2 local records and backups migrate on load, preserving names, language, answers, XP, notes and suspended lessons. Version 3 adds the remaining revision-plan topics and checked-answer count; see [revision behaviour](docs/REVISION.md). The database table layout stays unchanged. Old activity-day keys are retained because the timezone in which they were originally created cannot be inferred; new activity and review days use IST. Older app builds that only accept versions 1–2 cannot read a version 3 backup.
 
