@@ -1,3 +1,4 @@
+import IdentitySafetyVisual from "./IdentitySafetyVisual";
 import { useState } from "react";
 import type { Language } from "../content/lessons";
 import { compound, rupees } from "../lib/learning";
@@ -327,6 +328,9 @@ export default function LearningVisual({
             )}
           </p>
         </>
+      )}
+      {lessonId === "identity-safety" && (
+        <IdentitySafetyVisual language={language} />
       )}
       {lessonId === "safety" && (
         <div className="mock-message">

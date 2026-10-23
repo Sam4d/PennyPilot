@@ -295,6 +295,34 @@ await p
 await p.getByRole("button", { name: "Check answer", exact: true }).click();
 await expect(p.locator(".answer-feedback.right")).toBeVisible();
 await closeDialog(p);
+await p.goto("http://127.0.0.1:4173/#curriculum/S0.9.2");
+await p.getByRole("button", { name: "Open this lesson", exact: true }).click();
+await p.getByRole("button", { name: "Concept 6", exact: true }).click();
+const identity = p.locator(".identity-board");
+await identity
+  .getByRole("button", { name: "Inspect the address", exact: true })
+  .click();
+await expect(identity.locator("#identity-clue-1")).toContainText(".invalid");
+await identity
+  .getByRole("button", { name: "Pause and verify independently", exact: true })
+  .click();
+await expect(identity.locator(".identity-feedback")).toContainText(
+  "Safer response",
+);
+await p.getByRole("button", { name: "Let’s try it", exact: true }).click();
+await p
+  .getByRole("button", {
+    name: /The sender used that logo; identity still needs checking/,
+  })
+  .click();
+await p.getByRole("button", { name: "Check answer", exact: true }).click();
+await expect(p.locator(".answer-feedback.right")).toBeVisible();
+await closeDialog(p);
+await p.goto("http://127.0.0.1:4173/#learn");
+await p.reload();
+await p.getByRole("button", { name: "Continue lesson", exact: true }).click();
+await expect(p.locator(".answer-feedback.right")).toBeVisible();
+await closeDialog(p);
 await p.goto("http://127.0.0.1:4173/#revise");
 await p.getByRole("button", { name: /All learned questions/ }).click();
 await p.getByTestId("start-revision-plan").click();
@@ -309,6 +337,6 @@ await p.getByTestId("resume-revision").click();
 await expect(p.locator(".question-content h2")).toHaveText(reviewPrompt);
 await expect(p.locator(".review-plan-progress")).toHaveText(reviewCount);
 console.log(
-  "PASS: production offline reload, lazy lessons and curriculum, bank answer recovery, insurance/repayment models, matching answer recovery, insurance guides, direct topic reload, lump-sum mode, goal-answer recovery and negative net-worth exploration, simple interest, keyboard source expansion, payslip reconciliation/budget and answer recovery, uneven-income timing/fee reserves, and cumulative revision-plan reload/resume.",
+  "PASS: production offline reload, lazy lessons and curriculum, bank answer recovery, insurance/repayment models, matching answer recovery, insurance guides, direct topic reload, lump-sum mode, goal-answer recovery and negative net-worth exploration, simple interest, keyboard source expansion, payslip reconciliation/budget and answer recovery, uneven-income timing/fee reserves, identity-safety inspection and answered-question recovery, and cumulative revision-plan reload/resume.",
 );
 await b.close();
