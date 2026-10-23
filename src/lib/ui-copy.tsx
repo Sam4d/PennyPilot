@@ -322,6 +322,8 @@ Object.assign(hindiUI, {
   "The backup contains invalid progress.":
     "बैकअप में प्रगति का डेटा सही नहीं है।",
   "The saved lesson is invalid.": "सेव किए पाठ का डेटा सही नहीं है।",
+  "The saved revision plan is invalid.":
+    "सेव किए दोहराई के प्लान का डेटा सही नहीं है।",
   "Invalid local preferences or streak protection.":
     "सेटिंग या स्ट्रीक फ़्रीज़ का डेटा सही नहीं है।",
   "Please choose a backup smaller than 5 MB.": "5 MB से छोटा बैकअप चुनें।",

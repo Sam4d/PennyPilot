@@ -8,6 +8,7 @@ import {
   reviewWeek,
 } from "../src/lib/revision";
 import { freshProgress, validateBackup } from "../src/lib/store";
+import { translateUI } from "../src/lib/ui-copy";
 import { scheduleReview, type ReviewItem } from "../src/lib/learning";
 
 const today = "2026-10-23";
@@ -161,6 +162,12 @@ describe("version-three backup migration", () => {
     const session = createReviewSession([
       { lessonId: "money", questionIds: ["money-1"] },
     ])!;
+    expect(translateUI("The saved revision plan is invalid.", "hi")).toBe(
+      "सेव किए दोहराई के प्लान का डेटा सही नहीं है।",
+    );
+    expect(translateUI("The saved revision plan is invalid.", "en")).toBe(
+      "The saved revision plan is invalid.",
+    );
     for (const reviewPlan of [
       null,
       { ...session.reviewPlan, remaining: "bad" },

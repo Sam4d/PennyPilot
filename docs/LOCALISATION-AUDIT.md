@@ -291,3 +291,5 @@ Final desktop breadcrumb additions:
 About now uses its own breadcrumb rather than the notebook fallback.
 
 Curriculum status labels now translate dynamic playable-lesson counts, `8 READING GUIDES` and `TOPIC OUTLINES`. English world descriptions and unit/skill headings come from the draft inventory in [curriculum.json](../src/content/curriculum.json); they remain explicitly pending multilingual authoring, rather than being machine-translated financial lessons.
+
+23 October 2026 revision planner: added explicit simple English/Hindi pairs for calendar dates, due/practice filters, plan preview, replacement confirmation, progress and topic-summary actions. Invalid revision-plan backup errors now also use Hindi in Hindi mode. A browser import regression verifies that translated error and confirms existing review history remains intact. This does not establish full Roman-Hinglish shell localisation or native editorial approval.

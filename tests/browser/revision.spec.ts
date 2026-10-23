@@ -273,4 +273,27 @@ test("replacing an unfinished plan needs confirmation and preserves checked hist
   const saved = await readProgress(page);
   expect(saved.reviews["money-1"].wrong).toBe(1);
   expect(saved.completed.money.score).toBe(4);
+  await closeDialog(page);
+  await page.goto("/#me");
+  await page
+    .getByRole("banner")
+    .getByRole("combobox", { name: /^(Language|भाषा)$/ })
+    .selectOption("hi");
+  await page.locator("input[type=file]").setInputFiles({
+    name: "invalid-plan.json",
+    mimeType: "application/json",
+    buffer: Buffer.from(
+      JSON.stringify({
+        ...saved,
+        session: {
+          ...saved.session,
+          reviewPlan: { ...saved.session!.reviewPlan, totalQuestions: 999 },
+        },
+      }),
+    ),
+  });
+  await expect(page.getByRole("alert")).toHaveText(
+    "सेव किए दोहराई के प्लान का डेटा सही नहीं है।",
+  );
+  expect((await readProgress(page)).reviews).toEqual(saved.reviews);
 });
