@@ -26,6 +26,11 @@ import {
   saveProgress,
 } from "./lib/store";
 import type { Progress, Session } from "./lib/store";
+import {
+  createReviewSession,
+  advanceReviewSession,
+  type ReviewGroup,
+} from "./lib/revision";
 import Onboarding from "./components/Onboarding";
 import AppUpdate from "./components/AppUpdate";
 import Mia from "./components/Mia";
@@ -232,11 +237,12 @@ export default function App() {
           session.review || session.quickStart
             ? (p.protection ?? freshProtection())
             : earnFreeze(p.protection ?? freshProtection(), session.lessonId),
-        saved: session.quickStart
-          ? p.saved
-          : p.saved.includes(session.lessonId)
+        saved:
+          session.quickStart || session.review
             ? p.saved
-            : [...p.saved, session.lessonId],
+            : p.saved.includes(session.lessonId)
+              ? p.saved
+              : [...p.saved, session.lessonId],
         completed:
           session.review || session.quickStart
             ? p.completed
@@ -537,7 +543,18 @@ export default function App() {
                     />
                   )}
                   {page === "revise" && (
-                    <Revise progress={progress} onStart={start} />
+                    <Revise
+                      progress={progress}
+                      today={todayIST}
+                      onStart={start}
+                      onResume={() => setActive(true)}
+                      onPlan={(groups: ReviewGroup[]) => {
+                        const session = createReviewSession(groups);
+                        if (!session) return;
+                        update((p) => ({ ...p, session }));
+                        setActive(true);
+                      }}
+                    />
                   )}
                 </Suspense>
               </main>
@@ -629,6 +646,15 @@ export default function App() {
                   onAnswer={answer}
                   onFinish={finish}
                   onNext={() => {
+                    if (progress.session?.review) {
+                      const next = advanceReviewSession(progress.session);
+                      update((p) => ({ ...p, session: next }));
+                      if (!next) {
+                        setActive(false);
+                        navigate("revise");
+                      }
+                      return;
+                    }
                     setActive(false);
                     const next = progress.session?.quickStart
                       ? lessons[0]

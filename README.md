@@ -9,7 +9,7 @@ A thoughtful, playful finance-learning app for India. **Penny Pilot** is the pro
 - Eighteen foundation lessons: money and barter, cash flow, budgeting, UPI scam awareness, compounding, emergency savings, inflation, bank statements, credit-card bills, debt repayment, insurance basics, health cover, term life cover, EMI, purchase-credit costs, goal planning, net worth and simple interest.
 - 144 authored exercises across six engines: multiple choice / true–false, numeric answers, sequencing, document-row discovery, accessible bucket sorting, and one-to-one matching; immediate explanation and optional deeper context.
 - English, conversational Hindi, Hinglish, and paired English/Hindi **lesson content**. Main-screen interface copy is available in English and Hindi; original planning outlines remain English and are labelled drafts.
-- Progress saved after each answer, resume after reload, XP, calendar-day streaks, daily goals, simplified SM-2 revision, and mistakes practice.
+- Progress saved after each answer, resume after reload, XP, calendar-day streaks, daily goals, simplified SM-2 revision, and mistakes practice. Revision plans combine previously attempted questions across topics, with a seven-day IST schedule, question limits and saved multi-topic resume.
 - Automatic note cards, personal notes, search, 46 glossary entries, and print-to-PDF notebook export on the web.
 - Interactive worked-example sandboxes inside the swipeable concept cards, plus four standalone calculators: monthly SIP or one-time lump-sum growth, reducing-balance EMI, purchasing-power erosion, and an emergency buffer. Assumptions and limitations are visible.
 - IndexedDB on web and a native SQLite adapter on Android. JSON backup/restore; native backup uses the system share sheet.
@@ -103,7 +103,7 @@ First launch asks for a language and offers a one-question introduction. It does
 
 See [design system](docs/DESIGN.md), [Hindi interface audit](docs/LOCALISATION-AUDIT.md), and [curriculum proposal](docs/ROADMAP-CONTENT.md). The curriculum proposal targets undergraduate finance competencies; degree equivalence and external academic approval are **Not verified**. New proposed lessons await approval. A software licence has not been selected; no LICENSE has been invented.
 
-Saved progress now uses payload version 2. Version 1 local records and backups migrate on load, preserving names, language, answers, XP and notes. The database table layout stays unchanged. Old activity-day keys are retained because the timezone in which they were originally created cannot be inferred; new activity and review days use IST.
+Saved progress now uses payload version 3. Version 1 and 2 local records and backups migrate on load, preserving names, language, answers, XP, notes and suspended lessons. Version 3 adds the remaining revision-plan topics and checked-answer count; see [revision behaviour](docs/REVISION.md). The database table layout stays unchanged. Old activity-day keys are retained because the timezone in which they were originally created cannot be inferred; new activity and review days use IST. Older app builds that only accept versions 1–2 cannot read a version 3 backup.
 
 ### Reproducing CI visual checks
 

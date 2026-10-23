@@ -74,7 +74,7 @@ it("migrates old version-one backups and validates new optional fields", () => {
   ).toThrow();
   expect(freshProgress().sound).toBe(false);
 });
-it("preserves legacy values when migrating a version-one backup to version two", () => {
+it("preserves legacy values when migrating a version-one backup to the current version", () => {
   const legacy = {
     ...freshProgress(),
     version: 1,
@@ -84,7 +84,7 @@ it("preserves legacy values when migrating a version-one backup to version two",
     notes: { money: "Original note" },
   };
   const migrated = validateBackup(legacy);
-  expect(migrated.version).toBe(2);
+  expect(migrated.version).toBe(3);
   expect(migrated.xp).toBe(37);
   expect(migrated.language).toBe("en");
   expect(migrated.notes.money).toBe("Original note");

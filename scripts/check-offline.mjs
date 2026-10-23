@@ -242,7 +242,21 @@ await summary.focus();
 await summary.press("Enter");
 await expect(p.locator(".concept-carousel")).toBeVisible();
 await expect(p.locator(".lesson-sources")).toHaveAttribute("open", "");
+await closeDialog(p);
+await p.goto("http://127.0.0.1:4173/#revise");
+await p.getByRole("button", { name: /All learned questions/ }).click();
+await p.getByTestId("start-revision-plan").click();
+if (await p.getByTestId("confirm-revision-plan").isVisible())
+  await p.getByTestId("confirm-revision-plan").click();
+await expect(p.locator(".review-plan-progress")).toBeVisible();
+const reviewPrompt = await p.locator(".question-content h2").textContent();
+const reviewCount = await p.locator(".review-plan-progress").textContent();
+await closeDialog(p);
+await p.reload();
+await p.getByTestId("resume-revision").click();
+await expect(p.locator(".question-content h2")).toHaveText(reviewPrompt);
+await expect(p.locator(".review-plan-progress")).toHaveText(reviewCount);
 console.log(
-  "PASS: production offline reload, lazy lessons and curriculum, bank answer recovery, insurance/repayment models, matching answer recovery, insurance guides, direct topic reload, lump-sum mode, goal-answer recovery and negative net-worth exploration, simple interest and keyboard source expansion.",
+  "PASS: production offline reload, lazy lessons and curriculum, bank answer recovery, insurance/repayment models, matching answer recovery, insurance guides, direct topic reload, lump-sum mode, goal-answer recovery and negative net-worth exploration, simple interest, keyboard source expansion, and cumulative revision-plan reload/resume.",
 );
 await b.close();

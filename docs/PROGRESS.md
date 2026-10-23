@@ -1,16 +1,16 @@
 # Overall project completion estimate
 
-Current estimate: **about 14% of the full agreed project**. This is a coarse planning estimate, not measured hours, a release certification or a claim that 13% of the curriculum is ready. Report an updated overall estimate at the end of each task response. Keep the denominator consistent; do not substitute completion of the latest patch or the beginner preview.
+Current estimate: **about 16% of the full agreed project**. This is a coarse planning estimate, not measured hours, a release certification or a curriculum completion measurement. Report an updated overall estimate at the end of each task response. Keep the denominator consistent; do not substitute completion of the latest patch or the beginner preview.
 
 ## Baseline and weighting
 
 | Work area | Weight in the full project | Estimated completion within this area | Evidence |
 | --- | --- | --- | --- |
-| App engineering, interaction and design | 30% | About 45% | Responsive shell, Mia, PWA, Android build, local state, notes, revision, four calculators (including lump-sum investing), six exercise engines, a dedicated insurance reader and unrestricted catalogue access work. Ten exercise forms, depth levels, placement, learning tracks, exams, advanced simulators and other specified features remain. |
+| App engineering, interaction and design | 30% | About 50% | Responsive shell, Mia, PWA, Android build, local state, notes, resumable multi-topic revision plans with a seven-day schedule, four calculators (including lump-sum investing), six exercise engines, a dedicated insurance reader and unrestricted catalogue access work. Ten exercise forms, depth levels, placement, learning tracks, exams, advanced simulators and other specified features remain. |
 | Complete multilingual curriculum and editorial approval | 60% | Less than 1% | Eighteen authored draft lessons and 144 exercises; plus eight multilingual insurance reading guides; none has expert financial and native-language approval. There are 946 outlined skills with four planned depth levels. Eighteen short drafts are not eighteen fully completed skills or hundreds of learning hours. |
 | Production validation and release | 10% | About 5% | Cloud browser tests and a debug Android build pass. Physical-device performance, native restore flows, human accessibility review, production signing and a verified hosted deployment remain. |
 
-The weighted estimate rounds to about 14%. These weights are explicit planning judgements and can be revised if the user changes scope. Source availability and review capacity affect completion; a source link alone does not count as review.
+The weighted estimate rounds to about 16%. These weights are explicit planning judgements and can be revised if the user changes scope. Source availability and review capacity affect completion; a source link alone does not count as review. A fixed percentage increase per prompt is a target for useful scope, not a reason to inflate this estimate.
 
 ## Latest update — 18 October 2026 (India)
 
@@ -43,3 +43,9 @@ Engineering is now estimated at roughly 45% of its 30% weighted area; curriculum
 ### CI font regression maintenance — 21 October 2026
 
 Made affected Hindi/currency font stacks use bundled fonts explicitly and replaced home decorative font glyphs with original SVGs. Added rendered-font regression coverage and CI failure artifacts; reviewed the changed image references against a minimal container. Also made the touch regression wait for completed native swipes and isolated range dragging from carousel panning. This is maintenance, with no added lessons or reviewed curriculum. The overall project estimate remains about **14%**.
+
+### Personal revision plans — 23 October 2026
+
+Added a full revision-planning workflow: seven-day IST calendar, due/mistake/all-attempted selection, 5/10/20-question caps, selection spread across topics, remaining-topic persistence, saved-summary recovery, replacement confirmation and a worked-example reminder between topics. A later successful graded answer moves a recovered question out of the active mistakes view without deleting its history. Review completion now follows the plan or returns to Revise, preserving original lesson scores and note cards. Progress payload 3 has version 1/2 migration and queue validation.
+
+This completes a distinct engineering milestone rather than another deployment retry. Engineering is now estimated at about 50% of its weighted area, moving the full-project estimate to about **16%**. Curriculum remains 18 draft lessons / 144 exercises / eight guides with independent review outstanding; production remains about 5% of its weighted area. No curriculum, university equivalence, physical-device or hosted-deployment credit is added. The next lesson proposals still need the explicit approval required in AGENTS.md.

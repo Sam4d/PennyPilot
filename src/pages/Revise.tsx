@@ -5,16 +5,28 @@ import { lessons, read } from "../content/lessons";
 import { dayKey } from "../lib/learning";
 import { Empty, Icon } from "../components/UI";
 import Mia from "../components/Mia";
+import RevisionPlanner from "../components/RevisionPlanner";
+import {
+  availableReviews,
+  selectReviews,
+  type ReviewGroup,
+} from "../lib/revision";
 export default function Revise({
   progress,
   onStart,
+  today = dayKey(),
+  onPlan,
+  onResume,
 }: {
   progress: Progress;
   onStart: (lesson: Lesson, ids?: string[]) => void;
+  today?: string;
+  onPlan: (groups: ReviewGroup[]) => void;
+  onResume: () => void;
 }) {
-  const today = dayKey();
-  const due = Object.values(progress.reviews).filter((r) => r.due <= today);
-  const weak = Object.values(progress.reviews).filter((r) => r.wrong > 0);
+  const items = availableReviews(progress.reviews);
+  const due = selectReviews(items, "due", today);
+  const weak = selectReviews(items, "mistakes", today);
   const groups = lessons
     .map((l) => ({
       lesson: l,
@@ -68,6 +80,12 @@ export default function Revise({
           </p>
         </div>
       </div>
+      <RevisionPlanner
+        progress={progress}
+        today={today}
+        onPlan={onPlan}
+        onResume={onResume}
+      />
       {groups.length ? (
         <div className="review-list">
           {groups.map(({ lesson, questions }) => (

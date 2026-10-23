@@ -55,3 +55,7 @@ Added a dedicated phone/desktop regression suite covering dialog keyboard bounda
 ## Detailed learning architecture proposal — 18 October 2026
 
 See [ROADMAP-CONTENT.md](ROADMAP-CONTENT.md) for the expanded 16-world sequence, accounting/quantitative bridges, repeated core concepts, teaching-board contracts, mastery assessments and ranked next-ten proposals. This is a planning deliverable. Do not count its estimated hours as available teaching, claim degree equivalence, or author the proposed lessons before user approval. Full four-pass units require sourced financial review and natural English/Hindi editorial checks.
+
+## Personal revision plans — 23 October 2026
+
+Implemented cumulative practice across previously attempted topics, with a seven-day IST schedule, question caps and persistent remaining-topic plans. Learners can resume after answers or topic summaries, practise ahead of schedule, and recover mistakes while retaining original lesson records. Version 1/2 progress migrates to payload 3. This is guided repetition, not a cumulative exam or placement assessment. See [REVISION.md](REVISION.md). Curriculum approval, remaining exercise engines, physical-device release gates and live Vercel verification remain open; the cloud proxy block is isolated from independent product engineering.

@@ -74,7 +74,9 @@ export default function LessonPlayer({
   const questions = session.quickStart
     ? lesson.exercises.slice(0, 1)
     : session.review
-      ? lesson.exercises.filter((e) => session.questionIds?.includes(e.id))
+      ? (session.questionIds ?? []).flatMap((id) =>
+          lesson.exercises.filter((e) => e.id === id),
+        )
       : lesson.exercises;
   const q = questions[session.question];
   const result = practising ? practiceResult : q && session.answers[q.id];
@@ -336,6 +338,18 @@ export default function LessonPlayer({
             </button>
           )}
         </div>
+        {session.reviewPlan && (
+          <p className="review-plan-progress" role="status">
+            <Icon name="Layers" size={16} />
+            {hi ? "दोहराई का प्लान" : "Revision plan"}
+            {": "}
+            {session.reviewPlan.completedQuestions +
+              Object.keys(session.answers).length}
+            {" / "}
+            {session.reviewPlan.totalQuestions}{" "}
+            {hi ? "जवाब सेव" : "answers saved"}
+          </p>
+        )}
         {audioMessage && (
           <p className="tiny-text" role="status">
             <Copy>{audioMessage}</Copy>
@@ -656,7 +670,34 @@ export default function LessonPlayer({
             </button>
           </div>
         )}
-        {session.stage === 2 && !session.quickStart && (
+        {session.stage === 2 && session.review && (
+          <div className="notes-stage">
+            <span className="eyebrow">
+              {hi ? "बात फिर याद करें" : "CONNECT THE IDEAS"}
+            </span>
+            <h2>{hi ? "दोहराई को समझ में बदलें।" : "Make the idea stick."}</h2>
+            <ul>
+              {lesson.notes.map((note, i) => (
+                <li key={i}>
+                  <Local text={note} lang={language} />
+                </li>
+              ))}
+            </ul>
+            <div className="note-example">
+              <Local text={lesson.example} lang={language} />
+            </div>
+            <p>
+              {hi
+                ? "दोहराई से पुराने पाठ का स्कोर या पूरा होने की स्थिति नहीं बदलती।"
+                : "Revision keeps your original lesson score and completion status."}
+            </p>
+            <button className="button green" onClick={onFinish}>
+              {hi ? "यह दोहराई सेव करें" : "Save this revision"}
+              <Icon name="Check" size={18} />
+            </button>
+          </div>
+        )}
+        {session.stage === 2 && !session.quickStart && !session.review && (
           <div className="notes-stage">
             <span className="preview-icon">
               <Icon name="NotebookPen" size={30} />
@@ -769,19 +810,53 @@ export default function LessonPlayer({
               <div>
                 <Icon name="BookOpen" />
                 <strong>
-                  <Copy>{session.quickStart ? 0 : 1}</Copy>
+                  <Copy>
+                    {session.review
+                      ? (session.reviewPlan?.remaining.length ?? 0)
+                      : session.quickStart
+                        ? 0
+                        : 1}
+                  </Copy>
                 </strong>
                 <span>
-                  <Copy en="NOTE CARD SAVED " />
+                  {session.review ? (
+                    hi ? (
+                      "बाकी टॉपिक"
+                    ) : (
+                      "TOPICS LEFT"
+                    )
+                  ) : (
+                    <Copy en="NOTE CARD SAVED " />
+                  )}
                 </span>
               </div>
             </div>
             <button className="button green full" onClick={onNext}>
-              <Copy>{hi ? "अगला कदम" : "Keep the good thing going"}</Copy>
+              <Copy>
+                {session.review
+                  ? session.reviewPlan?.remaining.length
+                    ? hi
+                      ? "अगला टॉपिक दोहराएं"
+                      : "Review next topic"
+                    : hi
+                      ? "दोहराई पर वापस"
+                      : "Back to revision"
+                  : hi
+                    ? "अगला कदम"
+                    : "Keep the good thing going"}
+              </Copy>
               <Icon name="ArrowRight" size={18} />
             </button>
             <button className="text-button return-path" onClick={onClose}>
-              <Copy>{hi ? "सफ़र पर वापस" : "Back to my learning path"}</Copy>
+              <Copy>
+                {session.review
+                  ? hi
+                    ? "दोहराई बंद करें"
+                    : "Close revision"
+                  : hi
+                    ? "सफ़र पर वापस"
+                    : "Back to my learning path"}
+              </Copy>
             </button>
           </div>
         )}

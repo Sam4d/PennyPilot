@@ -3,6 +3,7 @@ import Dexie, { type Table } from "dexie";
 import type { Language } from "../content/lessons";
 import { freshProtection } from "./learning";
 import type { StreakProtection, ReviewItem } from "./learning";
+import type { ReviewGroup } from "./revision";
 export type Session = {
   lessonId: string;
   stage: number;
@@ -11,9 +12,14 @@ export type Session = {
   review?: boolean;
   quickStart?: boolean;
   questionIds?: string[];
+  reviewPlan?: {
+    remaining: ReviewGroup[];
+    completedQuestions: number;
+    totalQuestions: number;
+  };
 };
 export type Progress = {
-  version: 2;
+  version: 3;
   onboarded?: boolean;
   lastBackupAt?: string | null;
   protection?: StreakProtection;
@@ -36,7 +42,7 @@ export type Progress = {
   scale: number;
 };
 export const freshProgress = (): Progress => ({
-  version: 2,
+  version: 3,
   onboarded: false,
   lastBackupAt: null,
   protection: freshProtection(),
@@ -134,7 +140,7 @@ export function validateBackup(value: unknown): Progress {
     throw Error("This is not a Penny Pilot backup.");
   const p = value as Omit<Progress, "version"> & { version: number };
   if (
-    (p.version !== 1 && p.version !== 2) ||
+    ![1, 2, 3].includes(p.version) ||
     !["en", "hi", "hinglish", "both"].includes(p.language) ||
     !["light", "dark"].includes(p.theme) ||
     !Number.isFinite(p.xp) ||
@@ -207,9 +213,43 @@ export function validateBackup(value: unknown): Progress {
             (Array.isArray(a.answer) && a.answer.every(Number.isInteger))
           ),
       ) ||
-      (s.questionIds && !s.questionIds.every((q) => typeof q === "string"))
+      (s.review !== undefined && typeof s.review !== "boolean") ||
+      (s.questionIds !== undefined &&
+        (!Array.isArray(s.questionIds) ||
+          s.questionIds.length > 100 ||
+          !s.questionIds.every((q) => typeof q === "string")))
     )
       throw Error("The saved lesson is invalid.");
+    if (s.reviewPlan !== undefined) {
+      const plan = s.reviewPlan;
+      const validIds = (ids: unknown): ids is string[] =>
+        Array.isArray(ids) &&
+        ids.length > 0 &&
+        ids.length <= 100 &&
+        ids.every((id) => typeof id === "string") &&
+        new Set(ids).size === ids.length;
+      if (
+        !record(plan) ||
+        !s.review ||
+        !validIds(s.questionIds) ||
+        !Array.isArray(plan.remaining) ||
+        plan.remaining.length > 100 ||
+        plan.remaining.some(
+          (g) =>
+            !g || typeof g.lessonId !== "string" || !validIds(g.questionIds),
+        ) ||
+        !Number.isInteger(plan.completedQuestions) ||
+        plan.completedQuestions < 0 ||
+        !Number.isInteger(plan.totalQuestions) ||
+        plan.totalQuestions < 1 ||
+        plan.totalQuestions > 1000 ||
+        plan.totalQuestions !==
+          plan.completedQuestions +
+            s.questionIds.length +
+            plan.remaining.reduce((sum, g) => sum + g.questionIds.length, 0)
+      )
+        throw Error("The saved revision plan is invalid.");
+    }
   }
   if (
     (p.onboarded !== undefined && typeof p.onboarded !== "boolean") ||
@@ -236,7 +276,7 @@ export function validateBackup(value: unknown): Progress {
   return {
     ...freshProgress(),
     ...p,
-    version: 2,
+    version: 3,
     onboarded: p.onboarded ?? true,
     scale:
       typeof p.scale === "number" && p.scale >= 1 && p.scale <= 2 ? p.scale : 1,

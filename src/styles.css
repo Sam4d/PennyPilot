@@ -6943,3 +6943,200 @@ summary:focus-visible {
 .concept-carousel input[type="range"] {
   touch-action: pan-y;
 }
+
+/* Revision plans use saved answers, not assumed mastery or invented activity. */
+.revision-planner {
+  margin-top: var(--space-6);
+  padding: var(--space-6);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  background: var(--surface-base);
+  color: var(--text-primary);
+}
+.revision-planner-heading,
+.revision-week-label,
+.revision-plan-controls,
+.revision-resume {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+.revision-planner-heading > svg {
+  flex: 0 0 auto;
+  color: var(--brand-strong);
+}
+.revision-planner h2 {
+  font-size: var(--text-title);
+  margin: var(--space-2) 0;
+}
+.revision-planner h3 {
+  font-size: var(--text-body);
+  margin: 0;
+}
+.revision-planner p {
+  color: var(--text-secondary);
+  line-height: var(--line-body);
+}
+.revision-week-label {
+  margin: var(--space-6) 0 var(--space-3);
+  flex-wrap: wrap;
+}
+.revision-week-label > span {
+  color: var(--text-secondary);
+  font-size: var(--text-label);
+}
+.revision-week {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(6rem, 1fr));
+  gap: var(--space-2);
+  overflow-x: auto;
+  padding: var(--space-1);
+  scroll-snap-type: x proximity;
+  overscroll-behavior-x: contain;
+}
+.revision-week > button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  scroll-snap-align: start;
+  min-height: var(--target);
+  padding: var(--space-3) var(--space-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-control);
+  color: var(--text-primary);
+  background: var(--surface-page);
+  transition: background var(--motion-normal) var(--ease);
+}
+.revision-week > button[aria-pressed="true"] {
+  border-color: var(--brand-strong);
+  background: var(--correct-bg);
+  color: var(--correct-text);
+  box-shadow: inset 0 0 0 1px var(--brand-strong);
+}
+.revision-week strong {
+  font-size: var(--text-title);
+}
+.revision-week span,
+.revision-week small {
+  font-size: var(--text-label);
+}
+.revision-modes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: var(--space-6) 0;
+}
+.revision-modes button {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--target);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  background: var(--surface-base);
+  color: var(--text-primary);
+}
+.revision-modes button[aria-pressed="true"] {
+  background: var(--correct-bg);
+  border-color: var(--brand-strong);
+  color: var(--correct-text);
+}
+.revision-modes button > span {
+  font-weight: 700;
+}
+.revision-plan-controls label {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  font-size: var(--text-label);
+}
+.revision-plan-controls select {
+  min-height: var(--target);
+  padding: var(--space-2) var(--space-3);
+  background: var(--surface-base);
+  color: var(--text-primary);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-control);
+}
+.revision-selection p {
+  margin: var(--space-1) 0 0;
+}
+.revision-plan-topics {
+  padding: 0;
+  margin: var(--space-6) 0;
+  list-style: none;
+}
+.revision-plan-topics li {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--line);
+}
+.revision-plan-topics li > svg {
+  color: var(--brand-strong);
+  flex: 0 0 auto;
+}
+.revision-plan-topics li > span {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.revision-plan-topics li > strong {
+  color: var(--text-secondary);
+}
+.revision-resume {
+  margin-top: var(--space-4);
+  padding: var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-control);
+  background: var(--surface-page);
+  flex-wrap: wrap;
+}
+.revision-resume p {
+  margin: var(--space-1) 0;
+}
+.revision-confirm-actions {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-top: var(--space-6);
+}
+.revision-no-questions {
+  padding: var(--space-4);
+  border-radius: var(--radius-control);
+  background: var(--surface-page);
+}
+.review-plan-progress {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  flex-wrap: wrap;
+  color: var(--text-secondary);
+  font-size: var(--text-label);
+  padding: var(--space-3);
+  background: var(--surface-page);
+  border-radius: var(--radius-control);
+}
+@media (max-width: 600px) {
+  .revision-planner {
+    padding: var(--space-4);
+  }
+  .revision-plan-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .revision-planner-heading {
+    align-items: flex-start;
+  }
+  .revision-planner-heading > svg {
+    display: none;
+  }
+  .revision-resume > .button,
+  .revision-planner > .button {
+    width: 100%;
+  }
+}
