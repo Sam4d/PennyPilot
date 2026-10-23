@@ -7140,3 +7140,331 @@ summary:focus-visible {
     width: 100%;
   }
 }
+
+/* Longer reading sequences keep all 44px controls inside a local scroller. */
+.carousel-controls > .extended-concepts {
+  min-width: 0;
+  max-width: calc(100% - 104px);
+  overflow-x: auto;
+  scrollbar-width: thin;
+  position: relative;
+}
+.carousel-controls > .extended-concepts > button {
+  flex: 0 0 var(--target);
+}
+.payslip-board {
+  width: 100%;
+  color: var(--text-primary);
+  text-align: left;
+}
+.payslip-board p {
+  line-height: var(--line-body);
+}
+.payslip-assumption,
+.source-unverified {
+  padding: var(--space-3);
+  background: var(--warning-bg);
+  color: var(--warning-text);
+  border-radius: var(--radius-control);
+  font-size: var(--text-label);
+}
+.payslip-modes,
+.payslip-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: var(--space-4) 0;
+}
+.payslip-modes button,
+.payslip-presets button {
+  min-height: var(--target);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-control);
+  background: var(--surface-base);
+  color: var(--text-primary);
+  font-size: var(--text-label);
+}
+.payslip-modes button[aria-pressed="true"] {
+  border-color: var(--brand-strong);
+  background: var(--correct-bg);
+  color: var(--correct-text);
+}
+.payslip-summary {
+  display: grid;
+  gap: var(--space-2);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: var(--space-4) 0;
+}
+.payslip-summary > div {
+  padding: var(--space-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-control);
+  background: var(--surface-base);
+}
+.payslip-summary dt {
+  font-size: var(--text-label);
+  color: var(--text-secondary);
+}
+.payslip-summary dd {
+  margin: var(--space-2) 0;
+  font-size: var(--text-lead);
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+.payslip-summary small {
+  color: var(--text-secondary);
+  font-size: var(--text-small);
+}
+.payslip-summary .payslip-cost-note {
+  margin: 0;
+  font-size: var(--text-small);
+  font-weight: 400;
+  grid-column: 1 / -1;
+}
+.lesson-sources .source-unverified {
+  color: var(--warning-text);
+}
+.payslip-summary .payslip-net {
+  background: var(--correct-bg);
+}
+.payslip-summary .payslip-net dd {
+  color: var(--correct-text);
+}
+.payslip-rows {
+  padding: 0;
+  margin: var(--space-4) 0;
+  list-style: none;
+}
+.payslip-rows li {
+  border-bottom: 1px solid var(--line);
+}
+.payslip-rows li > button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--target);
+  padding: var(--space-3) var(--space-1);
+  color: var(--text-primary);
+  text-align: left;
+}
+.payslip-rows li > button > span {
+  flex: 1;
+  min-width: 0;
+}
+.payslip-rows small {
+  display: block;
+  font-size: var(--text-small);
+  color: var(--text-secondary);
+}
+.payslip-rows li > button > strong {
+  font-size: var(--text-label);
+  flex-shrink: 0;
+}
+.payslip-rows li > button > svg {
+  flex-shrink: 0;
+}
+.payslip-rows li > div {
+  padding: var(--space-3);
+  background: var(--surface-page);
+  border-radius: var(--radius-control);
+  margin-bottom: var(--space-3);
+}
+.payslip-rows li > div p {
+  font-size: var(--text-label);
+}
+.payslip-slider {
+  display: block;
+  margin: var(--space-4) 0;
+  font-size: var(--text-label);
+}
+.payslip-slider > span {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+.payslip-slider output {
+  font-weight: 800;
+}
+.payslip-slider input {
+  display: block;
+  width: 100%;
+  height: var(--target);
+  accent-color: var(--brand-strong);
+  margin-top: var(--space-2);
+}
+.payslip-equation {
+  font-size: var(--text-lead);
+  padding: var(--space-4);
+  background: var(--correct-bg);
+  color: var(--correct-text);
+  border-radius: var(--radius-control);
+  overflow-wrap: anywhere;
+}
+.payslip-budget {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: var(--space-4) 0;
+}
+.payslip-budget > div {
+  border: 1px solid var(--line);
+  padding: var(--space-3);
+  border-radius: var(--radius-control);
+}
+.payslip-budget dt {
+  font-size: var(--text-label);
+  color: var(--text-secondary);
+}
+.payslip-budget dd {
+  margin: var(--space-2) 0 0;
+  font-size: var(--text-lead);
+  font-weight: 800;
+}
+.payslip-budget-result {
+  background: var(--info-bg);
+  color: var(--info-text);
+  padding: var(--space-3);
+  border-radius: var(--radius-control);
+}
+.payslip-reset {
+  margin-top: var(--space-3);
+  min-height: var(--target);
+}
+@media (max-width: 600px) {
+  .payslip-summary,
+  .payslip-budget {
+    grid-template-columns: 1fr;
+  }
+  .payslip-summary > div {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: var(--space-2);
+  }
+  .payslip-summary small {
+    grid-column: 1 / -1;
+  }
+  .payslip-summary dd {
+    margin: 0;
+  }
+}
+:root[data-large-text="true"] .payslip-summary,
+:root[data-large-text="true"] .payslip-budget {
+  grid-template-columns: 1fr;
+}
+.payslip-change {
+  display: grid;
+  gap: var(--space-2);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--line);
+  font-size: var(--text-label);
+}
+.payslip-change > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+.payslip-change dd {
+  margin: 0;
+  font-weight: 800;
+  color: var(--brand-strong);
+}
+.cashflow-board {
+  width: 100%;
+  text-align: left;
+  color: var(--text-primary);
+}
+.cashflow-board p {
+  line-height: var(--line-body);
+}
+.cashflow-total {
+  font-size: var(--text-label);
+}
+.cashflow-summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+  margin: var(--space-4) 0;
+}
+.cashflow-summary > div {
+  padding: var(--space-3);
+  background: var(--surface-base);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-control);
+}
+.cashflow-summary dt {
+  color: var(--text-secondary);
+  font-size: var(--text-label);
+}
+.cashflow-summary dd {
+  margin: var(--space-2) 0 0;
+  font-size: var(--text-lead);
+  font-weight: 800;
+}
+.cashflow-months {
+  display: flex;
+  gap: var(--space-2);
+  overflow-x: auto;
+  padding: var(--space-1);
+  margin: var(--space-4) 0;
+}
+.cashflow-months button {
+  min-height: var(--target);
+  flex: 0 0 auto;
+  padding: var(--space-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-control);
+  color: var(--text-primary);
+  background: var(--surface-base);
+}
+.cashflow-months button[aria-pressed="true"] {
+  background: var(--correct-bg);
+  color: var(--correct-text);
+  border-color: var(--brand-strong);
+}
+.cashflow-months span,
+.cashflow-months strong {
+  display: block;
+  font-size: var(--text-label);
+}
+.cashflow-month-heading {
+  margin: var(--space-4) 0;
+  font-size: var(--text-lead);
+}
+.cashflow-ledger {
+  margin: var(--space-4) 0;
+}
+.cashflow-ledger > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+  padding: var(--space-3) 0;
+  font-size: var(--text-label);
+}
+.cashflow-ledger dt {
+  flex: 1;
+}
+.cashflow-ledger dd {
+  margin: 0;
+  font-weight: 800;
+}
+.cashflow-warning {
+  padding: var(--space-3);
+  border-radius: var(--radius-control);
+  color: var(--warning-text);
+  background: var(--warning-bg);
+}
+@media (max-width: 600px) {
+  .cashflow-summary {
+    grid-template-columns: 1fr;
+  }
+}
+:root[data-large-text="true"] .cashflow-summary {
+  grid-template-columns: 1fr;
+}

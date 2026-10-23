@@ -206,6 +206,11 @@ export default function LessonPlayer({
       icon: "Lightbulb",
       text: lesson.idea,
     },
+    ...(lesson.readings ?? []).map((reading) => ({
+      label: read(reading.title, language),
+      icon: "BookOpen",
+      text: reading.body,
+    })),
     {
       label: hi ? "उदाहरण देखें" : "LET’S MAKE IT REAL",
       icon: "Calculator",
@@ -381,7 +386,7 @@ export default function LessonPlayer({
                   <p>
                     <Local text={c.text} lang={language} />
                   </p>
-                  {i === 2 && (
+                  {i === 2 + (lesson.readings?.length ?? 0) && (
                     <LearningVisual lessonId={lesson.id} language={language} />
                   )}
                 </>
@@ -891,6 +896,18 @@ export default function LessonPlayer({
           <p>
             <Copy en="Editorial preview. These source links are provided for verification; this content has not yet received independent expert review. Education only, not financial advice. " />
           </p>
+          {lesson.sourceStatus === "unverified" && (
+            <p className="source-unverified">
+              {hi
+                ? "स्रोतों की जाँच बाकी है।"
+                : language === "hinglish"
+                  ? "Sources ki jaanch baaki hai."
+                  : "Sources are not verified."}{" "}
+              {lesson.sourceNote && (
+                <Local text={lesson.sourceNote} lang={language} />
+              )}
+            </p>
+          )}
           {lesson.sources.map((s) => (
             <a key={s} href={s} target="_blank" rel="noreferrer">
               <Copy>{new URL(s).hostname}</Copy>

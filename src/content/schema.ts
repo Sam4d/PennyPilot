@@ -17,7 +17,7 @@ export type Exercise = {
   answer: number | number[];
   explanation: Text;
   calculation?: {
-    operation: "subtract" | "multiply" | "compound" | "min";
+    operation: "add" | "divide" | "subtract" | "multiply" | "compound" | "min";
     values: number[];
   };
 };
@@ -33,6 +33,9 @@ export type Lesson = {
   idea: Text;
   example: Text;
   mistake: Text;
+  readings?: { title: Text; body: Text }[];
+  sourceStatus?: "unverified";
+  sourceNote?: Text;
   notes: Text[];
   action: Text;
   exercises: Exercise[];

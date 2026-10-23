@@ -618,8 +618,10 @@ for (const theme of ["light", "dark"]) {
         .getByRole("button", { name: "Learn", exact: true })
         .click();
     }
-    await expect(page.locator(".path-card")).toHaveCount(5);
-    await expect(page.locator(".lesson-node")).toHaveCount(18);
+    await expect(page.locator(".path-card")).toHaveCount(6);
+    for (const card of await page.locator(".path-card").all())
+      expect(await card.locator(".lesson-node").count()).toBeLessThanOrEqual(6);
+    await expect(page.locator(".lesson-node")).toHaveCount(lessons.length);
     for (const id of ["insurance", "health-cover", "term-cover"]) {
       const lesson = lessons.find((l) => l.id === id)!;
       await page
@@ -1076,7 +1078,7 @@ test("English dictionary and examples do not display Hindi translations", async 
     .getByRole("button", { name: "Notebook", exact: true })
     .click();
   await page.getByRole("button", { name: /Money dictionary/ }).click();
-  await expect(page.locator(".glossary-card")).toHaveCount(46);
+  await expect(page.locator(".glossary-card")).toHaveCount(50);
   expect(await page.locator("#main").innerText()).not.toMatch(
     /[\u0900-\u097f]|\b(chai|paisa|paise|kirana|bachat)\b/i,
   );

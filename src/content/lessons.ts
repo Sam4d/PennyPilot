@@ -5,6 +5,8 @@ import { protectionLessons } from "./protection";
 import { interestLessons } from "./interest";
 import { planningLessons } from "./planning";
 import { borrowingLessons } from "./borrowing";
+import { payslipLesson } from "./payslip";
+import { irregularIncomeLesson } from "./irregular";
 export { read, t } from "./schema";
 export type { Language, Text, Exercise, Lesson } from "./schema";
 const yn = [t("True", "सही", "Sahi"), t("False", "गलत", "Galat")];
@@ -1353,4 +1355,6 @@ export const lessons: Lesson[] = [
   ...borrowingLessons,
   ...planningLessons,
   ...interestLessons,
+  payslipLesson,
+  irregularIncomeLesson,
 ];

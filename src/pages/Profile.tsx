@@ -9,6 +9,7 @@ import { Icon, Modal } from "../components/UI";
 import { lessons } from "../content/lessons";
 import { glossary } from "../content/glossary";
 import Mia from "../components/Mia";
+import appInfo from "../../package.json";
 export default function Profile({
   progress,
   update,
@@ -350,7 +351,7 @@ export default function Profile({
                 <Copy en="About this first release " />
               </summary>
               <p>
-                <Copy en="Penny Pilot 0.8 · " />
+                <span>Penny Pilot {appInfo.version} · </span>
                 <Copy>{lessons.length}</Copy>
                 <Copy en="editorial-preview lessons, " />
                 <Copy> </Copy>

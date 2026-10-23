@@ -36,6 +36,11 @@ for (const l of lessons) {
   ] as const)
     text(l[k], `${l.id}.${k}`);
   l.notes.forEach((n, i) => text(n, `${l.id}.notes.${i}`));
+  l.readings?.forEach((r, i) => {
+    text(r.title, `${l.id}.reading${i}.title`);
+    text(r.body, `${l.id}.reading${i}.body`);
+  });
+  if (l.sourceNote) text(l.sourceNote, `${l.id}.sourceNote`);
   if (l.exercises.length < 8 || l.exercises.length > 12)
     errors.push(`${l.id}: expected 8–12 exercises`);
   if (l.notes.length < 3) errors.push(`${l.id}: expected 3+ notes`);
@@ -94,12 +99,19 @@ for (const l of lessons) {
       const recomputed =
         operation === "min"
           ? Math.min(...v)
-          : operation === "multiply"
-            ? v.reduce((a, b) => a * b, 1)
-            : operation === "subtract"
-              ? v.slice(1).reduce((a, b) => a - b, v[0])
-              : v[0] * (1 + v[1]) ** v[2];
-      if (Math.abs(recomputed - Number(q.answer)) > 0.01)
+          : operation === "add"
+            ? v.reduce((a, b) => a + b, 0)
+            : operation === "divide"
+              ? v.slice(1).reduce((a, b) => a / b, v[0])
+              : operation === "multiply"
+                ? v.reduce((a, b) => a * b, 1)
+                : operation === "subtract"
+                  ? v.slice(1).reduce((a, b) => a - b, v[0])
+                  : v[0] * (1 + v[1]) ** v[2];
+      if (
+        !Number.isFinite(recomputed) ||
+        Math.abs(recomputed - Number(q.answer)) > 0.01
+      )
         errors.push(`${q.id}: expected ${recomputed}, got ${q.answer}`);
     }
   }

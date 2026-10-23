@@ -6,6 +6,8 @@ import InterestVisual from "./InterestVisual";
 import BorrowingVisual from "./BorrowingVisual";
 import PlanningVisual from "./PlanningVisual";
 import ProtectionVisual from "./ProtectionVisual";
+import PayslipVisual from "./PayslipVisual";
+import CashflowVisual from "./CashflowVisual";
 export default function LearningVisual({
   lessonId,
   language,
@@ -65,6 +67,10 @@ export default function LearningVisual({
         <PlanningVisual lessonId={lessonId} language={language} />
       )}
       {lessonId === "simple-interest" && <InterestVisual language={language} />}
+      {lessonId === "payslip" && <PayslipVisual language={language} />}
+      {lessonId === "irregular-income" && (
+        <CashflowVisual language={language} />
+      )}
       {lessonId === "inflation" && (
         <>
           <div className="visual-equation">

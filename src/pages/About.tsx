@@ -1,5 +1,6 @@
 import type { Language } from "../content/schema";
 import { Icon } from "../components/UI";
+import { lessons } from "../content/lessons";
 export default function About({
   language,
   onBack,
@@ -28,8 +29,8 @@ export default function About({
         <h2>{hi ? "अभी ड्राफ़्ट है" : "Current status: Draft"}</h2>
         <p>
           {hi
-            ? "18 छोटे पाठ और बीमा की आठ गाइड उपलब्ध हैं। स्वतंत्र फ़ाइनेंस और हिन्दी विशेषज्ञों की समीक्षा बाकी है। स्रोतों के लिंक जाँचने के लिए हैं, जाँच पूरी होने का सबूत नहीं।"
-            : "18 short lessons and eight insurance guides are available. Independent financial and Hindi editorial review is still outstanding. Source links are a review queue, not evidence that verification is complete."}
+            ? `${lessons.length} ड्राफ़्ट पाठ और बीमा की आठ गाइड उपलब्ध हैं। स्वतंत्र फ़ाइनेंस और हिन्दी विशेषज्ञों की समीक्षा बाकी है। स्रोतों के लिंक जाँचने के लिए हैं, जाँच पूरी होने का सबूत नहीं।`
+            : `${lessons.length} draft lessons and eight insurance guides are available. Independent financial and Hindi editorial review is still outstanding. Source links are a review queue, not evidence that verification is complete.`}
         </p>
         <p>
           {hi

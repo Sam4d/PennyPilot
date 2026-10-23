@@ -1,7 +1,7 @@
 import { Copy, useUICopy } from "../lib/ui-copy";
 import { useEffect, useRef, useState } from "react";
 import curriculum from "../content/curriculum.json";
-import { lessons, type Language, type Lesson } from "../content/lessons";
+import { lessons, read, type Language, type Lesson } from "../content/lessons";
 import { insuranceGuides } from "../content/insurance-guides";
 import {
   catalogueWorld,
@@ -42,9 +42,9 @@ export default function Curriculum({
   }, [target]);
   const w = curriculum[selected];
   const topic = findCatalogueTarget(target);
-  const lesson = topic?.skill
-    ? lessons.find((l) => l.skill === topic.skill!.id)
-    : undefined;
+  const topicLessons = topic?.skill
+    ? lessons.filter((l) => l.skill === topic.skill!.id)
+    : [];
   const guide = topic?.skill
     ? insuranceGuides.find((g) => g.skills.includes(topic.skill!.id))
     : undefined;
@@ -118,10 +118,14 @@ export default function Curriculum({
                 </h3>
                 <span className="pill">
                   <Copy>
-                    {lesson
-                      ? hi
-                        ? "इंटरैक्टिव पाठ उपलब्ध"
-                        : "Interactive lesson available"
+                    {topicLessons.length
+                      ? topicLessons.length > 1
+                        ? hi
+                          ? `${topicLessons.length} इंटरैक्टिव पाठ उपलब्ध`
+                          : `${topicLessons.length} interactive lessons available`
+                        : hi
+                          ? "इंटरैक्टिव पाठ उपलब्ध"
+                          : "Interactive lesson available"
                       : guide
                         ? hi
                           ? "गाइड उपलब्ध"
@@ -136,8 +140,8 @@ export default function Curriculum({
                   <Copy>{topic.unit.title}</Copy> ·<Copy> </Copy>
                   {topic.skill?.id ?? topic.unit.id}
                 </p>
-                {lesson && (
-                  <section className="catalogue-lesson">
+                {topicLessons.map((lesson) => (
+                  <section className="catalogue-lesson" key={lesson.id}>
                     <h4>
                       <Local text={lesson.title} lang={language} />
                     </h4>
@@ -146,13 +150,18 @@ export default function Curriculum({
                     </p>
                     <button
                       className="button green"
+                      aria-label={
+                        topicLessons.length > 1
+                          ? `${hi ? "यह पाठ खोलें" : "Open this lesson"}: ${read(lesson.title, language)}`
+                          : undefined
+                      }
                       onClick={() => onStart(lesson)}
                     >
                       <Copy>{hi ? "यह पाठ खोलें" : "Open this lesson"}</Copy>
                       <Icon name="Play" size={17} />
                     </button>
                   </section>
-                )}
+                ))}
                 {guide && <InsuranceReader guide={guide} language={language} />}
                 {!guide && (
                   <section className="topic-outline">

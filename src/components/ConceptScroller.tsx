@@ -12,6 +12,7 @@ export default function ConceptScroller({
   const ui = useUICopy();
 
   const viewport = useRef<HTMLDivElement>(null);
+  const controls = useRef<HTMLDivElement>(null);
   const selected = useRef(0);
   const pending = useRef<number | null>(null);
   const measuredWidth = useRef(0);
@@ -26,6 +27,18 @@ export default function ConceptScroller({
     selected.current = index;
     setCard(index);
     onChange(index);
+    const strip = controls.current;
+    const button = strip?.children[index] as HTMLElement | undefined;
+    if (strip && button && items.length > 4) {
+      // Scroll only the local control strip; never jump the lesson dialog.
+      strip.scrollTo({
+        left: Math.max(
+          0,
+          button.offsetLeft - strip.clientWidth / 2 + button.clientWidth / 2,
+        ),
+        behavior: "instant",
+      });
+    }
     fitHeight();
   };
   const move = (index: number) => {
@@ -96,7 +109,10 @@ export default function ConceptScroller({
         >
           <Icon name="ArrowLeft" size={18} />
         </button>
-        <div>
+        <div
+          ref={controls}
+          className={items.length > 4 ? "extended-concepts" : undefined}
+        >
           {items.map((_, i) => (
             <button
               key={i}

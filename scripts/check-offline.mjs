@@ -243,6 +243,58 @@ await summary.press("Enter");
 await expect(p.locator(".concept-carousel")).toBeVisible();
 await expect(p.locator(".lesson-sources")).toHaveAttribute("open", "");
 await closeDialog(p);
+await p.goto("http://127.0.0.1:4173/#curriculum/S0.2.2");
+await p.getByRole("button", { name: "Open this lesson", exact: true }).click();
+await p.getByRole("button", { name: "Concept 6", exact: true }).click();
+const payslip = p.locator(".payslip-board");
+await payslip
+  .getByRole("button", { name: "Employer benefit +₹600", exact: true })
+  .click();
+await expect(payslip.getByTestId("payroll-ctc")).toHaveText("₹4,20,000");
+await expect(payslip.getByTestId("payroll-net")).toHaveText("₹27,000");
+await payslip
+  .getByRole("button", { name: "Build a budget", exact: true })
+  .click();
+await expect(payslip.getByTestId("payroll-gap")).toHaveText("₹1,000");
+await p.getByRole("button", { name: "Let’s try it", exact: true }).click();
+await p.getByRole("button", { name: /No\. Check monthly net pay/ }).click();
+await p.getByRole("button", { name: "Check answer", exact: true }).click();
+await expect(p.locator(".answer-feedback.right")).toBeVisible();
+await closeDialog(p);
+await p.goto("http://127.0.0.1:4173/#learn");
+await p.reload();
+await p.getByRole("button", { name: "Continue lesson", exact: true }).click();
+await expect(p.locator(".answer-feedback.right")).toBeVisible();
+await closeDialog(p);
+await p.goto("http://127.0.0.1:4173/#curriculum/S0.2.5");
+await p
+  .getByRole("button", {
+    name: "Open this lesson: Plan for uneven income",
+    exact: true,
+  })
+  .click();
+await p.getByRole("button", { name: "Concept 6", exact: true }).click();
+const cashflow = p.locator(".cashflow-board");
+await cashflow
+  .getByRole("button", { name: "Low month first", exact: true })
+  .click();
+await cashflow
+  .getByRole("slider", { name: "Opening working cash", exact: true })
+  .fill("0");
+await expect(cashflow.getByTestId("cashflow-gap")).toHaveText("₹12,000");
+await cashflow
+  .getByRole("slider", { name: "Monthly known-fee saving", exact: true })
+  .fill("3000");
+await expect(cashflow.getByTestId("cashflow-bill-gap")).toHaveText("₹3,000");
+await p.getByRole("button", { name: "Let’s try it", exact: true }).click();
+await p
+  .getByRole("button", {
+    name: /Keep some working cash for the lower-income month/,
+  })
+  .click();
+await p.getByRole("button", { name: "Check answer", exact: true }).click();
+await expect(p.locator(".answer-feedback.right")).toBeVisible();
+await closeDialog(p);
 await p.goto("http://127.0.0.1:4173/#revise");
 await p.getByRole("button", { name: /All learned questions/ }).click();
 await p.getByTestId("start-revision-plan").click();
@@ -257,6 +309,6 @@ await p.getByTestId("resume-revision").click();
 await expect(p.locator(".question-content h2")).toHaveText(reviewPrompt);
 await expect(p.locator(".review-plan-progress")).toHaveText(reviewCount);
 console.log(
-  "PASS: production offline reload, lazy lessons and curriculum, bank answer recovery, insurance/repayment models, matching answer recovery, insurance guides, direct topic reload, lump-sum mode, goal-answer recovery and negative net-worth exploration, simple interest, keyboard source expansion, and cumulative revision-plan reload/resume.",
+  "PASS: production offline reload, lazy lessons and curriculum, bank answer recovery, insurance/repayment models, matching answer recovery, insurance guides, direct topic reload, lump-sum mode, goal-answer recovery and negative net-worth exploration, simple interest, keyboard source expansion, payslip reconciliation/budget and answer recovery, uneven-income timing/fee reserves, and cumulative revision-plan reload/resume.",
 );
 await b.close();

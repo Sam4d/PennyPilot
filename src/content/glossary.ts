@@ -1,5 +1,29 @@
 export const glossary = [
   [
+    "Payslip",
+    "सैलरी स्लिप",
+    "A record for a pay period showing earnings, deductions and the resulting pay. Compare its period and net amount with the bank entry.",
+    "किस समय की सैलरी है, कितनी कमाई और कटौती हुई, और कितना पैसा मिला—इसका रिकॉर्ड। उसका समय और नेट रकम बैंक की एंट्री से मिलाएं।",
+  ],
+  [
+    "Gross pay",
+    "कटौती से पहले की कमाई (ग्रॉस पे)",
+    "Pay before employee deductions. In the fictional lesson it equals basic pay plus a cash allowance; it is different from the annual employer package cost.",
+    "कर्मचारी की कटौती से पहले की कमाई। बनाए हुए पाठ में बेसिक पे और नकद अलाउंस जोड़कर यह बनती है। यह कंपनी के सालाना पैकेज के खर्च से अलग है।",
+  ],
+  [
+    "Take-home pay",
+    "कटौती के बाद मिले पैसे (टेक-होम)",
+    "Pay received after employee deductions, also called net pay. Check the pay period and separate unusual one-time receipts when planning regular bills.",
+    "कर्मचारी की कटौती के बाद मिले पैसे, जिन्हें नेट पे भी कहते हैं। किस समय के पैसे हैं, चेक करें। नियमित बिल का प्लान बनाते समय एक बार के अलग पैसे पहचानें।",
+  ],
+  [
+    "CTC",
+    "कंपनी का पैकेज खर्च (CTC)",
+    "Cost to company: the employer's stated package cost. Read its period and components; some offers include employer-paid benefits or a conditional bonus. It is not automatically monthly bank cash.",
+    "कंपनी का बताया हुआ पैकेज खर्च। उसका समय और हर हिस्सा पढ़ें। कुछ ऑफ़र में कंपनी की तरफ़ से दिए फ़ायदे या शर्त वाला बोनस शामिल होते हैं। यह अपने आप महीने के नकद पैसे नहीं हैं।",
+  ],
+  [
     "Asset",
     "संपत्ति",
     "Something you own that has economic value. Your bank balance is an asset.",
