@@ -333,3 +333,8 @@ Approval should cover learning goals, risk boundaries and the sequence. It does 
 3. Build the quantitative/accounting bridge before expanding advanced valuation, portfolio or derivative material.
 4. Add mixed cumulative assessments and model-audit projects, then independently moderate them against the competency matrix.
 5. Re-estimate the hour plan from authored units and actual learner studies. Keep accreditation/equivalence language out of marketing unless independently established.
+
+
+### Approved sequence progress — identity safety, 23 October 2026
+
+Third approved item authored as `identity-safety` (S0.9.2), preserving the existing UPI lesson. Seven reading cards connect claimed identity, OTP actions, independent contact, impersonation, SIM-swap uncertainty and evidence/help. A three-case inspection board and eight exercises repeat the pause/check rule in new situations. Current reporting procedures are withheld pending primary-source verification. Next approved item: credit-score basics without myths; the authoring approval remains valid for the remaining ranked sequence. This is not financial or language editorial approval.

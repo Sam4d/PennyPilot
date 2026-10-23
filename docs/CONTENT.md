@@ -10,7 +10,7 @@ At four 3–5 minute levels per explicit skill, the eventual outline implies rou
 
 ## What is shipped
 
-Twenty lesson drafts with eight questions each. Each has a relatable hook, concept, worked example, mistake, three note points, and a practical action. Full English, Devanagari Hindi, and Roman-script Hinglish are included. Questions use Indian settings and explicit illustrative amounts. Six exercise engines are implemented: choice, numeric entry, sequencing, document-row discovery, bucket sorting, and one-to-one matching. Document discovery uses fictional bank statements, bills, grocery labels and loan summaries. Sorting uses native radio controls so it works with touch, keyboard and assistive technology without dragging. The remaining 10 exercise forms must be built and tested before claiming the full specification.
+Twenty-one lesson drafts with eight questions each. Each has a relatable hook, concept, worked example, mistake, three note points, and a practical action. Full English, Devanagari Hindi, and Roman-script Hinglish are included. Questions use Indian settings and explicit illustrative amounts. Six exercise engines are implemented: choice, numeric entry, sequencing, document-row discovery, bucket sorting, and one-to-one matching. Document discovery uses fictional bank statements, bills, grocery labels and loan summaries. Sorting uses native radio controls so it works with touch, keyboard and assistive technology without dragging. The remaining 10 exercise forms must be built and tested before claiming the full specification.
 
 The five-section path is a foundation sampler across World 0, not a claim that all World 0 units are finished. The catalogue keeps the larger syllabus visible while labelling unimplemented material.
 
@@ -104,3 +104,12 @@ Both new lessons repeat and connect income, spending, saving, debt, net-worth an
 - `https://www.incometax.gov.in/iec/foportal/`: review-queue link only; not fetched for this batch. No current tax slabs, withholding calculation, deduction rates or assessment-year comparison was authored.
 
 The new lessons explicitly have `sourceStatus: "unverified"` and a multilingual source note. Source links are a review queue; independent financial/native-language review and measured novice timing remain outstanding. The 15-minute lesson values are authoring estimates, not verified learning hours.
+
+
+## Identity-safety draft 0.10 — 23 October 2026
+
+The approved foundation sequence now includes `identity-safety` at S0.9.2: seven English/Hindi/Roman Hinglish concept cards and eight practice questions. Three fictional board cases cover fake KYC deadlines, refund/OTP pressure and impersonation/remote access. All board addresses are reserved `.invalid` examples shown as text, with no live links, code inputs or network activity. Introductory payment lesson `safety` and all stable IDs remain unchanged. The preview inventory is 21 lessons and 168 exercises, plus eight insurance guides.
+
+### Needs verification
+
+- `https://www.rbi.org.in/commonperson/English/Scripts/AgainstFrauds.aspx`: attempted 23 October 2026; CONNECT returned HTTP 403, source not read. Source status is explicitly `unverified`. Current reporting routes, numbers, deadlines, legal liability and recovery eligibility are withheld. Financial expert and native-language review remain outstanding. General safety material is an editorial draft, not independently approved guidance.

@@ -295,3 +295,8 @@ Curriculum status labels now translate dynamic playable-lesson counts, `8 READIN
 23 October 2026 revision planner: added explicit simple English/Hindi pairs for calendar dates, due/practice filters, plan preview, replacement confirmation, progress and topic-summary actions. Invalid revision-plan backup errors now also use Hindi in Hindi mode. A browser import regression verifies that translated error and confirms existing review history remains intact. This does not establish full Roman-Hinglish shell localisation or native editorial approval.
 
 0.9 foundation batch: both new lessons include English, simple Devanagari Hindi with familiar Hinglish terms, and separate Roman Hinglish throughout readings, questions, explanations, notes and source assumptions. New interactive board controls also cover all three; necessary English pay terms are explained before reuse. Topic availability counts and multi-lesson launch labels support Hindi. The original English catalogue titles/outlines remain a known backlog; an authored Hindi lesson is distinct from that uncompleted planning inventory. Native editorial approval remains Not verified.
+
+
+### Identity-safety draft 0.10
+
+All seven teaching cards, eight questions/explanations, source status and three-case board controls, clues and feedback have English, simple Devanagari Hindi and Roman Hinglish variants. English defines KYC, OTP, phishing and SIM swap in context; the board collects no actual secrets. Browser checks cover English/Hindi in both themes at phone/desktop sizes and complete/resume both language variants. Automated structural/language checks do not replace native-language editorial approval; original English catalogue outlines and the remaining shell backlog are unchanged.

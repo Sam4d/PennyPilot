@@ -65,3 +65,8 @@ Implemented cumulative practice across previously attempted topics, with a seven
 The owner approved the ranked next-ten sequence for authoring. Added payslip reconciliation and irregular-income/known-bill planning: 20 draft lessons / 160 exercises / 50 glossary entries. Each new lesson includes longer multilingual readings, repeated links to foundational ideas, a worked board and eight questions. Topics now show all authored lessons, preserving the original cash-flow introduction alongside its deeper follow-up. Path cards remain capped at six nodes. Version 0.9.0 / Android code 11 identifies this build; progress payload remains 3 with no data migration change.
 
 These are editorial drafts with fictional assumptions, not current payroll/tax rules or a completed four-level skill ladder. The approved sequence can continue without another per-lesson authoring permission request. Current-rule/source verification, human financial/native-language review, real-device validation and hosted deployment remain separate gates.
+
+
+## Identity-safety preview 0.10 — 23 October 2026
+
+The third approved foundation item is authored: seven multilingual reading cards, eight questions and a three-case message inspection board. Preview inventory is 21 drafts / 168 exercises / 50 glossary entries. Version 0.10.0 / Android code 12 identifies the build; progress remains payload version 3. Current reporting details are withheld because the primary source returned HTTP 403. Human financial/language review, physical Android validation, production signing and Vercel verification remain release gates. Next approved authoring item: credit-score basics without myths.
