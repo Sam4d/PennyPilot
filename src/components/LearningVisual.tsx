@@ -1,3 +1,4 @@
+import CreditScoreVisual from "./CreditScoreVisual";
 import IdentitySafetyVisual from "./IdentitySafetyVisual";
 import { useState } from "react";
 import type { Language } from "../content/lessons";
@@ -329,6 +330,7 @@ export default function LearningVisual({
           </p>
         </>
       )}
+      {lessonId === "credit-score" && <CreditScoreVisual language={language} />}
       {lessonId === "identity-safety" && (
         <IdentitySafetyVisual language={language} />
       )}

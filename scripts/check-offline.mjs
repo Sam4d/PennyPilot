@@ -323,6 +323,47 @@ await p.reload();
 await p.getByRole("button", { name: "Continue lesson", exact: true }).click();
 await expect(p.locator(".answer-feedback.right")).toBeVisible();
 await closeDialog(p);
+await p.goto("http://127.0.0.1:4173/#curriculum/S0.6.5");
+await p.getByRole("button", { name: "Open this lesson", exact: true }).click();
+await p.getByRole("button", { name: "Concept 6", exact: true }).click();
+const credit = p.locator(".credit-board");
+await credit
+  .getByRole("button", { name: "Payment-record mismatch", exact: true })
+  .click();
+await expect(credit.locator(".credit-entry")).toContainText("matching receipt");
+await credit
+  .getByRole("button", { name: "Balance and limit", exact: true })
+  .click();
+await credit
+  .getByRole("button", { name: "Same balance, ₹20,000 limit", exact: true })
+  .click();
+await expect(credit.getByTestId("credit-ratio")).toHaveText("15%");
+await expect(credit.getByTestId("credit-balance")).toHaveText("₹3,000");
+await credit
+  .getByRole("button", { name: "Limit unknown", exact: true })
+  .click();
+await expect(credit.getByTestId("credit-ratio")).toHaveText("Unknown");
+await p.getByRole("button", { name: "Let’s try it", exact: true }).click();
+for (const answer of [
+  /The report is a record; the score summarises/,
+  /Report says unpaid; matching receipt says paid/,
+]) {
+  await p.getByRole("dialog").getByRole("button", { name: answer }).click();
+  await p.getByRole("button", { name: "Check answer", exact: true }).click();
+  await expect(p.locator(".answer-feedback.right")).toBeVisible();
+  await p.getByRole("button", { name: "Continue", exact: true }).click();
+}
+await p
+  .getByRole("textbox", { name: "Your answer (number only)", exact: true })
+  .fill("0.3");
+await p.getByRole("button", { name: "Check answer", exact: true }).click();
+await expect(p.locator(".answer-feedback.right")).toBeVisible();
+await closeDialog(p);
+await p.goto("http://127.0.0.1:4173/#learn");
+await p.reload();
+await p.getByRole("button", { name: "Continue lesson", exact: true }).click();
+await expect(p.locator(".answer-feedback.right")).toBeVisible();
+await closeDialog(p);
 await p.goto("http://127.0.0.1:4173/#revise");
 await p.getByRole("button", { name: /All learned questions/ }).click();
 await p.getByTestId("start-revision-plan").click();
@@ -337,6 +378,6 @@ await p.getByTestId("resume-revision").click();
 await expect(p.locator(".question-content h2")).toHaveText(reviewPrompt);
 await expect(p.locator(".review-plan-progress")).toHaveText(reviewCount);
 console.log(
-  "PASS: production offline reload, lazy lessons and curriculum, bank answer recovery, insurance/repayment models, matching answer recovery, insurance guides, direct topic reload, lump-sum mode, goal-answer recovery and negative net-worth exploration, simple interest, keyboard source expansion, payslip reconciliation/budget and answer recovery, uneven-income timing/fee reserves, identity-safety inspection and answered-question recovery, and cumulative revision-plan reload/resume.",
+  "PASS: production offline reload, lazy lessons and curriculum, bank answer recovery, insurance/repayment models, matching answer recovery, insurance guides, direct topic reload, lump-sum mode, goal-answer recovery and negative net-worth exploration, simple interest, keyboard source expansion, payslip reconciliation/budget and answer recovery, uneven-income timing/fee reserves, identity-safety inspection and answered-question recovery, credit-report inspection, unknown-limit handling and decimal-answer recovery, and cumulative revision-plan reload/resume.",
 );
 await b.close();

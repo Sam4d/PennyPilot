@@ -1,3 +1,4 @@
+import { creditScoreLesson } from "./credit-score";
 import { identitySafetyLesson } from "./identity-safety";
 import { choice, numeric, order, t } from "./schema";
 import type { Lesson } from "./schema";
@@ -1359,4 +1360,5 @@ export const lessons: Lesson[] = [
   payslipLesson,
   irregularIncomeLesson,
   identitySafetyLesson,
+  creditScoreLesson,
 ];

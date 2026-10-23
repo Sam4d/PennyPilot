@@ -7469,23 +7469,28 @@ summary:focus-visible {
   grid-template-columns: 1fr;
 }
 
-.identity-board {
+.identity-board,
+.credit-board {
   width: 100%;
   color: var(--text-primary);
   text-align: left;
   overflow-wrap: anywhere;
 }
-.identity-board p {
+.identity-board p,
+.credit-board p {
   line-height: var(--line-body);
 }
 .identity-cases,
-.identity-decisions {
+.identity-decisions,
+.credit-tabs,
+.credit-actions {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-2);
   margin: var(--space-4) 0;
 }
-.identity-board button {
+.identity-board button,
+.credit-board button {
   min-height: var(--target);
   padding: var(--space-3);
   border: 1px solid var(--line);
@@ -7495,13 +7500,16 @@ summary:focus-visible {
   text-align: left;
   font: inherit;
 }
-.identity-cases button {
+.identity-cases button,
+.credit-tabs button {
   flex: 1 1 130px;
 }
-.identity-decisions button {
+.identity-decisions button,
+.credit-actions button {
   flex: 1 1 220px;
 }
-.identity-board button[aria-pressed="true"] {
+.identity-board button[aria-pressed="true"],
+.credit-board button[aria-pressed="true"] {
   background: var(--correct-bg);
   color: var(--correct-text);
   border-color: var(--brand-strong);
@@ -7535,4 +7543,50 @@ summary:focus-visible {
   border: 1px solid var(--line);
   border-radius: var(--radius-control);
   background: var(--surface-base);
+}
+
+.credit-rows {
+  display: grid;
+  gap: var(--space-2);
+}
+.credit-detail {
+  margin: var(--space-4) 0;
+  padding: var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-control);
+  background: var(--surface-base);
+}
+.credit-entry {
+  font-weight: 700;
+}
+.credit-summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+.credit-summary > div {
+  padding: var(--space-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-control);
+  background: var(--surface-base);
+}
+.credit-summary dt {
+  font-size: var(--text-label);
+  color: var(--text-secondary);
+}
+.credit-summary dd {
+  font-size: var(--text-lead);
+  font-weight: 800;
+  margin: var(--space-2) 0 0;
+}
+.credit-formula {
+  font-weight: 700;
+}
+@media (max-width: 600px) {
+  .credit-summary {
+    grid-template-columns: 1fr;
+  }
+}
+:root[data-large-text="true"] .credit-summary {
+  grid-template-columns: 1fr;
 }
