@@ -300,3 +300,8 @@ Curriculum status labels now translate dynamic playable-lesson counts, `8 READIN
 ### Identity-safety draft 0.10
 
 All seven teaching cards, eight questions/explanations, source status and three-case board controls, clues and feedback have English, simple Devanagari Hindi and Roman Hinglish variants. English defines KYC, OTP, phishing and SIM swap in context; the board collects no actual secrets. Browser checks cover English/Hindi in both themes at phone/desktop sizes and complete/resume both language variants. Automated structural/language checks do not replace native-language editorial approval; original English catalogue outlines and the remaining shell backlog are unchanged.
+
+
+### Credit-report draft 0.11
+
+The seven reading cards, eight questions/explanations, source note and report/ratio/behaviour board have full English, Devanagari Hindi and Roman Hinglish text. English defines credit report, bureau, utilisation and enquiry; the ratio’s divisor is explained before naming the denominator. Hindi uses conversational terms and bracketed explanations. No personal report or account details can be uploaded. Automated checks and English/Hindi completion do not replace financial/native-language editorial approval. Original English catalogue outlines and the remaining shell backlog remain explicit.

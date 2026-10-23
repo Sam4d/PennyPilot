@@ -70,3 +70,8 @@ These are editorial drafts with fictional assumptions, not current payroll/tax r
 ## Identity-safety preview 0.10 — 23 October 2026
 
 The third approved foundation item is authored: seven multilingual reading cards, eight questions and a three-case message inspection board. Preview inventory is 21 drafts / 168 exercises / 50 glossary entries. Version 0.10.0 / Android code 12 identifies the build; progress remains payload version 3. Current reporting details are withheld because the primary source returned HTTP 403. Human financial/language review, physical Android validation, production signing and Vercel verification remain release gates. Next approved authoring item: credit-score basics without myths.
+
+
+## Credit-report preview 0.11 — 23 October 2026
+
+The fourth approved foundation item adds report inspection, illustrative balance/limit calculations and borrowing-behaviour comparisons. Seven multilingual cards and eight questions bring the preview to 22 drafts / 176 questions / 50 glossary entries. Version 0.11.0 / Android code 13; progress payload remains 3 with no schema migration. The source returned HTTP 403, so current report-access rights, score bands and dispute rules remain withheld. Human editorial/financial approval, physical-device checks, production signing and Vercel verification remain separate release gates. Next approved authoring item: banking/KYC basics.

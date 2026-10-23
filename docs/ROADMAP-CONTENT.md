@@ -338,3 +338,8 @@ Approval should cover learning goals, risk boundaries and the sequence. It does 
 ### Approved sequence progress — identity safety, 23 October 2026
 
 Third approved item authored as `identity-safety` (S0.9.2), preserving the existing UPI lesson. Seven reading cards connect claimed identity, OTP actions, independent contact, impersonation, SIM-swap uncertainty and evidence/help. A three-case inspection board and eight exercises repeat the pause/check rule in new situations. Current reporting procedures are withheld pending primary-source verification. Next approved item: credit-score basics without myths; the authoring approval remains valid for the remaining ranked sequence. This is not financial or language editorial approval.
+
+
+### Approved sequence progress — credit-report basics, 23 October 2026
+
+Fourth approved item authored as `credit-score` at S0.6.5: seven reading cards, four-row report inspection, a single-card ratio sandbox and three borrowing-behaviour comparisons, with eight exercises. Report, score, lender decision and personal affordability remain distinct; no numerical score model or guaranteed improvement is offered. Current report-access and dispute rules are withheld pending verification. Next approved item remains banking/KYC basics; authoring approval continues for the remaining ranked sequence, separately from financial/native-language review.

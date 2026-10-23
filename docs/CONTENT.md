@@ -10,7 +10,7 @@ At four 3–5 minute levels per explicit skill, the eventual outline implies rou
 
 ## What is shipped
 
-Twenty-one lesson drafts with eight questions each. Each has a relatable hook, concept, worked example, mistake, three note points, and a practical action. Full English, Devanagari Hindi, and Roman-script Hinglish are included. Questions use Indian settings and explicit illustrative amounts. Six exercise engines are implemented: choice, numeric entry, sequencing, document-row discovery, bucket sorting, and one-to-one matching. Document discovery uses fictional bank statements, bills, grocery labels and loan summaries. Sorting uses native radio controls so it works with touch, keyboard and assistive technology without dragging. The remaining 10 exercise forms must be built and tested before claiming the full specification.
+Twenty-two lesson drafts with eight questions each. Each has a relatable hook, concept, worked example, mistake, three note points, and a practical action. Full English, Devanagari Hindi, and Roman-script Hinglish are included. Questions use Indian settings and explicit illustrative amounts. Six exercise engines are implemented: choice, numeric entry, sequencing, document-row discovery, bucket sorting, and one-to-one matching. Document discovery uses fictional bank statements, bills, grocery labels and loan summaries. Sorting uses native radio controls so it works with touch, keyboard and assistive technology without dragging. The remaining 10 exercise forms must be built and tested before claiming the full specification.
 
 The five-section path is a foundation sampler across World 0, not a claim that all World 0 units are finished. The catalogue keeps the larger syllabus visible while labelling unimplemented material.
 
@@ -113,3 +113,12 @@ The approved foundation sequence now includes `identity-safety` at S0.9.2: seven
 ### Needs verification
 
 - `https://www.rbi.org.in/commonperson/English/Scripts/AgainstFrauds.aspx`: attempted 23 October 2026; CONNECT returned HTTP 403, source not read. Source status is explicitly `unverified`. Current reporting routes, numbers, deadlines, legal liability and recovery eligibility are withheld. Financial expert and native-language review remain outstanding. General safety material is an editorial draft, not independently approved guidance.
+
+
+## Credit-report / score draft 0.11 — 23 October 2026
+
+Fourth approved foundation lesson: `credit-score`, mapped to S0.6.5. Seven English/Hindi/Roman Hinglish cards explain report/score/lender distinctions, dates and evidence, single-card utilisation, affordable repayment, possible record errors and misleading score promises. The board has four fictional entries, a single-card ratio sandbox and three behaviour comparisons. Eight exercises include document inspection, a decimal fraction and transfer questions. Preview inventory: 22 drafts / 176 questions / 50 glossary entries / eight insurance guides. No real report is uploaded, no score is calculated and no original IDs or stored schema were changed.
+
+### Needs verification
+
+- `https://www.cibil.com/credit-score`: attempted 23 October 2026; CONNECT returned HTTP 403, not read. Source status remains `unverified`. No current report-access entitlement, score band, model weight, correction deadline or legal remedy is stated. Financial expert and native-language review remain pending. All report entries and amounts are fictional; the ratio is an explicit teaching calculation, not an approval threshold.
