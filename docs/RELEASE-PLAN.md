@@ -80,3 +80,8 @@ The fourth approved foundation item adds report inspection, illustrative balance
 ## Banking/KYC preview 0.12 — 27 October 2026 (India)
 
 The fifth approved foundation item adds seven multilingual reading cards, eight exercises and request/payment/reconciliation panels. Preview inventory is 23 drafts / 184 exercises / 50 glossary entries. Version 0.12.0 / Android code 14; progress remains payload version 3. RBI access remains HTTP 403 even after an escalated retry. Current document requirements, eligibility, update deadlines, network rules and fees remain withheld. Account approval, financial/native-language approval, physical-device validation, production signing and Vercel verification are separate gates. Next approved authoring item: loan types and full borrowing cost.
+
+
+## Loan-structure preview 0.13 — 27 October 2026 (India)
+
+The sixth approved foundation item adds seven multilingual cards, eight questions and security/cash-flow/rate-reset panels. Preview inventory: 24 drafts / 192 questions / 50 glossary entries. Version 0.13.0 / Android code 15; progress payload stays 3. The reset engine reuses the existing fixed monthly reducing-balance schedule, keeps the final month unchanged and recalculates remaining payments after one reset. All rates, fees and terms are dated assumptions. Current lender/recovery rules remain withheld after the source blockage recorded earlier today. Financial/native-language review, physical-device checks, production signing and Vercel verification remain separate gates. Next approved authoring item: risk, liquidity and opportunity cost.

@@ -10,7 +10,7 @@ At four 3–5 minute levels per explicit skill, the eventual outline implies rou
 
 ## What is shipped
 
-Twenty-three lesson drafts with eight questions each. Each has a relatable hook, concept, worked example, mistake, three note points, and a practical action. Full English, Devanagari Hindi, and Roman-script Hinglish are included. Questions use Indian settings and explicit illustrative amounts. Six exercise engines are implemented: choice, numeric entry, sequencing, document-row discovery, bucket sorting, and one-to-one matching. Document discovery uses fictional bank statements, bills, grocery labels and loan summaries. Sorting uses native radio controls so it works with touch, keyboard and assistive technology without dragging. The remaining 10 exercise forms must be built and tested before claiming the full specification.
+Twenty-four lesson drafts with eight questions each. Each has a relatable hook, concept, worked example, mistake, three note points, and a practical action. Full English, Devanagari Hindi, and Roman-script Hinglish are included. Questions use Indian settings and explicit illustrative amounts. Six exercise engines are implemented: choice, numeric entry, sequencing, document-row discovery, bucket sorting, and one-to-one matching. Document discovery uses fictional bank statements, bills, grocery labels and loan summaries. Sorting uses native radio controls so it works with touch, keyboard and assistive technology without dragging. The remaining 10 exercise forms must be built and tested before claiming the full specification.
 
 The five-section path is a foundation sampler across World 0, not a claim that all World 0 units are finished. The catalogue keeps the larger syllabus visible while labelling unimplemented material.
 
@@ -131,3 +131,12 @@ Fifth approved foundation item: `banking-kyc` at S0.4.2. Seven English/Hindi/Rom
 ### Needs verification
 
 - `https://www.rbi.org.in/FinancialEducation/`: attempted 27 October 2026, then retried outside the sandbox with permission; both CONNECT attempts returned HTTP 403. Source not read. No current legally sufficient document list, eligibility rule, update deadline, payment-network limit/timing, fee schedule or bank-balance guarantee is given. General identity-number/tax-identifier descriptions, financial accuracy and native-language tone still need primary-source and human review. The board cannot approve an account, accept identity documents or move real money.
+
+
+## Loan structures / rate resets 0.13 — 27 October 2026 (India)
+
+Sixth approved foundation item: `loan-terms`, S0.6.7. Seven multilingual cards, eight questions and three board panels connect purpose/security, cash actually received, withheld fees, repayment periods and rate changes. The original `emi` and `loan-cost` IDs/content remain intact. All amounts and rates are dated fictional assumptions. The board's fixed example is ₹1,20,000 principal, 12% nominal annual interest divided by twelve, a withheld fee and 12/24/36 end-of-month repayments. The separate stress model uses the same principal, a fixed ₹3,000 withheld fee and 12-month term: six payments at 12%, then one reset with recalculated payments over the remaining six months. No intermediate rounding; display uses whole rupees. Taxes, other required charges, missed payments and additional resets are excluded. These examples are not market quotes, a full APR calculation, a forecast or a lending recommendation. Preview inventory: 24 drafts / 192 exercises / 50 glossary entries / eight insurance guides.
+
+### Needs verification
+
+- `https://www.rbi.org.in/FinancialEducation/`: source access was already attempted twice earlier on 27 October in the banking batch, including an outside-sandbox retry; both returned CONNECT HTTP 403. The unchanged blocked host was not retried for this batch and was not read. The lesson is marked unverified. Current lender rates/fees, borrower rights, recovery law/procedures and lender-specific reset terms are withheld. General finance accuracy and native-language review remain pending; fictional arithmetic does not establish expert approval.

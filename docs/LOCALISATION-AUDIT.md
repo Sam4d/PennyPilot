@@ -310,3 +310,8 @@ The seven reading cards, eight questions/explanations, source note and report/ra
 ### Banking/KYC draft 0.12
 
 All seven cards, eight questions/explanations, source notes and three board panels include standard English, simple Devanagari Hindi with familiar Hinglish terms, and Roman Hinglish. KYC and the hold concept are explained in context. English/Hindi completion tests accept Indian comma grouping and Devanagari digits and restore checked answers. Automated checks do not establish native-language or financial approval. Current document rules and payment limits are not filled in from memory; original English catalogue outlines remain a localisation backlog.
+
+
+### Loan structures / rate-reset draft 0.13
+
+Seven reading cards, eight questions/explanations, source metadata and all three practice panels have English, simple Devanagari Hindi and Roman Hinglish. Principal, interest, tenure, collateral, guarantee and APR are introduced in context. English/Hindi completion covers grouped numbers/Devanagari digits and bucket classification, with checked-answer recovery. Scenario assumptions and exclusions carry the same meaning across languages. Automated checks do not certify native-language or financial accuracy; those reviews and the original English catalogue-outline localisation backlog remain outstanding.

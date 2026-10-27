@@ -300,7 +300,7 @@ Financial and language reviewers must moderate advanced work. Automated quizzes 
 
 ## Next ten lessons, ranked by immediate learner value
 
-The proposed sequence was approved for authoring in chat on 23 October 2026 ("continue, approved"). Continue within that approved sequence without asking again for each lesson. The first five items now have authored drafts: payslip reconciliation, irregular-income planning, identity/OTP safety, credit-report basics and banking/KYC foundations. Existing draft IDs are not silently repurposed. “Sources to verify” below are a review queue, **not verified reading**. Risk describes the cost of incorrect teaching, not the learner's investing risk.
+The proposed sequence was approved for authoring in chat on 23 October 2026 ("continue, approved"). Continue within that approved sequence without asking again for each lesson. The first six items now have authored drafts: payslip reconciliation, irregular-income planning, identity/OTP safety, credit-report basics, banking/KYC foundations and loan structures/rate resets. Existing draft IDs are not silently repurposed. “Sources to verify” below are a review queue, **not verified reading**. Risk describes the cost of incorrect teaching, not the learner's investing risk.
 
 | Rank / proposed topic | Learning goal | Three interaction ideas | Sources to verify | Editorial risk |
 | --- | --- | --- | --- | --- |
@@ -348,3 +348,8 @@ Fourth approved item authored as `credit-score` at S0.6.5: seven reading cards, 
 ### Approved sequence progress — banking/KYC, 27 October 2026 (India)
 
 Fifth approved item authored as `banking-kyc` at S0.4.2. Seven readings, eight questions and three worked panels link identity purpose, provider verification, payment methods and recorded/available money. The assumed hold model counts a payment once when it moves into posted debits, without claiming this is a current bank rule. Current document/eligibility/limit/fee rules remain withheld; RBI access is still blocked after an escalated retry. Original `banking` at S0.4.7 remains untouched. Next approved item: loan types/full borrowing cost; authoring approval continues, separately from financial/native-language review.
+
+
+### Approved sequence progress — loan structures, 27 October 2026 (India)
+
+Sixth approved item authored at S0.6.7 as `loan-terms`: seven readings, eight exercises and security/cash-flow/rate-reset panels. Purpose labels are separated from collateral and repayment terms; the fee is withheld once; a fixed-final-month reset is explicitly an assumption. No current recovery-law, rate or fee claims are filled in from memory. Original EMI and purchase-credit lessons remain unchanged. Next approved item: risk/liquidity/opportunity cost. Authoring approval continues for the remaining sequence; financial and native-language approval remain separate gates.
