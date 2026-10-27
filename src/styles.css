@@ -7470,27 +7470,32 @@ summary:focus-visible {
 }
 
 .identity-board,
-.credit-board {
+.credit-board,
+.banking-board {
   width: 100%;
   color: var(--text-primary);
   text-align: left;
   overflow-wrap: anywhere;
 }
 .identity-board p,
-.credit-board p {
+.credit-board p,
+.banking-board p {
   line-height: var(--line-body);
 }
 .identity-cases,
 .identity-decisions,
 .credit-tabs,
-.credit-actions {
+.credit-actions,
+.banking-tabs,
+.banking-actions {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-2);
   margin: var(--space-4) 0;
 }
 .identity-board button,
-.credit-board button {
+.credit-board button,
+.banking-board button {
   min-height: var(--target);
   padding: var(--space-3);
   border: 1px solid var(--line);
@@ -7501,15 +7506,18 @@ summary:focus-visible {
   font: inherit;
 }
 .identity-cases button,
-.credit-tabs button {
+.credit-tabs button,
+.banking-tabs button {
   flex: 1 1 130px;
 }
 .identity-decisions button,
-.credit-actions button {
+.credit-actions button,
+.banking-actions button {
   flex: 1 1 220px;
 }
 .identity-board button[aria-pressed="true"],
-.credit-board button[aria-pressed="true"] {
+.credit-board button[aria-pressed="true"],
+.banking-board button[aria-pressed="true"] {
   background: var(--correct-bg);
   color: var(--correct-text);
   border-color: var(--brand-strong);
@@ -7588,5 +7596,60 @@ summary:focus-visible {
   }
 }
 :root[data-large-text="true"] .credit-summary {
+  grid-template-columns: 1fr;
+}
+
+.banking-options {
+  display: grid;
+  gap: var(--space-2);
+}
+.banking-detail,
+.banking-feedback p {
+  margin: var(--space-4) 0;
+  padding: var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-control);
+  background: var(--surface-base);
+}
+.banking-summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+.banking-summary > div {
+  padding: var(--space-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-control);
+  background: var(--surface-base);
+}
+.banking-summary dt {
+  font-size: var(--text-label);
+  color: var(--text-secondary);
+}
+.banking-summary dd {
+  margin: var(--space-2) 0 0;
+  font-size: var(--text-lead);
+  font-weight: 800;
+}
+.banking-ledger > div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--line);
+}
+.banking-ledger dd {
+  margin: 0;
+  font-weight: 800;
+}
+.banking-formula {
+  font-weight: 700;
+}
+@media (max-width: 600px) {
+  .banking-summary {
+    grid-template-columns: 1fr;
+  }
+}
+:root[data-large-text="true"] .banking-summary {
   grid-template-columns: 1fr;
 }

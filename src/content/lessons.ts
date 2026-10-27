@@ -1,3 +1,4 @@
+import { bankingKycLesson } from "./banking-kyc";
 import { creditScoreLesson } from "./credit-score";
 import { identitySafetyLesson } from "./identity-safety";
 import { choice, numeric, order, t } from "./schema";
@@ -1361,4 +1362,5 @@ export const lessons: Lesson[] = [
   irregularIncomeLesson,
   identitySafetyLesson,
   creditScoreLesson,
+  bankingKycLesson,
 ];

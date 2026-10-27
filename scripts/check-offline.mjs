@@ -364,6 +364,40 @@ await p.reload();
 await p.getByRole("button", { name: "Continue lesson", exact: true }).click();
 await expect(p.locator(".answer-feedback.right")).toBeVisible();
 await closeDialog(p);
+await p.goto("http://127.0.0.1:4173/#curriculum/S0.4.2");
+await p.getByRole("button", { name: "Open this lesson", exact: true }).click();
+await p.getByRole("button", { name: "Concept 6", exact: true }).click();
+const banking = p.locator(".banking-board");
+await banking.getByRole("button", { name: "Old address", exact: true }).click();
+await expect(banking.locator(".banking-detail")).toContainText(
+  "current details have changed",
+);
+await banking
+  .getByRole("button", { name: "Reconcile a balance", exact: true })
+  .click();
+await expect(banking.getByTestId("banking-recorded")).toHaveText("₹10,400");
+await expect(banking.getByTestId("banking-available")).toHaveText("₹10,100");
+await banking
+  .getByRole("button", { name: "Recorded debit; release hold", exact: true })
+  .click();
+await expect(banking.getByTestId("banking-recorded")).toHaveText("₹10,100");
+await expect(banking.getByTestId("banking-available")).toHaveText("₹10,100");
+await expect(banking.getByTestId("banking-hold")).toHaveText("₹0");
+await p.getByRole("button", { name: "Let’s try it", exact: true }).click();
+await p
+  .getByRole("dialog")
+  .getByRole("button", {
+    name: /It checks who the customer is; payment permission is separate/,
+  })
+  .click();
+await p.getByRole("button", { name: "Check answer", exact: true }).click();
+await expect(p.locator(".answer-feedback.right")).toBeVisible();
+await closeDialog(p);
+await p.goto("http://127.0.0.1:4173/#learn");
+await p.reload();
+await p.getByRole("button", { name: "Continue lesson", exact: true }).click();
+await expect(p.locator(".answer-feedback.right")).toBeVisible();
+await closeDialog(p);
 await p.goto("http://127.0.0.1:4173/#revise");
 await p.getByRole("button", { name: /All learned questions/ }).click();
 await p.getByTestId("start-revision-plan").click();
@@ -378,6 +412,6 @@ await p.getByTestId("resume-revision").click();
 await expect(p.locator(".question-content h2")).toHaveText(reviewPrompt);
 await expect(p.locator(".review-plan-progress")).toHaveText(reviewCount);
 console.log(
-  "PASS: production offline reload, lazy lessons and curriculum, bank answer recovery, insurance/repayment models, matching answer recovery, insurance guides, direct topic reload, lump-sum mode, goal-answer recovery and negative net-worth exploration, simple interest, keyboard source expansion, payslip reconciliation/budget and answer recovery, uneven-income timing/fee reserves, identity-safety inspection and answered-question recovery, credit-report inspection, unknown-limit handling and decimal-answer recovery, and cumulative revision-plan reload/resume.",
+  "PASS: production offline reload, lazy lessons and curriculum, bank answer recovery, insurance/repayment models, matching answer recovery, insurance guides, direct topic reload, lump-sum mode, goal-answer recovery and negative net-worth exploration, simple interest, keyboard source expansion, payslip reconciliation/budget and answer recovery, uneven-income timing/fee reserves, identity-safety inspection and answered-question recovery, credit-report inspection, unknown-limit handling and decimal-answer recovery, banking/KYC request inspection, hold-to-debit reconciliation and answer recovery, and cumulative revision-plan reload/resume.",
 );
 await b.close();
