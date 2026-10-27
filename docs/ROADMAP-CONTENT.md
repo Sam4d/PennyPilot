@@ -300,7 +300,7 @@ Financial and language reviewers must moderate advanced work. Automated quizzes 
 
 ## Next ten lessons, ranked by immediate learner value
 
-The proposed sequence was approved for authoring in chat on 23 October 2026 ("continue, approved"). Continue within that approved sequence without asking again for each lesson. The first two drafts are now authored: payslip reconciliation and irregular-income/known-bill planning. Existing draft IDs are not silently repurposed. “Sources to verify” below are a review queue, **not verified reading**. Risk describes the cost of incorrect teaching, not the learner's investing risk.
+The proposed sequence was approved for authoring in chat on 23 October 2026 ("continue, approved"). Continue within that approved sequence without asking again for each lesson. The first five items now have authored drafts: payslip reconciliation, irregular-income planning, identity/OTP safety, credit-report basics and banking/KYC foundations. Existing draft IDs are not silently repurposed. “Sources to verify” below are a review queue, **not verified reading**. Risk describes the cost of incorrect teaching, not the learner's investing risk.
 
 | Rank / proposed topic | Learning goal | Three interaction ideas | Sources to verify | Editorial risk |
 | --- | --- | --- | --- | --- |
@@ -343,3 +343,8 @@ Third approved item authored as `identity-safety` (S0.9.2), preserving the exist
 ### Approved sequence progress — credit-report basics, 23 October 2026
 
 Fourth approved item authored as `credit-score` at S0.6.5: seven reading cards, four-row report inspection, a single-card ratio sandbox and three borrowing-behaviour comparisons, with eight exercises. Report, score, lender decision and personal affordability remain distinct; no numerical score model or guaranteed improvement is offered. Current report-access and dispute rules are withheld pending verification. Next approved item remains banking/KYC basics; authoring approval continues for the remaining ranked sequence, separately from financial/native-language review.
+
+
+### Approved sequence progress — banking/KYC, 27 October 2026 (India)
+
+Fifth approved item authored as `banking-kyc` at S0.4.2. Seven readings, eight questions and three worked panels link identity purpose, provider verification, payment methods and recorded/available money. The assumed hold model counts a payment once when it moves into posted debits, without claiming this is a current bank rule. Current document/eligibility/limit/fee rules remain withheld; RBI access is still blocked after an escalated retry. Original `banking` at S0.4.7 remains untouched. Next approved item: loan types/full borrowing cost; authoring approval continues, separately from financial/native-language review.

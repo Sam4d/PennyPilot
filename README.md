@@ -6,12 +6,12 @@ A thoughtful, playful finance-learning app for India. **Penny Pilot** is the pro
 
 ## What works in this preview
 
-- Twenty-two draft lessons: money and barter, cash flow, budgeting, UPI scam awareness, compounding, emergency savings, inflation, bank statements, credit-card bills, debt repayment, insurance basics, health cover, term life cover, EMI, purchase-credit costs, goal planning, net worth, simple interest, payslip reconciliation irregular-income planning, identity/OTP safety and credit-score/report basics.
-- 176 authored exercises across six engines: multiple choice / true–false, numeric answers, sequencing, document-row discovery, accessible bucket sorting, and one-to-one matching; immediate explanation and optional deeper context.
+- Twenty-three draft lessons: money and barter, cash flow, budgeting, UPI scam awareness, compounding, emergency savings, inflation, bank statements, credit-card bills, debt repayment, insurance basics, health cover, term life cover, EMI, purchase-credit costs, goal planning, net worth, simple interest, payslip reconciliation irregular-income planning, identity/OTP safety, credit-score/report basics and banking/KYC foundations.
+- 184 authored exercises across six engines: multiple choice / true–false, numeric answers, sequencing, document-row discovery, accessible bucket sorting, and one-to-one matching; immediate explanation and optional deeper context.
 - English, conversational Hindi, Hinglish, and paired English/Hindi **lesson content**. Main-screen interface copy is available in English and Hindi; original planning outlines remain English and are labelled drafts.
 - Progress saved after each answer, resume after reload, XP, calendar-day streaks, daily goals, simplified SM-2 revision, and mistakes practice. Revision plans combine previously attempted questions across topics, with a seven-day IST schedule, question limits and saved multi-topic resume.
 - Automatic note cards, personal notes, search, 50 glossary entries, and print-to-PDF notebook export on the web.
-- Longer reading sequences connect short explanations, worked examples and repeated ideas. The four extended foundation lessons have seven concept cards each, row-by-row salary, month-by-month cash-flow and fictional-message inspection and credit-report boards, and transfer questions. Topics can offer more than one lesson without hiding the original.
+- Longer reading sequences connect short explanations, worked examples and repeated ideas. The five extended foundation lessons have seven concept cards each, row-by-row salary, month-by-month cash-flow and fictional-message inspection and credit-report and banking/KYC boards, and transfer questions. Topics can offer more than one lesson without hiding the original.
 - Interactive worked-example sandboxes inside the swipeable concept cards, plus four standalone calculators: monthly SIP or one-time lump-sum growth, reducing-balance EMI, purchasing-power erosion, and an emergency buffer. Assumptions and limitations are visible.
 - IndexedDB on web and a native SQLite adapter on Android. JSON backup/restore; native backup uses the system share sheet.
 - Adaptive-height concept cards keep the selected story during resizing, with stable controls, touch swiping, reduced-motion scrolling and keyboard-safe source expansion.
@@ -22,7 +22,7 @@ A thoughtful, playful finance-learning app for India. **Penny Pilot** is the pro
 - A web update notice saves pending progress before activating a waiting service worker and reloading, keeping stored language choices.
 - A searchable **16-world topic library**, preserving 189 units and 946 named skills. Every topic and unit opens directly, with reloadable links and previous/next navigation. Available quizzes launch the selected lesson; unfinished topics show their draft outline.
 
-This is a working **0.11 editorial preview**, not the full multi-hundred-hour course. An outline is not a completed lesson. There are no fabricated learner statistics, leaderboards, or completed-content counts.
+This is a working **0.12 editorial preview**, not the full multi-hundred-hour course. An outline is not a completed lesson. There are no fabricated learner statistics, leaderboards, or completed-content counts.
 
 ## Run
 

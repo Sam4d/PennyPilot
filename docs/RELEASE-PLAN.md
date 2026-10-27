@@ -75,3 +75,8 @@ The third approved foundation item is authored: seven multilingual reading cards
 ## Credit-report preview 0.11 — 23 October 2026
 
 The fourth approved foundation item adds report inspection, illustrative balance/limit calculations and borrowing-behaviour comparisons. Seven multilingual cards and eight questions bring the preview to 22 drafts / 176 questions / 50 glossary entries. Version 0.11.0 / Android code 13; progress payload remains 3 with no schema migration. The source returned HTTP 403, so current report-access rights, score bands and dispute rules remain withheld. Human editorial/financial approval, physical-device checks, production signing and Vercel verification remain separate release gates. Next approved authoring item: banking/KYC basics.
+
+
+## Banking/KYC preview 0.12 — 27 October 2026 (India)
+
+The fifth approved foundation item adds seven multilingual reading cards, eight exercises and request/payment/reconciliation panels. Preview inventory is 23 drafts / 184 exercises / 50 glossary entries. Version 0.12.0 / Android code 14; progress remains payload version 3. RBI access remains HTTP 403 even after an escalated retry. Current document requirements, eligibility, update deadlines, network rules and fees remain withheld. Account approval, financial/native-language approval, physical-device validation, production signing and Vercel verification are separate gates. Next approved authoring item: loan types and full borrowing cost.

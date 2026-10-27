@@ -10,7 +10,7 @@ At four 3–5 minute levels per explicit skill, the eventual outline implies rou
 
 ## What is shipped
 
-Twenty-two lesson drafts with eight questions each. Each has a relatable hook, concept, worked example, mistake, three note points, and a practical action. Full English, Devanagari Hindi, and Roman-script Hinglish are included. Questions use Indian settings and explicit illustrative amounts. Six exercise engines are implemented: choice, numeric entry, sequencing, document-row discovery, bucket sorting, and one-to-one matching. Document discovery uses fictional bank statements, bills, grocery labels and loan summaries. Sorting uses native radio controls so it works with touch, keyboard and assistive technology without dragging. The remaining 10 exercise forms must be built and tested before claiming the full specification.
+Twenty-three lesson drafts with eight questions each. Each has a relatable hook, concept, worked example, mistake, three note points, and a practical action. Full English, Devanagari Hindi, and Roman-script Hinglish are included. Questions use Indian settings and explicit illustrative amounts. Six exercise engines are implemented: choice, numeric entry, sequencing, document-row discovery, bucket sorting, and one-to-one matching. Document discovery uses fictional bank statements, bills, grocery labels and loan summaries. Sorting uses native radio controls so it works with touch, keyboard and assistive technology without dragging. The remaining 10 exercise forms must be built and tested before claiming the full specification.
 
 The five-section path is a foundation sampler across World 0, not a claim that all World 0 units are finished. The catalogue keeps the larger syllabus visible while labelling unimplemented material.
 
@@ -122,3 +122,12 @@ Fourth approved foundation lesson: `credit-score`, mapped to S0.6.5. Seven Engli
 ### Needs verification
 
 - `https://www.cibil.com/credit-score`: attempted 23 October 2026; CONNECT returned HTTP 403, not read. Source status remains `unverified`. No current report-access entitlement, score band, model weight, correction deadline or legal remedy is stated. Financial expert and native-language review remain pending. All report entries and amounts are fictional; the ratio is an explicit teaching calculation, not an approval threshold.
+
+
+## Banking / KYC draft 0.12 — 27 October 2026 (India)
+
+Fifth approved foundation item: `banking-kyc` at S0.4.2. Seven English/Hindi/Roman Hinglish cards separate account terms, identity checks, payment permission, payment routes and recorded/available balances. The three-panel board inspects a fictional request, compares payment methods and reconciles a single assumed hold moving to a debit. All amounts, the ₹100 illustrative fee and the hold treatment are fictional assumptions dated 27 October 2026. The original statement lesson `banking` at S0.4.7 and every original ID remain intact. Preview inventory: 23 drafts / 184 questions / 50 glossary entries / eight insurance guides.
+
+### Needs verification
+
+- `https://www.rbi.org.in/FinancialEducation/`: attempted 27 October 2026, then retried outside the sandbox with permission; both CONNECT attempts returned HTTP 403. Source not read. No current legally sufficient document list, eligibility rule, update deadline, payment-network limit/timing, fee schedule or bank-balance guarantee is given. General identity-number/tax-identifier descriptions, financial accuracy and native-language tone still need primary-source and human review. The board cannot approve an account, accept identity documents or move real money.
