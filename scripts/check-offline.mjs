@@ -398,6 +398,48 @@ await p.reload();
 await p.getByRole("button", { name: "Continue lesson", exact: true }).click();
 await expect(p.locator(".answer-feedback.right")).toBeVisible();
 await closeDialog(p);
+await p.goto("http://127.0.0.1:4173/#curriculum/S0.6.7");
+await p.getByRole("button", { name: "Open this lesson", exact: true }).click();
+await p.getByRole("button", { name: "Concept 6", exact: true }).click();
+const terms = p.locator(".loan-terms-board");
+await terms.getByRole("button", { name: "Offer C", exact: true }).click();
+await terms
+  .getByRole("button", { name: "Not enough detail", exact: true })
+  .click();
+await expect(terms.locator(".loan-terms-feedback")).toContainText(
+  "Supported by this wording",
+);
+await terms
+  .getByRole("button", { name: "Compare cash and cost", exact: true })
+  .click();
+await expect(terms.getByTestId("loan-terms-net")).toHaveText("₹1,17,000");
+await terms
+  .getByRole("slider", { name: "Withheld fee", exact: true })
+  .fill("5000");
+await expect(terms.getByTestId("loan-terms-net")).toHaveText("₹1,15,000");
+await terms
+  .getByRole("button", { name: "Stress a rate change", exact: true })
+  .click();
+await expect(terms.getByTestId("loan-terms-new-payment")).toHaveText("₹11,031");
+await terms
+  .getByRole("button", { name: "Keep rate unchanged", exact: true })
+  .click();
+await expect(terms.getByTestId("loan-terms-change")).toHaveText("₹0");
+await p.getByRole("button", { name: "Let’s try it", exact: true }).click();
+await p
+  .getByRole("dialog")
+  .getByRole("button", {
+    name: /An asset is pledged; the borrower must still assess cost and risk/,
+  })
+  .click();
+await p.getByRole("button", { name: "Check answer", exact: true }).click();
+await expect(p.locator(".answer-feedback.right")).toBeVisible();
+await closeDialog(p);
+await p.goto("http://127.0.0.1:4173/#learn");
+await p.reload();
+await p.getByRole("button", { name: "Continue lesson", exact: true }).click();
+await expect(p.locator(".answer-feedback.right")).toBeVisible();
+await closeDialog(p);
 await p.goto("http://127.0.0.1:4173/#revise");
 await p.getByRole("button", { name: /All learned questions/ }).click();
 await p.getByTestId("start-revision-plan").click();
@@ -412,6 +454,6 @@ await p.getByTestId("resume-revision").click();
 await expect(p.locator(".question-content h2")).toHaveText(reviewPrompt);
 await expect(p.locator(".review-plan-progress")).toHaveText(reviewCount);
 console.log(
-  "PASS: production offline reload, lazy lessons and curriculum, bank answer recovery, insurance/repayment models, matching answer recovery, insurance guides, direct topic reload, lump-sum mode, goal-answer recovery and negative net-worth exploration, simple interest, keyboard source expansion, payslip reconciliation/budget and answer recovery, uneven-income timing/fee reserves, identity-safety inspection and answered-question recovery, credit-report inspection, unknown-limit handling and decimal-answer recovery, banking/KYC request inspection, hold-to-debit reconciliation and answer recovery, and cumulative revision-plan reload/resume.",
+  "PASS: production offline reload, lazy lessons and curriculum, bank answer recovery, insurance/repayment models, matching answer recovery, insurance guides, direct topic reload, lump-sum mode, goal-answer recovery and negative net-worth exploration, simple interest, keyboard source expansion, payslip reconciliation/budget and answer recovery, uneven-income timing/fee reserves, identity-safety inspection and answered-question recovery, credit-report inspection, unknown-limit handling and decimal-answer recovery, banking/KYC request inspection, hold-to-debit reconciliation and answer recovery, loan-structure classification, deducted fees, rate resets and answer recovery, and cumulative revision-plan reload/resume.",
 );
 await b.close();

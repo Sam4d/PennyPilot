@@ -1,3 +1,4 @@
+import { loanTermsLesson } from "./loan-terms";
 import { bankingKycLesson } from "./banking-kyc";
 import { creditScoreLesson } from "./credit-score";
 import { identitySafetyLesson } from "./identity-safety";
@@ -1363,4 +1364,5 @@ export const lessons: Lesson[] = [
   identitySafetyLesson,
   creditScoreLesson,
   bankingKycLesson,
+  loanTermsLesson,
 ];

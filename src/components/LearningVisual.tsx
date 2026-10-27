@@ -1,3 +1,4 @@
+import LoanTermsVisual from "./LoanTermsVisual";
 import BankingKycVisual from "./BankingKycVisual";
 import CreditScoreVisual from "./CreditScoreVisual";
 import IdentitySafetyVisual from "./IdentitySafetyVisual";
@@ -331,6 +332,7 @@ export default function LearningVisual({
           </p>
         </>
       )}
+      {lessonId === "loan-terms" && <LoanTermsVisual language={language} />}
       {lessonId === "banking-kyc" && <BankingKycVisual language={language} />}
       {lessonId === "credit-score" && <CreditScoreVisual language={language} />}
       {lessonId === "identity-safety" && (
